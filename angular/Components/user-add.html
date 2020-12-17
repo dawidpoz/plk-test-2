@@ -1,0 +1,34 @@
+<!-- form
+    1. wybór stacji
+    2. wartość pomiaru
+    3. walidacja wartości -50 do +90
+-->
+
+<div class="container">
+    <div class="row h-100">
+        <div class="col-md-12 d-flex justify-content-center align-items-center">
+            <form>
+
+                <label for="userpage--form--select">Stacja</label>
+                <select class="custom-select" id="userpage--form--select">
+                    <option selected>Wybierz stację</option>
+                    <option value="1">Stacja 1</option>
+                    <option value="2">Stacja 2</option>
+                    <option value="3">Stacja 3</option>
+                </select>
+
+                <label for="userpage--form--input-temp" class="form-label">Temperatura</label>
+                <input type="number" id="userpage--form--input-temp" class="form-control" min="-50" max="90" value="0">
+                <div id="numberHelpBlock" class="form-text">
+                    Dopuszczalny zakres temperatury to -50 do 90.
+                </div>
+
+                <label for="userpage--form--input-temp" class="form-label">Data pomiaru</label>
+                <input type="date" id="userpage--form--input-temp" class="form-control" value="">
+
+                <button class="btn btn-primary">Wyślij</button>
+
+            </form>
+        </div>
+    </div>
+</div>
