@@ -9,25 +9,80 @@
         <div class="col-md-12 d-flex justify-content-center align-items-center">
             <form>
 
-                <label for="userpage--form--select">Stacja</label>
-                <select class="custom-select" id="userpage--form--select">
-                    <option selected>Wybierz stację</option>
-                    <option value="1">Stacja 1</option>
-                    <option value="2">Stacja 2</option>
-                    <option value="3">Stacja 3</option>
-                </select>
-
-                <label for="userpage--form--input-temp" class="form-label">Temperatura</label>
-                <input type="number" id="userpage--form--input-temp" class="form-control" min="-50" max="90" value="0">
-                <div id="numberHelpBlock" class="form-text">
-                    Dopuszczalny zakres temperatury to -50 do 90.
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <label for="userpage--form--select">
+                            Stacja
+                            <span data-toggle="tooltip" data-placement="right" title="Wybierz stację z listy rozwijanej.">
+                                <i class="far fa-question-circle"></i>
+                            </span>
+                        </label>
+                        <select class="custom-select" id="userpage--form--select">
+                            <option selected>Wybierz stację</option>
+                            <option value="1">Stacja 1</option>
+                            <option value="2">Stacja 2</option>
+                            <option value="3">Stacja 3</option>
+                        </select>
+                    </div>
                 </div>
 
-                <label for="userpage--form--input-temp" class="form-label">Data pomiaru</label>
-                <input type="date" id="userpage--form--input-temp" class="form-control" value="">
+                <div class="form-row">
+                    <div class="col-md-12" style="position: relative;">
+                        <label for="userpage--form--input-temp" class="form-label">
+                            Temperatura 
+                            <span data-toggle="tooltip" data-placement="right" title="Dopuszczalny zakres temperatury to -50 do 90.">
+                                <i class="far fa-question-circle"></i>
+                            </span>
+                        </label>
+                        <input type="number" id="userpage--form--input-temp" class="form-control" min="-50" max="90" value="0">
 
-                <button class="btn btn-primary">Wyślij</button>
+                        <div class="valid-tooltip">
+                            Looks good!
+                          </div>
+                          
+                        <div class="invalid-tooltip">
+                            Please choose a unique and valid username.
+                          </div>
+                    </div>
+                </div>
 
+                <!-- <div class="form-row">
+                    <div class="col-md-12">
+                        <div id="numberHelpBlock" class="form-text">
+                            Dopuszczalny zakres temperatury to -50 do 90.
+                        </div>
+                    </div>
+                </div> -->
+
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <label for="userpage--form--input-temp" class="form-label">
+                            Data pomiaru
+                            <span 
+                                data-toggle="tooltip" 
+                                data-placement="right" 
+                                data-html="true" 
+                                title="Wybierz datę zgodnie z zasadami:</br>Maksymalnie 2 dni wstecz</br>Nie można wybrać daty z przyszłości"
+                                >
+                                <i class="far fa-question-circle"></i>
+                            </span>
+                        </label>
+                        <input type="date" id="userpage--form--input-temp" class="form-control" value="">
+
+                        <div class="valid-tooltip">
+                            Looks good!
+                          </div>
+                          
+                        <div class="invalid-tooltip">
+                            Please choose a unique and valid username.
+                          </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-12 userpage--form--button-centered">
+                        <button class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Hooray!">Wyślij</button>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
