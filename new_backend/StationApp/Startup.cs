@@ -33,7 +33,8 @@ namespace StationApp
 
             services.AddControllers();
 
-            services.AddScoped<IStationRepository, MockStationRepository>();
+            //services.AddScoped<IStationRepository, MockStationRepository>();
+            services.AddScoped<IStationRepository, SqlStationsRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

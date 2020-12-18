@@ -20,7 +20,7 @@ namespace StationApp.Controllers
                 [HttpGet]
                 public ActionResult <IEnumerable<Station>> GetAllStations()
                 {
-                        var stationItems = _repository.GetAppStations();
+                        var stationItems = _repository.GetAllStations();
                         return Ok(stationItems);
                 }
 

@@ -5,7 +5,7 @@ namespace StationApp.Repository
 {
     public class MockStationRepository : IStationRepository
     {
-        public IEnumerable<Station> GetAppStations(){
+        public IEnumerable<Station> GetAllStations(){
             var stations = new List<Station>
             {
                 new Station{ Id = 0, Name = "testName1", City = "testCity1" },

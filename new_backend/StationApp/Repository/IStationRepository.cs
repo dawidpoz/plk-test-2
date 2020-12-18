@@ -5,7 +5,7 @@ namespace StationApp.Repository
 {
     public interface IStationRepository
     {
-        IEnumerable<Station> GetAppStations();
+        IEnumerable<Station> GetAllStations();
         Station GetStationById(int id);
     }
 }
