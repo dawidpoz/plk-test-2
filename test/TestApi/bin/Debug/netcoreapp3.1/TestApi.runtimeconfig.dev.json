@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\Ladavi\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\Ladavi\\.nuget\\packages"
+    ]
+  }
+}
