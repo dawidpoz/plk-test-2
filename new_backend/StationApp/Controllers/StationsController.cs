@@ -9,7 +9,12 @@ namespace StationApp.Controllers
         [ApiController]
         public class StationsController : ControllerBase
         {
-                private readonly MockStationRepository _repository = new MockStationRepository();
+                private IStationRepository _repository;
+
+                public StationsController(IStationRepository repository)
+                {
+                        _repository = repository;
+                }
 
                 // GET api/stations
                 [HttpGet]
