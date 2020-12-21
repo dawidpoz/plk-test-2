@@ -26,7 +26,7 @@ namespace StationApp.Repository
             return new Station{ StationId = 0, Name = "testName", City = "testCity" };
         }
 
-        public List<string> GetTemperatures()
+        public IEnumerable<StationAndTemperatureJoined> GetTemperatures()
         {
             throw new System.NotImplementedException();
         }

@@ -40,17 +40,20 @@ namespace StationApp.Repository
             return (_context.SaveChanges() >= 0);
         }
 
-        public List<string> GetTemperatures()
+        public IEnumerable<StationAndTemperatureJoined> GetTemperatures()
         {
             //var _query = _context.StationTemperature.Include(a => a.Station).ToList();
             var _query = (from station in _context.Stations
                             join stationtemperature in _context.StationTemperature on station.StationId equals stationtemperature.StationId
-                            select new { StationName = station.Name});
-            
-            var array = new List<string>{};
+                            select new { StationName = station.Name, Temperature = stationtemperature.Temperature});
+
+            var array = new List<StationAndTemperatureJoined>();
+
+            StationAndTemperatureJoined x;
 
             foreach(var c in _query){
-                array.Add(c.StationName);
+                x = new StationAndTemperatureJoined{ Name = c.StationName, Temperature = c.Temperature };
+                array.Add(x);
             }
 
             return array;

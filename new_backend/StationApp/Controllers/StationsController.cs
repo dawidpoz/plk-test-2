@@ -42,7 +42,7 @@ namespace StationApp.Controllers
 
                 // GET api/stations/joined
                 [HttpGet("joined")]
-                public ActionResult <string> GetTemperatures(){
+                public ActionResult <List<(string, int)>> GetTemperatures(){
                         return Ok(_repository.GetTemperatures());
                 }
 
