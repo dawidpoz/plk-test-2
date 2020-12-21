@@ -10,5 +10,6 @@ namespace StationApp.Repository
         IEnumerable<Station> GetAllStations();
         Station GetStationById(int id);
         void CreateStation(Station st);
+        List<string> GetTemperatures();
     }
 }

@@ -10,6 +10,7 @@ namespace StationApp.Profiles
         {
             CreateMap<Station, StationReadDto>();
             CreateMap<StationCreateDto, Station>();
+            CreateMap<StationTemperature, JoinedStationAndTempReadDto>();
         }
     }
 }

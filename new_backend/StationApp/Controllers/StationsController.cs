@@ -40,6 +40,12 @@ namespace StationApp.Controllers
                         return NotFound();
                 }
 
+                // GET api/stations/joined
+                [HttpGet("joined")]
+                public ActionResult <string> GetTemperatures(){
+                        return Ok(_repository.GetTemperatures());
+                }
+
                 // POST api/stations
                 [HttpPost]
                 public ActionResult <StationReadDto> CreateStation(StationCreateDto stationCreateDto)

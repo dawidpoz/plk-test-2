@@ -22,3 +22,9 @@ namespace StationApp.Models
         public Station Station{ set; get; }
     }
 }
+
+// Zapytanie biorące Name z dbo.Stations i reszta rzeczy z dbo.StationTemperature po INNER JOINie
+
+// SELECT dbo.Stations.Name, dbo.StationTemperature.Temperature, dbo.StationTemperature.Time, dbo.StationTemperature.Date FROM dbo.StationTemperature
+// INNER JOIN dbo.Stations
+// ON dbo.Stations.StationId = dbo.StationTemperature.StationId

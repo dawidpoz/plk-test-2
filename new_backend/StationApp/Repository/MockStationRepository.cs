@@ -26,6 +26,11 @@ namespace StationApp.Repository
             return new Station{ StationId = 0, Name = "testName", City = "testCity" };
         }
 
+        public List<string> GetTemperatures()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public bool SaveChanges()
         {
             throw new System.NotImplementedException();
