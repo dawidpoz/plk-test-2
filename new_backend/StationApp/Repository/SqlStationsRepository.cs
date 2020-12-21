@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using StationApp.Context;
@@ -13,6 +14,16 @@ namespace StationApp.Repository
             _context = context;
         }
 
+        public void CreateStation(Station st)
+        {
+            if(st == null)
+            {
+                throw new ArgumentNullException(nameof(st));
+            }
+
+            _context.Stations.Add(st);
+        }
+
         public IEnumerable<Station> GetAllStations()
         {
             return _context.Stations.ToList();
@@ -23,5 +34,9 @@ namespace StationApp.Repository
             return _context.Stations.FirstOrDefault(p => p.Id == id);
         }
 
+        public bool SaveChanges()
+        {
+            return (_context.SaveChanges() >= 0);
+        }
     }
 }

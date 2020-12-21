@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using StationApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using StationApp.Repository;
+using AutoMapper;
+using StationApp.Dtos;
 
 namespace StationApp.Controllers
 {
@@ -10,26 +12,47 @@ namespace StationApp.Controllers
         public class StationsController : ControllerBase
         {
                 private IStationRepository _repository;
+                private IMapper _mapper;
 
-                public StationsController(IStationRepository repository)
+                public StationsController(IStationRepository repository, IMapper mapper)
                 {
                         _repository = repository;
+                        _mapper = mapper;
                 }
 
                 // GET api/stations
                 [HttpGet]
-                public ActionResult <IEnumerable<Station>> GetAllStations()
+                public ActionResult <IEnumerable<StationReadDto>> GetAllStations()
                 {
                         var stationItems = _repository.GetAllStations();
-                        return Ok(stationItems);
+                        return Ok(_mapper.Map<IEnumerable<StationReadDto>>(stationItems));
                 }
 
-                // GET api/stations/5
-                [HttpGet("{id}")]
-                public ActionResult <Station> GetStationById(int id)
+                // GET api/stations/{id}
+                [HttpGet("{id}", Name="GetStationById")]
+                public ActionResult <StationReadDto> GetStationById(int id)
                 {
                         var stationItem = _repository.GetStationById(id);
-                        return Ok(stationItem);
+                        if(stationItem != null)
+                        {
+                                return Ok(_mapper.Map<StationReadDto>(stationItem));
+                        }
+                        return NotFound();
                 }
+
+                // POST api/stations
+                [HttpPost]
+                public ActionResult <StationReadDto> CreateStation(StationCreateDto stationCreateDto)
+                {
+                        var stationModel = _mapper.Map<Station>(stationCreateDto);
+                        _repository.CreateStation(stationModel);
+                        _repository.SaveChanges();
+
+                        var stationReadDto = _mapper.Map<StationReadDto>(stationModel);
+
+                        return CreatedAtRoute(nameof(GetStationById), new {Id = stationReadDto.Id}, stationReadDto);
+                        //return Ok(stationReadDto);
+                }
+
         }
 }

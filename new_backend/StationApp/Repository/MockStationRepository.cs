@@ -5,6 +5,11 @@ namespace StationApp.Repository
 {
     public class MockStationRepository : IStationRepository
     {
+        public void CreateStation(Station st)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public IEnumerable<Station> GetAllStations(){
             var stations = new List<Station>
             {
@@ -19,6 +24,11 @@ namespace StationApp.Repository
         public Station GetStationById(int id)
         {
             return new Station{ Id = 0, Name = "testName", City = "testCity" };
+        }
+
+        public bool SaveChanges()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
