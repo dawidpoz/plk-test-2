@@ -11,5 +11,8 @@ namespace StationApp.Context
         }
 
         public DbSet<Station> Stations { get; set; }
+
+        public DbSet<StationTemperature> StationTemperature { get; set; }
+        
     }
 }

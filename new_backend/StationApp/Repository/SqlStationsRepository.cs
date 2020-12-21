@@ -31,7 +31,7 @@ namespace StationApp.Repository
 
         public Station GetStationById(int id)
         {
-            return _context.Stations.FirstOrDefault(p => p.Id == id);
+            return _context.Stations.FirstOrDefault(p => p.StationId == id);
         }
 
         public bool SaveChanges()

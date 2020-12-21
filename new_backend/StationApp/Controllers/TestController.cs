@@ -24,7 +24,7 @@ namespace StationApp.Controllers
         {
             return Enumerable.Range(1, 5).Select(index => new Station
             {
-                Id = index,
+                StationId = index,
                 Name = "a",
                 City = "a"
             })

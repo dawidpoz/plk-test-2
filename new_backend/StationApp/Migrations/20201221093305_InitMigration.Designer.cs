@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StationApp.Context;
 
 namespace StationApp.Migrations
 {
     [DbContext(typeof(StationsContext))]
-    partial class StationsContextModelSnapshot : ModelSnapshot
+    [Migration("20201221093305_InitMigration")]
+    partial class InitMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -62,25 +64,37 @@ namespace StationApp.Migrations
 
                     b.HasKey("TemperatureId");
 
-                    b.HasIndex("StationId");
-
                     b.ToTable("StationTemperature");
                 });
 
-            modelBuilder.Entity("StationApp.Models.StationTemperature", b =>
+            modelBuilder.Entity("StationStationTemperature", b =>
                 {
-                    b.HasOne("StationApp.Models.Station", "Station")
-                        .WithMany("StationTemperature")
+                    b.Property<int>("StationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TemperatureId")
+                        .HasColumnType("int");
+
+                    b.HasKey("StationId", "TemperatureId");
+
+                    b.HasIndex("TemperatureId");
+
+                    b.ToTable("StationStationTemperature");
+                });
+
+            modelBuilder.Entity("StationStationTemperature", b =>
+                {
+                    b.HasOne("StationApp.Models.Station", null)
+                        .WithMany()
                         .HasForeignKey("StationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Station");
-                });
-
-            modelBuilder.Entity("StationApp.Models.Station", b =>
-                {
-                    b.Navigation("StationTemperature");
+                    b.HasOne("StationApp.Models.StationTemperature", null)
+                        .WithMany()
+                        .HasForeignKey("TemperatureId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
