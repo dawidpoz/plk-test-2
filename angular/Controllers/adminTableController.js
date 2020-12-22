@@ -8,7 +8,7 @@ app.controller("adminTableController", ['$scope', 'adminGetTableRestApi', functi
           $scope.requestData = response.data;
       }
       );
-      //console.log(adminGetTableRestApi.getData());
+      console.log("click");
       //$scope.requestData = adminGetTableRestApi.getData();
     };
   }]);

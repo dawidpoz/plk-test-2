@@ -6,6 +6,6 @@ app.component('navbar', {
         templateUrl: "Components/navbar.html"
     });
 
-app.component('admin-table', {
+app.component('admintable', {
         templateUrl: "Components/admin-table.html"
     });

@@ -1,3 +1,5 @@
+/*** GENERAL ***/
+
 .form-row{
     margin-bottom: 30px;
 }
@@ -12,4 +14,33 @@ form{
 
 .tooltip {
     pointer-events: none;
-  }
+}
+
+/*** ADMIN PAGE ***/
+
+/* ADMIN TABLE */
+
+.adminpage--table{
+    border-collapse: collapse;
+    width: 50%;
+    margin: 0 auto;
+}
+
+.adminpage--table td, .adminpage--table th{
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.adminpage--table tr:nth-child(even){
+    background-color: #eee;
+}
+
+.adminpage--table tr:hover{
+    background-color: #dfdfdf;
+}
+
+.adminpage--table th{
+    padding: 12px 8px;
+    background-color: dodgerblue;
+    color: white;
+}
