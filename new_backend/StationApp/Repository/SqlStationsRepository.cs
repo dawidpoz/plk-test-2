@@ -58,5 +58,20 @@ namespace StationApp.Repository
 
             return array;
         }
+
+        public void CreateTemperature(StationTemperature st)
+        {
+            if(st == null)
+            {
+                throw new ArgumentNullException(nameof(st));
+            }
+
+            _context.StationTemperature.Add(st);
+        }
+
+        public StationTemperature GetTemperatureById(int id)
+        {
+            return _context.StationTemperature.FirstOrDefault(p => p.TemperatureId == id);
+        }
     }
 }

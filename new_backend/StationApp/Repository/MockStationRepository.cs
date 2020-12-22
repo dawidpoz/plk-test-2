@@ -10,6 +10,11 @@ namespace StationApp.Repository
             throw new System.NotImplementedException();
         }
 
+        public void CreateTemperature(StationTemperature st)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public IEnumerable<Station> GetAllStations(){
             var stations = new List<Station>
             {
@@ -24,6 +29,11 @@ namespace StationApp.Repository
         public Station GetStationById(int id)
         {
             return new Station{ StationId = 0, Name = "testName", City = "testCity" };
+        }
+
+        public StationTemperature GetTemperatureById(int id)
+        {
+            throw new System.NotImplementedException();
         }
 
         public IEnumerable<StationAndTemperatureJoined> GetTemperatures()

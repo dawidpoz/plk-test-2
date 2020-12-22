@@ -4,7 +4,7 @@ namespace StationApp.Dtos{
     public class StationReadDto
     {
         [Key]
-        public int Id {set; get;}
+        public int StationId {set; get;}
         
         [Required]
         [MaxLength(120)]

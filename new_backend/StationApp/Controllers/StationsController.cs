@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using StationApp.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -56,8 +57,24 @@ namespace StationApp.Controllers
 
                         var stationReadDto = _mapper.Map<StationReadDto>(stationModel);
 
-                        return CreatedAtRoute(nameof(GetStationById), new {Id = stationReadDto.Id}, stationReadDto);
+                        return CreatedAtRoute(nameof(GetStationById), new {Id = stationReadDto.StationId}, stationReadDto);
                         //return Ok(stationReadDto);
+                }
+
+                [HttpPost("temp")]
+                public ActionResult <StationTemperatureCreateDto> CreateStationTemperature(StationTemperatureCreateDto stationTemperatureCreateDto)
+                {
+                        var stationTemperatureModel = _mapper.Map<StationTemperature>(stationTemperatureCreateDto);
+                        //Console.WriteLine(stationTemperatureModel.Temperature);
+                        //stationTemperatureModel.Temperature = stationTemperatureModel.Temperature + 1;
+                        stationTemperatureModel.Time = new TimeSpan(stationTemperatureModel.Time.Ticks);
+                        Console.WriteLine(stationTemperatureModel.Time);
+                        _repository.CreateTemperature(stationTemperatureModel);
+                        _repository.SaveChanges();
+
+                        var stationTemperatureReadDto = _mapper.Map<StationTemperatureReadDto>(stationTemperatureModel);
+
+                        return CreatedAtRoute(nameof(GetStationById), new {Id = stationTemperatureReadDto.TemperatureId}, stationTemperatureReadDto);
                 }
 
         }

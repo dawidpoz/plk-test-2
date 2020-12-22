@@ -11,5 +11,7 @@ namespace StationApp.Repository
         Station GetStationById(int id);
         void CreateStation(Station st);
         IEnumerable<StationAndTemperatureJoined> GetTemperatures();
+        void CreateTemperature(StationTemperature st);
+        StationTemperature GetTemperatureById(int id);
     }
 }

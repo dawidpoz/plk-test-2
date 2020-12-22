@@ -2,7 +2,7 @@ namespace StationApp.Dtos
 {
     public class StationCreateDto
     {
-        public int Id {set; get;}
+        public int StationId {set; get;}
 
         public string Name {set; get;}
         
