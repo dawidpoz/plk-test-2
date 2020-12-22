@@ -57,8 +57,8 @@ namespace StationApp.Migrations
                     b.Property<int>("Temperature")
                         .HasColumnType("int");
 
-                    b.Property<TimeSpan>("Time")
-                        .HasColumnType("time");
+                    b.Property<long>("Time")
+                        .HasColumnType("bigint");
 
                     b.HasKey("TemperatureId");
 

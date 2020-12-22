@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace StationApp.Migrations
 {
-    public partial class InitMigration : Migration
+    public partial class longMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -28,55 +28,34 @@ namespace StationApp.Migrations
                     TemperatureId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Temperature = table.Column<int>(type: "int", nullable: false),
-                    Time = table.Column<TimeSpan>(type: "time", nullable: false),
+                    Time = table.Column<long>(type: "bigint", nullable: false),
                     Date = table.Column<DateTime>(type: "Date", nullable: false),
                     StationId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_StationTemperature", x => x.TemperatureId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "StationStationTemperature",
-                columns: table => new
-                {
-                    StationId = table.Column<int>(type: "int", nullable: false),
-                    TemperatureId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_StationStationTemperature", x => new { x.StationId, x.TemperatureId });
                     table.ForeignKey(
-                        name: "FK_StationStationTemperature_Stations_StationId",
+                        name: "FK_StationTemperature_Stations_StationId",
                         column: x => x.StationId,
                         principalTable: "Stations",
                         principalColumn: "StationId",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_StationStationTemperature_StationTemperature_TemperatureId",
-                        column: x => x.TemperatureId,
-                        principalTable: "StationTemperature",
-                        principalColumn: "TemperatureId",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_StationStationTemperature_TemperatureId",
-                table: "StationStationTemperature",
-                column: "TemperatureId");
+                name: "IX_StationTemperature_StationId",
+                table: "StationTemperature",
+                column: "StationId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "StationStationTemperature");
+                name: "StationTemperature");
 
             migrationBuilder.DropTable(
                 name: "Stations");
-
-            migrationBuilder.DropTable(
-                name: "StationTemperature");
         }
     }
 }

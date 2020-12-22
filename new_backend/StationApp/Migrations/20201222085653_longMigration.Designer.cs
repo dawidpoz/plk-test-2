@@ -10,8 +10,8 @@ using StationApp.Context;
 namespace StationApp.Migrations
 {
     [DbContext(typeof(StationsContext))]
-    [Migration("20201221094353_2ndMigration")]
-    partial class _2ndMigration
+    [Migration("20201222085653_longMigration")]
+    partial class longMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -38,12 +38,7 @@ namespace StationApp.Migrations
                         .HasMaxLength(120)
                         .HasColumnType("nvarchar(120)");
 
-                    b.Property<int?>("StationTemperatureTemperatureId")
-                        .HasColumnType("int");
-
                     b.HasKey("StationId");
-
-                    b.HasIndex("StationTemperatureTemperatureId");
 
                     b.ToTable("Stations");
                 });
@@ -64,24 +59,30 @@ namespace StationApp.Migrations
                     b.Property<int>("Temperature")
                         .HasColumnType("int");
 
-                    b.Property<TimeSpan>("Time")
-                        .HasColumnType("time");
+                    b.Property<long>("Time")
+                        .HasColumnType("bigint");
 
                     b.HasKey("TemperatureId");
+
+                    b.HasIndex("StationId");
 
                     b.ToTable("StationTemperature");
                 });
 
-            modelBuilder.Entity("StationApp.Models.Station", b =>
-                {
-                    b.HasOne("StationApp.Models.StationTemperature", null)
-                        .WithMany("Station")
-                        .HasForeignKey("StationTemperatureTemperatureId");
-                });
-
             modelBuilder.Entity("StationApp.Models.StationTemperature", b =>
                 {
+                    b.HasOne("StationApp.Models.Station", "Station")
+                        .WithMany("StationTemperature")
+                        .HasForeignKey("StationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Station");
+                });
+
+            modelBuilder.Entity("StationApp.Models.Station", b =>
+                {
+                    b.Navigation("StationTemperature");
                 });
 #pragma warning restore 612, 618
         }

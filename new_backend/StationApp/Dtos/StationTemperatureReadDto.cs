@@ -12,8 +12,7 @@ namespace StationApp.Dtos
         
         public int Temperature{ set; get; }
 
-        [DataType(DataType.Time)]
-        public TimeSpan Time { get; set; }
+        public long Time { get; set; }
 
         [DataType(DataType.Date)]
         [Column(TypeName = "Date")]

@@ -9,7 +9,7 @@ namespace StationApp.Dtos
         
         public int Temperature{ set; get; }
 
-        public TimeSpan Time { get; set; }
+        public long Time { get; set; }
         public DateTime Date{ set; get; }
 
         public int StationId{ set; get; }

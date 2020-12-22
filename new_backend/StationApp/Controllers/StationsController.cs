@@ -67,14 +67,26 @@ namespace StationApp.Controllers
                         var stationTemperatureModel = _mapper.Map<StationTemperature>(stationTemperatureCreateDto);
                         //Console.WriteLine(stationTemperatureModel.Temperature);
                         //stationTemperatureModel.Temperature = stationTemperatureModel.Temperature + 1;
-                        stationTemperatureModel.Time = new TimeSpan(stationTemperatureModel.Time.Ticks);
+                        //stationTemperatureModel.Time = new TimeSpan(stationTemperatureModel.Time.Hours, stationTemperatureModel.Time.Minutes, stationTemperatureModel.Time.Seconds);
                         Console.WriteLine(stationTemperatureModel.Time);
+                        //Console.WriteLine(new TimeSpan(1608624625781));
+                        //Console.WriteLine(stationTemperatureModel.Hours + " " + stationTemperatureModel.Minutes + " " + stationTemperatureModel.Seconds);
+                        Console.WriteLine(UnixTimestampToDateTime(stationTemperatureModel.Time).Hour + ":" + UnixTimestampToDateTime(stationTemperatureModel.Time).Minute);
+
+
                         _repository.CreateTemperature(stationTemperatureModel);
                         _repository.SaveChanges();
 
                         var stationTemperatureReadDto = _mapper.Map<StationTemperatureReadDto>(stationTemperatureModel);
 
                         return CreatedAtRoute(nameof(GetStationById), new {Id = stationTemperatureReadDto.TemperatureId}, stationTemperatureReadDto);
+                }
+
+                public static DateTime UnixTimestampToDateTime(long unixTime)
+                {
+                        DateTime unixStart = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+                        long unixTimeStampInTicks = (long) (unixTime * TimeSpan.TicksPerSecond);
+                        return new DateTime(unixStart.Ticks + unixTimeStampInTicks, System.DateTimeKind.Utc);
                 }
 
         }
