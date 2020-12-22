@@ -9,7 +9,8 @@ app.config(function($routeProvider) {
     })
 
     $routeProvider.when("/admin", {
-        templateUrl : "Components/admin.html"
+        templateUrl : "Components/admin.html",
+        controller: "adminTableController"
     })
 
     $routeProvider.when("/admin/panel", {

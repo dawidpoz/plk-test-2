@@ -32,6 +32,11 @@ namespace StationApp
             services.AddDbContext<StationsContext>(opt => opt.UseSqlServer
                 (Configuration.GetConnectionString("StationsConnection"))); 
 
+            services.AddCors(c =>  
+            {  
+                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());  
+            }); 
+
             services.AddControllers();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -46,6 +51,10 @@ namespace StationApp
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(options => options.AllowAnyOrigin());  
+
+
 
             app.UseHttpsRedirection();
 
