@@ -35,11 +35,11 @@
                         <input
                             type="number"
                             id="userpage--form--input-temp"
-                            ng-class="errorFormTemp ?
+                            ng-class="(!validatedTemp ? 'form-control' : (errorFormTemp ?
                             'form-control form-control-error' :
                                 (warningFormTemp ?
                                 'form-control form-control-warning' :
-                                'form-control form-control-accepted')"
+                                'form-control form-control-accepted')))"
                             id="tempID"
                             step="0.1"
                             value="{{onCheckTemperatureRange}}"

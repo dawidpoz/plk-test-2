@@ -2,10 +2,11 @@ app.controller("userAddTemperatureController", ['$scope', 'serviceGetListOfStati
     $scope.home = "This is the homepage";
     $scope.warningFormTemp = false;
     $scope.errorFormTemp = false;
+    $scope.validatedTemp = false;
 
     $scope.stations = "a";
 
-    $scope.getRequest = function() {
+    $scope.getRequestStations = function() {
         serviceGetListOfStations.getData().then(
           function(response) {
             $scope.stations = response.data;
@@ -15,7 +16,7 @@ app.controller("userAddTemperatureController", ['$scope', 'serviceGetListOfStati
       };
 
     $scope.init = function(){
-        this.getRequest();
+        this.getRequestStations();
     } 
 
     // TIME GENERATOR - CURRENT
@@ -36,25 +37,34 @@ app.controller("userAddTemperatureController", ['$scope', 'serviceGetListOfStati
     }
 
     // TEMPERATURE VALIDATION VARIABLES
-    $scope.onCheckTemperatureRange = 0.0;
+    $scope.onCheckTemperatureRange = '';
     $scope.isTempValidError = true;
 
     // TEMPERATURE VALIDATION METHODES
     $scope.checkTemperatureRange = function(){
-        if($scope.userTemperatureInputModel < -50){
-            this.onCheckTemperatureRange = -50;
-            this.isTempValidError = false;
-            this.warningFormTemp = true;
-        }else if($scope.userTemperatureInputModel > 90){
-            this.onCheckTemperatureRange = 90;
-            $scope.userTemperatureInputModel.value = 90;
-            this.isTempValidError = false;
-            this.warningFormTemp = true;
-        }else{
-            this.onCheckTemperatureRange = $scope.userTemperatureInputModel;
-            this.isTempValidError = true;
+        if($scope.userTemperatureInputModel === '' || $scope.userTemperatureInputModel === undefined || $scope.userTemperatureInputModel === null){
+            this.errorFormTemp = true;
             this.warningFormTemp = false;
+        }else{
+            if($scope.userTemperatureInputModel < -50){
+                this.onCheckTemperatureRange = -50;
+                this.isTempValidError = false;
+                this.warningFormTemp = true;
+            }else if($scope.userTemperatureInputModel > 90){
+                this.onCheckTemperatureRange = 90;
+                $scope.userTemperatureInputModel.value = 90;
+                this.isTempValidError = false;
+                this.warningFormTemp = true;
+            }
+            else{
+                this.onCheckTemperatureRange = $scope.userTemperatureInputModel;
+                this.isTempValidError = true;
+                this.warningFormTemp = false;
+            }
+            this.errorFormTemp = false;
         }
+        console.log($scope.userTemperatureInputModel);
+        this.validatedTemp = true;
         //https://docs.angularjs.org/api/ng/input/input%5Bnumber%5D ????
     }
 

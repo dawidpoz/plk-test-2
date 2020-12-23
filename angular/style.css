@@ -87,6 +87,20 @@ navbar{
     width: 100%;
 }
 
+.adminpage--label-centered{
+    text-align: center;
+    margin-top: 50px;
+}
+
+.adminpage--form{
+    width: 100%;
+    max-width: 100%;
+    min-width: 300px;
+    padding: 30px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+}
+
 /*** USER PAGE ***/
 
 /* FORM */
