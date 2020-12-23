@@ -7,7 +7,7 @@
 <div class="container">
     <div class="row h-100">
         <div class="col-md-12 d-flex justify-content-center align-items-center">
-            <form>
+            <form class="userpage--form">
 
                 <div class="form-row">
                     <div class="col-md-12">
@@ -34,14 +34,35 @@
                                 <i class="far fa-question-circle"></i>
                             </span>
                         </label>
-                        <input type="number" id="userpage--form--input-temp" class="form-control" value="onCheckTemperatureRange" name="temp" ng-model="userTemperatureInputModel" ng-change="checkTemperatureRange()">
+                        <input 
+                            type="number" 
+                            id="userpage--form--input-temp" 
+                            class="form-control" 
+                            id="tempID" 
+                            value="{{onCheckTemperatureRange}}" 
+                            name="input" 
+                            ng-model="userTemperatureInputModel" 
+                            ng-change="checkTemperatureRange()"
+                            >
 
-                        <div class="valid-tooltip">
+                            <!-- https://docs.angularjs.org/api/ng/input/input%5Bnumber%5D 
+                                    CZEMU TO DZIWNIE DZIAŁA?
+                            -->
+                        <input value={{onCheckTemperatureRange}} type="number"/>
+                        <span 
+                                data-toggle="tooltip" 
+                                data-placement="right" 
+                                data-html="true" 
+                                title="Tymczasowy input aż znajdę jak to zrobić"
+                                >
+                                <i class="far fa-question-circle"></i>
+                            </span>
+                        <!-- <div ng-if="isTempValidError" class="valid-tooltip" style="display: block;">
                             Looks good!
-                          </div>
+                          </div> -->
                           
-                        <div class="invalid-tooltip">
-                            Please choose a unique and valid username.
+                        <div ng-if="!isTempValidError" class="invalid-tooltip" style="display: block; position: relative; top: 0; width: 100%;">
+                            Niepoprawnie wybrana temperatura zostanie zmieniona na: {{onCheckTemperatureRange}}
                           </div>
                     </div>
                 </div>
@@ -67,7 +88,14 @@
                                 <i class="far fa-question-circle"></i>
                             </span>
                         </label>
-                        <input type="date" id="userpage--form--input-temp" class="form-control" value="">
+                        <input 
+                            type="date" 
+                            id="userpage--form--input-temp" 
+                            class="form-control" 
+                            value="{{onCheckDateRange}}" 
+                            ng-model="userDateInputModel" 
+                            ng-change="checkDateRange()"
+                            >
 
                         <div class="valid-tooltip">
                             Looks good!
