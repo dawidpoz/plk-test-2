@@ -23,7 +23,8 @@ app.config(function($routeProvider) {
     })
 
     $routeProvider.when("/user/add", {
-        templateUrl : "Components/user-add.html"
+        templateUrl : "Components/user-add.html",
+        controller: "userAddTemperatureController"
     })
 
     $routeProvider.when("/notFound", {
