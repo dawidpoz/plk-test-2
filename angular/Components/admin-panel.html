@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" ng-init="init()">
     <div class="row h-100">
         <div class="container">
             <div class="row">
@@ -9,6 +9,7 @@
                                 <label>Stacja</label>
                                 <select class="custom-select" id="adminpanel--form--select">
                                     <option selected>Wybierz stację</option>
+                                    <option value="{{x.stationId}}" ng-repeat="x in stations">{{x.name}}</option>
                                 </select>
                             </div>
                             <div class="col-md-4 adminpage--label-centered">
