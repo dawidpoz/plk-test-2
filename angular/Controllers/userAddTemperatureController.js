@@ -1,5 +1,8 @@
 app.controller("userAddTemperatureController", ['$scope', function($scope) {
     $scope.home = "This is the homepage";
+    $scope.warningFormTemp = false;
+    $scope.errorFormTemp = false;
+
 
     // TIME GENERATOR - CURRENT
 
@@ -19,7 +22,7 @@ app.controller("userAddTemperatureController", ['$scope', function($scope) {
     }
 
     // TEMPERATURE VALIDATION VARIABLES
-    $scope.onCheckTemperatureRange = 0;
+    $scope.onCheckTemperatureRange = 0.0;
     $scope.isTempValidError = true;
 
     // TEMPERATURE VALIDATION METHODES
@@ -27,13 +30,16 @@ app.controller("userAddTemperatureController", ['$scope', function($scope) {
         if($scope.userTemperatureInputModel < -50){
             this.onCheckTemperatureRange = -50;
             this.isTempValidError = false;
+            this.warningFormTemp = true;
         }else if($scope.userTemperatureInputModel > 90){
             this.onCheckTemperatureRange = 90;
             $scope.userTemperatureInputModel.value = 90;
             this.isTempValidError = false;
+            this.warningFormTemp = true;
         }else{
             this.onCheckTemperatureRange = $scope.userTemperatureInputModel;
             this.isTempValidError = true;
+            this.warningFormTemp = false;
         }
         //https://docs.angularjs.org/api/ng/input/input%5Bnumber%5D ????
     }

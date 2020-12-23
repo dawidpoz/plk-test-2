@@ -37,8 +37,13 @@
                         <input 
                             type="number" 
                             id="userpage--form--input-temp" 
-                            class="form-control" 
+                            ng-class="errorFormTemp ? 
+                            'form-control form-control-error' : 
+                                (warningFormTemp ? 
+                                'form-control form-control-warning' : 
+                                'form-control form-control-accepted')"
                             id="tempID" 
+                            step="0.1"
                             value="{{onCheckTemperatureRange}}" 
                             name="input" 
                             ng-model="userTemperatureInputModel" 
@@ -48,7 +53,7 @@
                             <!-- https://docs.angularjs.org/api/ng/input/input%5Bnumber%5D 
                                     CZEMU TO DZIWNIE DZIAŁA?
                             -->
-                        <input value={{onCheckTemperatureRange}} type="number"/>
+                        <!-- <input value={{onCheckTemperatureRange}} type="number"/>
                         <span 
                                 data-toggle="tooltip" 
                                 data-placement="right" 
@@ -56,7 +61,7 @@
                                 title="Tymczasowy input aż znajdę jak to zrobić"
                                 >
                                 <i class="far fa-question-circle"></i>
-                            </span>
+                            </span> -->
                         <!-- <div ng-if="isTempValidError" class="valid-tooltip" style="display: block;">
                             Looks good!
                           </div> -->
@@ -92,7 +97,7 @@
                             type="date" 
                             id="userpage--form--input-temp" 
                             class="form-control" 
-                            value="{{onCheckDateRange}}" 
+                            value="{{onCheckDateRange}}"
                             ng-model="userDateInputModel" 
                             ng-change="checkDateRange()"
                             >
@@ -120,7 +125,12 @@
                                 <i class="far fa-question-circle"></i>
                             </span>
                         </label>
-                        <input type="time" id="userpage--form--input-time" class="form-control" value="{{updateTime()}}">
+                        <input type="time" 
+                            id="userpage--form--input-time" 
+                            class="form-control" 
+                            value="{{updateTime()}}"
+                            ng-model="userTimeInputModel"
+                            >
                         
                         <div class="valid-tooltip">
                             Looks good!

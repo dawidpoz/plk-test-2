@@ -1,26 +1,34 @@
 <div class="container">
     <div class="row h-100">
-        <div class="col-md-12 d-flex justify-content-center align-items-center">
-            <form>
-
-                <label for="adminpanel--form--select">Stacja</label>
-                <select class="custom-select" id="adminpanel--form--select">
-                    <option selected>Wybierz stację</option>
-                    <option value="1">Stacja 1</option>
-                    <option value="2">Stacja 2</option>
-                    <option value="3">Stacja 3</option>
-                </select>
-
-                <input type="date" id="adminpanel--form--input-date-start" class="form-control" value="">
-                <input type="date" id="adminpanel--form--input-date-end" class="form-control" value="">
-
-                <button class="btn btn-primary">Wyślij</button>
-
-            </form>
-
-            <admin-table></admin-table>
+        <div class="container">
+            <div class="row">
+                <form class="adminpage--form">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <select class="custom-select" id="adminpanel--form--select">
+                                    <option selected>Wybierz stację</option>
+                                    <option value="1">Stacja 1</option>
+                                    <option value="2">Stacja 2</option>
+                                    <option value="3">Stacja 3</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="date" id="adminpanel--form--input-date-start" class="form-control" value="">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="date" id="adminpanel--form--input-date-end" class="form-control" value="">
+                            </div>
+                        </div>
+                        <div class="row d-flex justify-content-center align-items-center" style="margin-top: 50px;">
+                            <button class="btn btn-primary" ng-click="getRequest()">Wyślij</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="row d-flex justify-content-center align-items-center adminpanel--div-admintable">
+                <admintable request-data="requestData" style="overflow-x:auto;"></admintable>
+            </div>
         </div>
-
-        {{admin}}
     </div>
 </div>

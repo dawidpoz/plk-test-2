@@ -21,6 +21,21 @@ form{
     min-height: 100vh;
 }
 
+.form-control-accepted, .form-control-accepted:focus{
+    border-color: #ddd;
+    box-shadow: 0 0 0 0.2rem rgba(28, 255, 28, 0.616);
+}
+
+.form-control-warning, .form-control-warning:focus{
+    border-color: #ddd;
+    box-shadow: 0 0 0 0.2rem rgba(255, 232, 28, 0.616);
+}
+
+.form-control-error, .form-control-error:focus{
+    border-color: #ddd;
+    box-shadow: 0 0 0 0.2rem rgba(255, 0, 0, 0.678);
+}
+
 /*** NAVBAR ***/
 
 navbar{
@@ -41,6 +56,7 @@ navbar{
 .adminpage--table{
     border-collapse: collapse;
     width: 50%;
+    min-width: 400px;
     margin: 0 auto;
 }
 
@@ -63,6 +79,14 @@ navbar{
     color: white;
 }
 
+.adminpanel--div-admintable{
+    margin-top: 100px;
+}
+
+.adminpage--form{
+    width: 100%;
+}
+
 /*** USER PAGE ***/
 
 /* FORM */
@@ -70,4 +94,17 @@ navbar{
 .userpage--form{
     width: 40%;
     max-width: 40%;
+    min-width: 350px;
+    padding: 30px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
 }
+
+.userpage--form .form-row{
+    padding: 10px 0;
+}
+
+.userpage--form .form-row:nth-child(4) {
+    margin-bottom: 50px;
+}
+

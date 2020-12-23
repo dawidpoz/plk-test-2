@@ -14,7 +14,8 @@ app.config(function($routeProvider) {
     })
 
     $routeProvider.when("/admin/panel", {
-        templateUrl : "Components/admin-panel.html"
+        templateUrl : "Components/admin-panel.html",
+        controller: "adminTableController"
     })
 
     $routeProvider.when("/user", {
