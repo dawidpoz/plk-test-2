@@ -1,8 +1,22 @@
-app.controller("userAddTemperatureController", ['$scope', function($scope) {
+app.controller("userAddTemperatureController", ['$scope', 'serviceGetListOfStations', function($scope, serviceGetListOfStations) {
     $scope.home = "This is the homepage";
     $scope.warningFormTemp = false;
     $scope.errorFormTemp = false;
 
+    $scope.stations = "a";
+
+    $scope.getRequest = function() {
+        serviceGetListOfStations.getData().then(
+          function(response) {
+            $scope.stations = response.data;
+            console.log(response.data);
+        }
+        );
+      };
+
+    $scope.init = function(){
+        this.getRequest();
+    } 
 
     // TIME GENERATOR - CURRENT
 
