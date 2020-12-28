@@ -97,6 +97,8 @@
                             class="form-control"
                             value="{{onCheckDateRange}}"
                             ng-model="userDateInputModel"
+                            ng-init="userDateInputModel = Date()"
+                            
                             ng-change="checkDateRange()"
                             >
 
@@ -126,8 +128,10 @@
                         <input type="time"
                             id="userpage--form--input-time"
                             class="form-control"
-                            value="{{updateTime()}}"
+                            
+                            
                             ng-model="userTimeInputModel"
+                            ng-init=""
                             >
 
                         <div class="valid-tooltip">

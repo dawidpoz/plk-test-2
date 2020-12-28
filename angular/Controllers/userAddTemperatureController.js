@@ -19,6 +19,8 @@ app.controller("userAddTemperatureController", ['$scope', 'serviceGetListOfStati
         this.getRequestStations();
     } 
 
+    $scope.Date = function () {return new Date();}
+
     // TIME GENERATOR - CURRENT
 
     $scope.updateTime = function() {
