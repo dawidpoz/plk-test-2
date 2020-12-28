@@ -14,3 +14,9 @@ app.filter("formatUnixTime", function(formatTimeFilter){
   }
 });
 
+app.filter("formatLongDate", function(){
+  return function(x){
+
+    return x.split("T")[0];
+  }
+})

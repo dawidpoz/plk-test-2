@@ -11,6 +11,10 @@ app.controller("adminTableController", ['$scope', 'adminGetTableRestApi', 'servi
       adminGetTableRestApi.getData().then(
         function(response) {
           $scope.requestData = response.data;
+          $scope.requestData.sort(function(a, b){
+
+            return a.time-b.time;
+          })
       }
       );
       console.log("click");
