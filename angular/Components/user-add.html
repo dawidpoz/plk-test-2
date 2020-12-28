@@ -17,8 +17,14 @@
                                 <i class="far fa-question-circle"></i>
                             </span>
                         </label>
-                        <select class="custom-select" id="userpage--form--select" ng-model="userStationInputModel">
-                            <option selected>Wybierz stację</option>
+                        <select 
+                            class="custom-select" 
+                            id="userpage--form--select" 
+                            ng-model="userStationInputModel"
+                        
+                            
+                            >
+                            
                             <option value="{{x.stationId}}" ng-repeat="x in stations">{{x.name}}</option>
                         </select>
                     </div>

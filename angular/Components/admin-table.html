@@ -1,14 +1,30 @@
 <table class="adminpage--table">
     <thead>
         <tr>
-            <th>Name</th>
-            <th>Temperature</th>
+            <th>Nazwa stacji</th>
+            <th>Temperatura</th>
+            <th>Data</th>
+            <th>Godzina</th>
         </tr>
     </thead>
     <tbody>
         <tr ng-repeat="x in $ctrl.requestData">
             <td>{{x.name}}</td>
             <td>{{x.temperature}}</td>
+            <td>{{x.date}}</td>
+            <td>{{x.time | formatUnixTime}}</td>
         </tr>
     </tbody>
 </table>
+
+<!-- {{$scope.formatUnixTime(1609127640)}}
+{{$scope.formatUnixTime2(1609127640)}}<br>
+
+{{formatUnixTime(1609127640)}}
+{{formatUnixTime2(1609127640)}}<br>
+
+{formatUnixTime(1609127640)}
+{formatUnixTime2(1609127640)}<br>
+
+formatUnixTime(1609127640)
+formatUnixTime2(1609127640) -->

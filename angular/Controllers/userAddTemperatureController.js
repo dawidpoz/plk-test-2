@@ -1,4 +1,4 @@
-app.controller("userAddTemperatureController", ['$scope', 'serviceGetListOfStations', 'userPostTemperature', function($scope, serviceGetListOfStations, userPostTemperature) {
+app.controller("userAddTemperatureController", ['$scope', 'serviceGetListOfStations', 'userPostTemperature', 'formatTimeFilter', function($scope, serviceGetListOfStations, userPostTemperature, formatTimeFilter) {
     $scope.home = "This is the homepage";
     $scope.warningFormTemp = false;
     $scope.errorFormTemp = false;
@@ -10,6 +10,7 @@ app.controller("userAddTemperatureController", ['$scope', 'serviceGetListOfStati
         serviceGetListOfStations.getData().then(
           function(response) {
             $scope.stations = response.data;
+            $scope.userStationInputModel = $scope.stations[0];
             console.log(response.data);
         }
         );
@@ -25,17 +26,13 @@ app.controller("userAddTemperatureController", ['$scope', 'serviceGetListOfStati
 
     $scope.updateTime = function() {
         var time = new Date();
-        return format_two_digits((time.getHours())%24) + ":" + format_two_digits((time.getMinutes())%60);
+        return formatTimeFilter((time.getHours())%24) + ":" + formatTimeFilter((time.getMinutes())%60);
     };
-
-    function format_two_digits(n) {
-        return n < 10 ? '0' + n : n;
-    }
 
     // DATE GENERATOR - CURRENT
     function updateDate(){
         var date = new Date();
-        return date.getFullYear() + "-" + format_two_digits(date.getMonth()+1) + "-" + format_two_digits(date.getDate());
+        return date.getFullYear() + "-" + formatTimeFilter(date.getMonth()+1) + "-" + formatTimeFilter(date.getDate());
     }
 
     // TEMPERATURE VALIDATION VARIABLES
@@ -90,11 +87,11 @@ app.controller("userAddTemperatureController", ['$scope', 'serviceGetListOfStati
 
     $scope.formatTime = function(hours, minutes){
         return (
-            format_two_digits(hours)
+            formatTimeFilter(hours)
             +
             ","
             +
-            format_two_digits(minutes)
+            formatTimeFilter(minutes)
             +
             ",00")
     }
@@ -105,11 +102,11 @@ app.controller("userAddTemperatureController", ['$scope', 'serviceGetListOfStati
             +
             ","
             +
-            format_two_digits(months+1)
+            formatTimeFilter(months+1)
             +
             ","
             +
-            format_two_digits(days))
+            formatTimeFilter(days))
     }
 
     $scope.parseDate = function(date, time){
@@ -131,6 +128,7 @@ app.controller("userAddTemperatureController", ['$scope', 'serviceGetListOfStati
         data['time'] = this.parseDate(date, time);
         data['date'] = "2020-05-01T00:00:00"; // to chyba wywalę z backu
         data['stationId'] = parseInt($scope.userStationInputModel);
+        console.log($scope.userStationInputModel);
 
         console.log(data);
 

@@ -55,7 +55,6 @@ navbar{
 
 .adminpage--table{
     border-collapse: collapse;
-    width: 50%;
     min-width: 400px;
     margin: 0 auto;
 }

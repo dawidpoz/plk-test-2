@@ -45,14 +45,34 @@ namespace StationApp.Repository
             //var _query = _context.StationTemperature.Include(a => a.Station).ToList();
             var _query = (from station in _context.Stations
                             join stationtemperature in _context.StationTemperature on station.StationId equals stationtemperature.StationId
-                            select new { StationName = station.Name, Temperature = stationtemperature.Temperature});
+                            select new { StationName = station.Name, Temperature = stationtemperature.Temperature, Date = stationtemperature.Date, Time = stationtemperature.Time});
 
             var array = new List<StationAndTemperatureJoined>();
 
             StationAndTemperatureJoined x;
 
             foreach(var c in _query){
-                x = new StationAndTemperatureJoined{ Name = c.StationName, Temperature = c.Temperature };
+                x = new StationAndTemperatureJoined{ Name = c.StationName, Temperature = c.Temperature, Date = c.Date, Time = c.Time };
+                array.Add(x);
+            }
+
+            return array;
+        }
+
+        public IEnumerable<StationAndTemperatureJoined> GetTemperaturesFiltered(DateTime dateStart, DateTime dateEnd)
+        {
+            //var _query = _context.StationTemperature.Include(a => a.Station).ToList();
+            var _query = (from station in _context.Stations
+                            join stationtemperature in _context.StationTemperature on station.StationId equals stationtemperature.StationId
+                            where stationtemperature.Date >= dateStart && stationtemperature.Date <= dateEnd
+                            select new { StationName = station.Name, Temperature = stationtemperature.Temperature, Date = stationtemperature.Date, Time = stationtemperature.Time});
+
+            var array = new List<StationAndTemperatureJoined>();
+
+            StationAndTemperatureJoined x;
+
+            foreach(var c in _query){
+                x = new StationAndTemperatureJoined{ Name = c.StationName, Temperature = c.Temperature, Date = c.Date, Time = c.Time };
                 array.Add(x);
             }
 

@@ -24,4 +24,6 @@ app.controller("adminTableController", ['$scope', 'adminGetTableRestApi', 'servi
       }
       );
     };
+
   }]);
+

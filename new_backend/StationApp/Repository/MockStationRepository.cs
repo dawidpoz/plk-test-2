@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using StationApp.Models;
 
@@ -39,6 +40,11 @@ namespace StationApp.Repository
         public IEnumerable<StationAndTemperatureJoined> GetTemperatures()
         {
             throw new System.NotImplementedException();
+        }
+
+        public IEnumerable<StationAndTemperatureJoined> GetTemperaturesFiltered(DateTime dateStart, DateTime dateEnd)
+        {
+            throw new NotImplementedException();
         }
 
         public bool SaveChanges()
