@@ -34,7 +34,8 @@ namespace StationApp
 
             services.AddCors(c =>  
             {  
-                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());  
+                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyMethod()
+                              .WithHeaders("authorization", "accept", "content-type", "origin"));  
             }); 
 
             services.AddControllers();
@@ -52,7 +53,8 @@ namespace StationApp
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseCors(options => options.AllowAnyOrigin());  
+            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod()
+                              .WithHeaders("authorization", "accept", "content-type", "origin"));  
 
 
 
