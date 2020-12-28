@@ -126,7 +126,17 @@ app.controller("userAddTemperatureController", ['$scope', 'serviceGetListOfStati
         var date = this.formatDate($scope.userDateInputModel.getDate(), $scope.userDateInputModel.getMonth()-1, $scope.userDateInputModel.getFullYear());
         data['temperature'] = parseFloat($scope.userTemperatureInputModel);
         data['time'] = this.parseDate(date, time);
-        data['date'] = "2020-05-01T00:00:00"; // to chyba wywalę z backu
+        data['date'] =
+                        $scope.userDateInputModel.getFullYear()
+                        +
+                        "-"
+                        +
+                        formatTimeFilter($scope.userDateInputModel.getMonth()+1)
+                        +
+                        "-"
+                        +
+                        formatTimeFilter($scope.userDateInputModel.getDate())
+
         data['stationId'] = parseInt($scope.userStationInputModel);
         console.log($scope.userStationInputModel);
 

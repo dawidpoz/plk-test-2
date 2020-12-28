@@ -71,7 +71,7 @@ namespace StationApp.Controllers
                         Console.WriteLine(stationTemperatureModel.Time);
                         //Console.WriteLine(new TimeSpan(1608624625781));
                         //Console.WriteLine(stationTemperatureModel.Hours + " " + stationTemperatureModel.Minutes + " " + stationTemperatureModel.Seconds);
-                        Console.WriteLine(UnixTimestampToDateTime(stationTemperatureModel.Time).Hour + ":" + UnixTimestampToDateTime(stationTemperatureModel.Time).Minute);
+                        //Console.WriteLine(UnixTimestampToDateTime(stationTemperatureModel.Time).Hour + ":" + UnixTimestampToDateTime(stationTemperatureModel.Time).Minute);
 
 
                         _repository.CreateTemperature(stationTemperatureModel);
