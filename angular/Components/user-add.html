@@ -17,7 +17,7 @@
                                 <i class="far fa-question-circle"></i>
                             </span>
                         </label>
-                        <select class="custom-select" id="userpage--form--select">
+                        <select class="custom-select" id="userpage--form--select" ng-model="userStationInputModel">
                             <option selected>Wybierz stację</option>
                             <option value="{{x.stationId}}" ng-repeat="x in stations">{{x.name}}</option>
                         </select>
@@ -142,7 +142,7 @@
 
                 <div class="form-row">
                     <div class="col-md-12 userpage--form--button-centered">
-                        <button class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Hooray!">Wyślij</button>
+                        <button class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Hooray!" ng-click="postData()">Wyślij</button>
                     </div>
                 </div>
             </form>

@@ -1,4 +1,4 @@
-app.controller("userAddTemperatureController", ['$scope', 'serviceGetListOfStations', function($scope, serviceGetListOfStations) {
+app.controller("userAddTemperatureController", ['$scope', 'serviceGetListOfStations', 'userPostTemperature', function($scope, serviceGetListOfStations, userPostTemperature) {
     $scope.home = "This is the homepage";
     $scope.warningFormTemp = false;
     $scope.errorFormTemp = false;
@@ -84,6 +84,55 @@ app.controller("userAddTemperatureController", ['$scope', 'serviceGetListOfStati
                 //data z przeszłości więcej niż 2 dni
             }
         }
+    }
+
+    $scope.formatTime = function(hours, minutes){
+        return (
+            format_two_digits(hours)
+            +
+            ","
+            +
+            format_two_digits(minutes)
+            +
+            ",00")
+    }
+
+    $scope.formatDate = function(days, months, years){
+        return (
+            years
+            +
+            ","
+            +
+            format_two_digits(months+1)
+            +
+            ","
+            +
+            format_two_digits(days))
+    }
+
+    $scope.parseDate = function(date, time){
+        var line = date + "," + time;
+        var x = line.split(",");
+        // console.log(x[0], x[1], x[2], x[3], x[4], x[5]);
+        // console.log(new Date(x[0], x[1], x[2], x[3], x[4], x[5]));
+        // console.log((new Date(x[0], x[1], x[2], x[3], x[4], x[5]).getTime() / 1000).toFixed(0));
+
+        return parseInt((new Date(x[0], x[1], x[2], x[3], x[4], x[5]).getTime() / 1000).toFixed(0));
+    }
+
+    // POST to REST API
+    $scope.postData = function(){
+        var data = {temperature: "", time: "", date: "", stationId: ""};
+        var time = this.formatTime($scope.userTimeInputModel.getHours(), $scope.userTimeInputModel.getMinutes())
+        var date = this.formatDate($scope.userDateInputModel.getDate(), $scope.userDateInputModel.getMonth()-1, $scope.userDateInputModel.getFullYear());
+        data['temperature'] = parseFloat($scope.userTemperatureInputModel);
+        data['time'] = this.parseDate(date, time);
+        data['date'] = "2020-05-01T00:00:00"; // to chyba wywalę z backu
+        data['stationId'] = parseInt($scope.userStationInputModel);
+
+        console.log(data);
+
+        userPostTemperature.postData(data);
     }
 
   }]);

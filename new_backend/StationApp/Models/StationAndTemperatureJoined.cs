@@ -6,6 +6,6 @@ namespace StationApp.Models
     {
         public string Name {set; get;}
 
-        public int Temperature {set; get;}
+        public float Temperature {set; get;}
     }
 }

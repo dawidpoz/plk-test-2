@@ -9,7 +9,7 @@ namespace StationApp.Models
         [Key]
         public int TemperatureId { set; get; }
         
-        public int Temperature{ set; get; }
+        public float Temperature{ set; get; }
 
         public long Time { get; set; }
 
