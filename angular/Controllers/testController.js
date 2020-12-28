@@ -7,7 +7,7 @@ app.controller("testController", ['$scope', 'serviceRestApi', 'adminPostCreateSt
     };
 
     $scope.postRequest = function(){
-      var tmp = {name: "123", city: "321"};
+      var tmp = {name: $scope.name, city: $scope.city};
       adminPostCreateStation.postData(JSON.stringify(tmp)).then(function(){
         console.log("then");
       }).catch(function(){
