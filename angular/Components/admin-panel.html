@@ -7,22 +7,22 @@
                         <div class="row">
                             <div class="col-md-4 adminpage--label-centered">
                                 <label>Stacja</label>
-                                <select class="custom-select" id="adminpanel--form--select">
-                                    <option selected>Wybierz stację</option>
-                                    <option value="{{x.stationId}}" ng-repeat="x in stations">{{x.name}}</option>
+                                <select class="custom-select" id="adminpanel--form--select" ng-model="adminPanelStationModel">
+                                    <option value="{'id': {{x.stationId}}, 'name': '{{x.name}}'}" ng-repeat="x in stations">{{x.name}}</option>
                                 </select>
                             </div>
                             <div class="col-md-4 adminpage--label-centered">
                                 <label>Data startowa</label>
-                                <input type="date" id="adminpanel--form--input-date-start" class="form-control" value="">
+                                <input type="date" id="adminpanel--form--input-date-start" class="form-control" value="" ng-model="adminPanelStartDateModel">
                             </div>
                             <div class="col-md-4 adminpage--label-centered">
                                 <label>Data końcowa</label>
-                                <input type="date" id="adminpanel--form--input-date-end" class="form-control" value="">
+                                <input type="date" id="adminpanel--form--input-date-end" class="form-control" value="" ng-model="adminPanelEndDateModel">
                             </div>
                         </div>
                         <div class="row d-flex justify-content-center align-items-center" style="margin-top: 50px;">
                             <button class="btn btn-primary" ng-click="getRequest()">Wyślij</button>
+                            <button class="btn btn-primary" ng-click="getStationsFiltered()">Wyślij2</button>
                         </div>
                     </div>
                 </form>

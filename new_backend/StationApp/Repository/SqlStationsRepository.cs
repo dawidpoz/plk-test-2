@@ -45,6 +45,7 @@ namespace StationApp.Repository
             //var _query = _context.StationTemperature.Include(a => a.Station).ToList();
             var _query = (from station in _context.Stations
                             join stationtemperature in _context.StationTemperature on station.StationId equals stationtemperature.StationId
+                            orderby stationtemperature.Time, station.Name, stationtemperature.Temperature
                             select new { StationName = station.Name, Temperature = stationtemperature.Temperature, Date = stationtemperature.Date, Time = stationtemperature.Time});
 
             var array = new List<StationAndTemperatureJoined>();
@@ -59,13 +60,13 @@ namespace StationApp.Repository
             return array;
         }
 
-        public IEnumerable<StationAndTemperatureJoined> GetTemperaturesFiltered(DateTime dateStart, DateTime dateEnd)
+        public IEnumerable<StationAndTemperatureJoined> GetTemperaturesFiltered(DateTime dateStart, DateTime dateEnd, string stationName)
         {
-            //var _query = _context.StationTemperature.Include(a => a.Station).ToList();
             var _query = (from station in _context.Stations
-                            join stationtemperature in _context.StationTemperature on station.StationId equals stationtemperature.StationId
-                            where stationtemperature.Date >= dateStart && stationtemperature.Date <= dateEnd
-                            select new { StationName = station.Name, Temperature = stationtemperature.Temperature, Date = stationtemperature.Date, Time = stationtemperature.Time});
+                                join stationtemperature in _context.StationTemperature on station.StationId equals stationtemperature.StationId
+                                where stationtemperature.Date >= dateStart && stationtemperature.Date <= dateEnd && station.Name == stationName
+                                orderby stationtemperature.Time
+                                select new { StationName = station.Name, Temperature = stationtemperature.Temperature, Date = stationtemperature.Date, Time = stationtemperature.Time});
 
             var array = new List<StationAndTemperatureJoined>();
 

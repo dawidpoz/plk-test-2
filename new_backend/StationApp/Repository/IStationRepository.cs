@@ -12,7 +12,7 @@ namespace StationApp.Repository
         Station GetStationById(int id);
         void CreateStation(Station st);
         IEnumerable<StationAndTemperatureJoined> GetTemperatures();
-        IEnumerable<StationAndTemperatureJoined> GetTemperaturesFiltered(DateTime dateStart, DateTime dateEnd);
+        IEnumerable<StationAndTemperatureJoined> GetTemperaturesFiltered(DateTime dateStart, DateTime dateEnd, string stationName);
         void CreateTemperature(StationTemperature st);
         StationTemperature GetTemperatureById(int id);
     }

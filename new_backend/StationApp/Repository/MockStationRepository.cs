@@ -47,6 +47,11 @@ namespace StationApp.Repository
             throw new NotImplementedException();
         }
 
+        public IEnumerable<StationAndTemperatureJoined> GetTemperaturesFiltered(DateTime dateStart, DateTime dateEnd, string stationName)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool SaveChanges()
         {
             throw new System.NotImplementedException();

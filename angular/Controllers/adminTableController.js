@@ -1,4 +1,4 @@
-app.controller("adminTableController", ['$scope', 'adminGetTableRestApi', 'serviceGetListOfStations', function($scope, adminGetTableRestApi, serviceGetListOfStations) {
+app.controller("adminTableController", ['$scope', 'adminGetTableRestApi', 'serviceGetListOfStations', 'adminGetTemperaturesService', function($scope, adminGetTableRestApi, serviceGetListOfStations, adminGetTemperaturesService) {
     $scope.home = "This is the homepage";
     $scope.requestData = "";
     $scope.stations = "";
@@ -28,6 +28,41 @@ app.controller("adminTableController", ['$scope', 'adminGetTableRestApi', 'servi
       }
       );
     };
+
+    $scope.getStationsFiltered = function() {
+      if($scope.adminPanelStationModel && $scope.adminPanelStartDateModel && $scope.adminPanelEndDateModel){
+        var startDate = $scope.adminPanelStartDateModel;
+        var endDate = $scope.adminPanelEndDateModel;
+        var stationValue = JSON.parse(($scope.adminPanelStationModel).replaceAll("'", "\""))
+        var data =
+          "dateStart="
+          +
+          startDate.getFullYear()
+            + "-"
+              + (parseInt(startDate.getMonth())+1)
+                + "-"
+                  + startDate.getDate()
+          +
+          "&dateEnd="
+          +
+          endDate.getFullYear()
+            + "-"
+              + (parseInt(endDate.getMonth())+1)
+                + "-"
+                  + endDate.getDate()
+          +
+          "&stationName="
+          +
+          stationValue.name;
+        adminGetTemperaturesService.getData(data).then(
+          function(response){
+            $scope.stations = response.data;
+          }
+        )
+      }else{
+        console.log("else");
+      }
+    }
 
   }]);
 

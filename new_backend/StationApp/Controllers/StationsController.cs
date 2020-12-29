@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using StationApp.Repository;
 using AutoMapper;
 using StationApp.Dtos;
+using System.Globalization;
 
 namespace StationApp.Controllers
 {
@@ -43,8 +44,23 @@ namespace StationApp.Controllers
 
                 // GET api/stations/joined
                 [HttpGet("joined")]
-                public ActionResult <List<(string, int)>> GetTemperatures(){
+                public ActionResult <List<StationAndTemperatureJoined>> GetTemperatures(){
                         return Ok(_repository.GetTemperatures());
+                }
+
+                // GET joinedfiltered/dateStart={dateStart}&dateEnd={dateEnd}&stationName={stationName}
+                [HttpGet("joinedfiltered/dateStart={dateStart}&dateEnd={dateEnd}&stationName={stationName}")]
+                public ActionResult <List<StationAndTemperatureJoined>> GetTemperaturesFiltered(string dateStart, string dateEnd, string stationName){
+                        var cultureInfo = new CultureInfo("pl-PL");
+
+                        Console.WriteLine(dateStart);
+                        Console.WriteLine(dateEnd);
+                        Console.WriteLine(stationName);
+
+                        var dateS = DateTime.Parse(dateStart, cultureInfo);
+                        var dateE = DateTime.Parse(dateEnd, cultureInfo);
+
+                        return Ok(_repository.GetTemperaturesFiltered(dateS, dateE, stationName));
                 }
 
                 // POST api/stations
@@ -80,13 +96,6 @@ namespace StationApp.Controllers
                         var stationTemperatureReadDto = _mapper.Map<StationTemperatureReadDto>(stationTemperatureModel);
 
                         return CreatedAtRoute(nameof(GetStationById), new {Id = stationTemperatureReadDto.TemperatureId}, stationTemperatureReadDto);
-                }
-
-                public static DateTime UnixTimestampToDateTime(long unixTime)
-                {
-                        DateTime unixStart = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
-                        long unixTimeStampInTicks = (long) (unixTime * TimeSpan.TicksPerSecond);
-                        return new DateTime(unixStart.Ticks + unixTimeStampInTicks, System.DateTimeKind.Utc);
                 }
 
         }
