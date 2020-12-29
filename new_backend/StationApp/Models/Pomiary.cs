@@ -5,9 +5,9 @@ namespace StationApp.Models
     public class Pomiary
     {
         [Key]
-        public float Count{set; get;}
-        public float Avg{set; get;}
-        public float Max{set; get;}
-        public float Min{set; get;}
+        public int Count{set; get;}
+        public double Avg{set; get;}
+        public double Max{set; get;}
+        public double Min{set; get;}
     }
 }

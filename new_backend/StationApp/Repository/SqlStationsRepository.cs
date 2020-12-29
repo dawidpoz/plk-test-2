@@ -104,7 +104,10 @@ namespace StationApp.Repository
 
         public async Task<IEnumerable<Pomiary>> GetTemperaturesInfo()
         {
-            return _context.Pomiary.FromSqlRaw("EXEC Pomiary @StationName = 'name2', @StartDate = '2019-01-01', @EndDate = '2020-11-30'").ToList();
+            string name = "name1";
+            string dateStart = "2019-01-01";
+            string dateEnd = "2020-12-30";
+            return _context.Pomiary.FromSqlInterpolated($"EXEC Pomiary @StationName = {name}, @StartDate = {dateStart}, @EndDate = {dateEnd}").ToList();
         }
     }
 }
