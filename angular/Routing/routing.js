@@ -23,6 +23,10 @@ app.config(function($routeProvider) {
         controller: "testController"
     })
 
+    $routeProvider.when("/login", {
+        templateUrl : "Components/login.html"
+    })
+
     $routeProvider.when("/user/add", {
         templateUrl : "Components/user-add.html",
         controller: "userAddTemperatureController"
