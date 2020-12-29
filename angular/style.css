@@ -138,5 +138,31 @@ navbar{
 /*** LOGIN ***/
 
 .login--form{
-    padding: 20px;
+    padding: 80px 20px;
+}
+
+.login--form .form-row{
+    margin: 0;
+}
+
+.form-group.floating>label {
+    bottom: 31px;
+    left: 8px;
+    position: relative;
+    background-color: white;
+    color: lightgrey;
+    padding: 0px 5px 0px 5px;
+    transition: 0.1s;
+    pointer-events: none;
+    transform-origin: bottom left;
+}
+
+.form-control.floating:focus~label{
+    transform: translate(1px,-93%) scale(0.80);
+    color: #005ebf;
+}
+
+.form-control.floating:valid~label{
+    transform-origin: bottom left;
+    transform: translate(1px,-93%) scale(0.80);
 }
