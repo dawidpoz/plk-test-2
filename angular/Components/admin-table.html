@@ -1,18 +1,16 @@
 <table class="adminpage--table">
     <thead>
-        <tr>
-            <th>Nazwa stacji</th>
-            <th>Temperatura</th>
+        <tr>           
             <th>Data</th>
             <th>Godzina</th>
+            <th>Temperatura</th>
         </tr>
     </thead>
     <tbody>
         <tr ng-repeat="x in $ctrl.requestData">
-            <td>{{x.name}}</td>
-            <td>{{x.temperature | formatDoubleToFloat}}</td>
             <td>{{x.date | formatLongDate}}</td>
             <td>{{x.time | formatUnixTime}}</td>
+            <td>{{x.temperature | formatDoubleToFloat}}</td>
         </tr>
     </tbody>
 </table>
