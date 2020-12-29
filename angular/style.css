@@ -76,6 +76,7 @@ navbar{
     padding: 12px 8px;
     background-color: dodgerblue;
     color: white;
+    text-align: center;
 }
 
 .adminpanel--div-admintable{
@@ -98,6 +99,10 @@ navbar{
     padding: 30px;
     border: 1px solid #ddd;
     border-radius: 20px;
+}
+
+.adminpage--table tr td{
+    text-align: center;
 }
 
 /*** USER PAGE ***/

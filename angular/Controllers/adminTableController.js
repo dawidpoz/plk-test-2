@@ -1,16 +1,31 @@
-app.controller("adminTableController", ['$scope', 'adminGetTableRestApi', 'serviceGetListOfStations', 'adminGetTemperaturesService', function($scope, adminGetTableRestApi, serviceGetListOfStations, adminGetTemperaturesService) {
+app.controller("adminTableController",
+              ['$scope',
+              'adminGetTableRestApi',
+              'serviceGetListOfStations',
+              'adminGetTemperaturesService',
+              'adminGetTemperaturesStatsService',
+function(
+  $scope,
+  adminGetTableRestApi,
+  serviceGetListOfStations,
+  adminGetTemperaturesService,
+  adminGetTemperaturesStatsService)
+
+  {
     $scope.home = "This is the homepage";
     $scope.requestData = "";
+    $scope.requestDataStats = "";
     $scope.stations = "";
 
     $scope.init = function(){
       this.getStations();
-  } 
-    
+  }
+
     $scope.getRequest = function() {
       adminGetTableRestApi.getData().then(
         function(response) {
           $scope.requestData = response.data;
+          $scope.requestDataStats = "";
           $scope.requestData.sort(function(a, b){
 
             return a.time-b.time;
@@ -25,6 +40,7 @@ app.controller("adminTableController", ['$scope', 'adminGetTableRestApi', 'servi
       serviceGetListOfStations.getData().then(
         function(response) {
           $scope.stations = response.data;
+          
           console.log(response.data);
       }
       );
@@ -58,6 +74,13 @@ app.controller("adminTableController", ['$scope', 'adminGetTableRestApi', 'servi
         adminGetTemperaturesService.getData(data).then(
           function(response){
             $scope.requestData = response.data;
+            console.log(response.data);
+          }
+        )
+
+        adminGetTemperaturesStatsService.getData(data).then(
+          function(response){
+            $scope.requestDataStats = response.data;
             console.log(response.data);
           }
         )

@@ -12,3 +12,10 @@ app.component('admintable', {
         },
         templateUrl: "Components/admin-table.html"
     });
+
+app.component('admintablestats', {
+        bindings: {
+            requestDataStats: '<',
+        },
+        templateUrl: "Components/admin-table-stats.html"
+    });

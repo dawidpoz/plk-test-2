@@ -10,7 +10,7 @@
     <tbody>
         <tr ng-repeat="x in $ctrl.requestData">
             <td>{{x.name}}</td>
-            <td>{{x.temperature}}</td>
+            <td>{{x.temperature | formatDoubleToFloat}}</td>
             <td>{{x.date | formatLongDate}}</td>
             <td>{{x.time | formatUnixTime}}</td>
         </tr>

@@ -20,3 +20,10 @@ app.filter("formatLongDate", function(){
     return x.split("T")[0];
   }
 })
+
+app.filter("formatDoubleToFloat", function(){
+  return function(x){
+
+    return x.toFixed(1);
+  }
+})
