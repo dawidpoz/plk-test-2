@@ -7,7 +7,6 @@ namespace StationApp.Context
     {
         public StationsContext(DbContextOptions<StationsContext> opt) : base(opt)
         {
-            
         }
 
         public DbSet<Station> Stations { get; set; }
@@ -15,6 +14,6 @@ namespace StationApp.Context
         public DbSet<StationTemperature> StationTemperature { get; set; }
 
         public DbSet<Pomiary> Pomiary {get;set;}
-        
+
     }
 }

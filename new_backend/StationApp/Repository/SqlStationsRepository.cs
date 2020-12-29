@@ -104,9 +104,10 @@ namespace StationApp.Repository
 
         public async Task<IEnumerable<Pomiary>> GetTemperaturesInfo(string name, string dateStart, string dateEnd)
         {
-            Console.Write(name);
-            Console.Write(dateStart);
-            Console.Write(dateEnd);
+            // Console.Write(name);
+            // Console.Write(dateStart);
+            // Console.Write(dateEnd);
+            await Task.Delay(60);
             return _context.Pomiary.FromSqlInterpolated($"EXEC Pomiary @StationName = {name}, @StartDate = {dateStart}, @EndDate = {dateEnd}").ToList();
         }
     }

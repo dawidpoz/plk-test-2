@@ -59,9 +59,9 @@ namespace StationApp.Controllers
                 public async Task<ActionResult <List<StationAndTemperatureJoined>>> GetTemperaturesFiltered(string dateStart, string dateEnd, string stationName){
                         var cultureInfo = new CultureInfo("pl-PL");
 
-                        Console.WriteLine(dateStart);
-                        Console.WriteLine(dateEnd);
-                        Console.WriteLine(stationName);
+                        // Console.WriteLine(dateStart);
+                        // Console.WriteLine(dateEnd);
+                        // Console.WriteLine(stationName);
 
                         var dateS = DateTime.Parse(dateStart, cultureInfo);
                         var dateE = DateTime.Parse(dateEnd, cultureInfo);
@@ -90,7 +90,7 @@ namespace StationApp.Controllers
                         //Console.WriteLine(stationTemperatureModel.Temperature);
                         //stationTemperatureModel.Temperature = stationTemperatureModel.Temperature + 1;
                         //stationTemperatureModel.Time = new TimeSpan(stationTemperatureModel.Time.Hours, stationTemperatureModel.Time.Minutes, stationTemperatureModel.Time.Seconds);
-                        Console.WriteLine(stationTemperatureModel.Time);
+                        //Console.WriteLine(stationTemperatureModel.Time);
                         //Console.WriteLine(new TimeSpan(1608624625781));
                         //Console.WriteLine(stationTemperatureModel.Hours + " " + stationTemperatureModel.Minutes + " " + stationTemperatureModel.Seconds);
                         //Console.WriteLine(UnixTimestampToDateTime(stationTemperatureModel.Time).Hour + ":" + UnixTimestampToDateTime(stationTemperatureModel.Time).Minute);
