@@ -49,6 +49,11 @@ namespace StationApp.Controllers
                         return Ok(await _repository.GetTemperatures());
                 }
 
+                [HttpGet("joinedinfo/")]
+                public async Task<ActionResult <List<Pomiary>>> GetTemperaturesInfo(){
+                        return Ok(await _repository.GetTemperaturesInfo());
+                }
+
                 // GET joinedfiltered/dateStart={dateStart}&dateEnd={dateEnd}&stationName={stationName}
                 [HttpGet("joinedfiltered/dateStart={dateStart}&dateEnd={dateEnd}&stationName={stationName}")]
                 public async Task<ActionResult <List<StationAndTemperatureJoined>>> GetTemperaturesFiltered(string dateStart, string dateEnd, string stationName){

@@ -1,0 +1,10 @@
+CREATE PROCEDURE Pomiary @StationName nvarchar(30), @StartDate nvarchar(30), @EndDate nvarchar(30)
+AS
+SELECT COUNT(*) as 'COUNT', AVG(ST.Temperature) as 'AVG', MAX(ST.Temperature) as 'MAX', MIN(ST.Temperature) as 'MIN' FROM Stations 
+INNER JOIN StationTemperature as ST ON Stations.StationId = ST.StationId
+WHERE Stations.Name = @StationName AND ST.Date >= @StartDate AND ST.Date <= @EndDate
+GROUP BY Stations.Name
+
+DROP PROCEDURE Pomiary
+
+EXEC Pomiary @StationName = 'name2', @StartDate = '2019-01-01', @EndDate = '2020-11-30'

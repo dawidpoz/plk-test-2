@@ -53,6 +53,11 @@ namespace StationApp.Repository
             throw new NotImplementedException();
         }
 
+        public Task<IEnumerable<(float, float, float, float)>> GetTemperaturesInfo()
+        {
+            throw new NotImplementedException();
+        }
+
         public bool SaveChanges()
         {
             throw new System.NotImplementedException();
@@ -79,6 +84,11 @@ namespace StationApp.Repository
         }
 
         Task<IEnumerable<StationAndTemperatureJoined>> IStationRepository.GetTemperaturesFiltered(DateTime dateStart, DateTime dateEnd, string stationName)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<IEnumerable<Pomiary>> IStationRepository.GetTemperaturesInfo()
         {
             throw new NotImplementedException();
         }
