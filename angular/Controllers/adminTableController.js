@@ -25,6 +25,7 @@ app.controller("adminTableController", ['$scope', 'adminGetTableRestApi', 'servi
       serviceGetListOfStations.getData().then(
         function(response) {
           $scope.stations = response.data;
+          console.log(response.data);
       }
       );
     };
@@ -56,7 +57,8 @@ app.controller("adminTableController", ['$scope', 'adminGetTableRestApi', 'servi
           stationValue.name;
         adminGetTemperaturesService.getData(data).then(
           function(response){
-            $scope.stations = response.data;
+            $scope.requestData = response.data;
+            console.log(response.data);
           }
         )
       }else{

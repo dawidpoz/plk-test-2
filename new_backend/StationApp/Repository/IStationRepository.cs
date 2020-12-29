@@ -1,19 +1,20 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using StationApp.Models;
 
 namespace StationApp.Repository
 {
     public interface IStationRepository
     {
-        bool SaveChanges();
+        Task<bool> SaveChanges();
 
-        IEnumerable<Station> GetAllStations();
-        Station GetStationById(int id);
+        Task<IEnumerable<Station>> GetAllStations();
+        Task<Station> GetStationById(int id);
         void CreateStation(Station st);
-        IEnumerable<StationAndTemperatureJoined> GetTemperatures();
-        IEnumerable<StationAndTemperatureJoined> GetTemperaturesFiltered(DateTime dateStart, DateTime dateEnd, string stationName);
+        Task<IEnumerable<StationAndTemperatureJoined>> GetTemperatures();
+        Task<IEnumerable<StationAndTemperatureJoined>> GetTemperaturesFiltered(DateTime dateStart, DateTime dateEnd, string stationName);
         void CreateTemperature(StationTemperature st);
-        StationTemperature GetTemperatureById(int id);
+        Task<StationTemperature> GetTemperatureById(int id);
     }
 }

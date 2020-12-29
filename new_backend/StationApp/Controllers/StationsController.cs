@@ -6,6 +6,7 @@ using StationApp.Repository;
 using AutoMapper;
 using StationApp.Dtos;
 using System.Globalization;
+using System.Threading.Tasks;
 
 namespace StationApp.Controllers
 {
@@ -24,17 +25,17 @@ namespace StationApp.Controllers
 
                 // GET api/stations
                 [HttpGet]
-                public ActionResult <IEnumerable<StationReadDto>> GetAllStations()
+                public async Task<ActionResult <IEnumerable<StationReadDto>>> GetAllStations()
                 {
-                        var stationItems = _repository.GetAllStations();
+                        var stationItems = await _repository.GetAllStations();
                         return Ok(_mapper.Map<IEnumerable<StationReadDto>>(stationItems));
                 }
 
                 // GET api/stations/{id}
                 [HttpGet("{id}", Name="GetStationById")]
-                public ActionResult <StationReadDto> GetStationById(int id)
+                public async Task<ActionResult <StationReadDto>> GetStationById(int id)
                 {
-                        var stationItem = _repository.GetStationById(id);
+                        var stationItem = await _repository.GetStationById(id);
                         if(stationItem != null)
                         {
                                 return Ok(_mapper.Map<StationReadDto>(stationItem));
@@ -44,13 +45,13 @@ namespace StationApp.Controllers
 
                 // GET api/stations/joined
                 [HttpGet("joined")]
-                public ActionResult <List<StationAndTemperatureJoined>> GetTemperatures(){
-                        return Ok(_repository.GetTemperatures());
+                public async Task<ActionResult <List<StationAndTemperatureJoined>>> GetTemperatures(){
+                        return Ok(await _repository.GetTemperatures());
                 }
 
                 // GET joinedfiltered/dateStart={dateStart}&dateEnd={dateEnd}&stationName={stationName}
                 [HttpGet("joinedfiltered/dateStart={dateStart}&dateEnd={dateEnd}&stationName={stationName}")]
-                public ActionResult <List<StationAndTemperatureJoined>> GetTemperaturesFiltered(string dateStart, string dateEnd, string stationName){
+                public async Task<ActionResult <List<StationAndTemperatureJoined>>> GetTemperaturesFiltered(string dateStart, string dateEnd, string stationName){
                         var cultureInfo = new CultureInfo("pl-PL");
 
                         Console.WriteLine(dateStart);
@@ -60,16 +61,16 @@ namespace StationApp.Controllers
                         var dateS = DateTime.Parse(dateStart, cultureInfo);
                         var dateE = DateTime.Parse(dateEnd, cultureInfo);
 
-                        return Ok(_repository.GetTemperaturesFiltered(dateS, dateE, stationName));
+                        return Ok(await _repository.GetTemperaturesFiltered(dateS, dateE, stationName));
                 }
 
                 // POST api/stations
                 [HttpPost]
-                public ActionResult <StationReadDto> CreateStation(StationCreateDto stationCreateDto)
+                public async Task<ActionResult <StationReadDto>> CreateStation(StationCreateDto stationCreateDto)
                 {
                         var stationModel = _mapper.Map<Station>(stationCreateDto);
                         _repository.CreateStation(stationModel);
-                        _repository.SaveChanges();
+                        await _repository.SaveChanges();
 
                         var stationReadDto = _mapper.Map<StationReadDto>(stationModel);
 
@@ -78,7 +79,7 @@ namespace StationApp.Controllers
                 }
 
                 [HttpPost("temp")]
-                public ActionResult <StationTemperatureCreateDto> CreateStationTemperature(StationTemperatureCreateDto stationTemperatureCreateDto)
+                public async Task<ActionResult <StationTemperatureCreateDto>> CreateStationTemperature(StationTemperatureCreateDto stationTemperatureCreateDto)
                 {
                         var stationTemperatureModel = _mapper.Map<StationTemperature>(stationTemperatureCreateDto);
                         //Console.WriteLine(stationTemperatureModel.Temperature);
@@ -91,7 +92,7 @@ namespace StationApp.Controllers
 
 
                         _repository.CreateTemperature(stationTemperatureModel);
-                        _repository.SaveChanges();
+                        await _repository.SaveChanges();
 
                         var stationTemperatureReadDto = _mapper.Map<StationTemperatureReadDto>(stationTemperatureModel);
 

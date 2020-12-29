@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using StationApp.Models;
 
 namespace StationApp.Repository
@@ -55,6 +56,36 @@ namespace StationApp.Repository
         public bool SaveChanges()
         {
             throw new System.NotImplementedException();
+        }
+
+        Task<IEnumerable<Station>> IStationRepository.GetAllStations()
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<Station> IStationRepository.GetStationById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<StationTemperature> IStationRepository.GetTemperatureById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<IEnumerable<StationAndTemperatureJoined>> IStationRepository.GetTemperatures()
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<IEnumerable<StationAndTemperatureJoined>> IStationRepository.GetTemperaturesFiltered(DateTime dateStart, DateTime dateEnd, string stationName)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<bool> IStationRepository.SaveChanges()
+        {
+            throw new NotImplementedException();
         }
     }
 }

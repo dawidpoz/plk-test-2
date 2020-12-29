@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using StationApp.Context;
 using StationApp.Models;
+using System.Threading.Tasks;
 
 namespace StationApp.Repository
 {
@@ -25,23 +26,27 @@ namespace StationApp.Repository
             _context.Stations.Add(st);
         }
 
-        public IEnumerable<Station> GetAllStations()
+        public async Task<IEnumerable<Station>> GetAllStations()
         {
+            await Task.Delay(60);
             return _context.Stations.ToList();
         }
 
-        public Station GetStationById(int id)
+        public async Task<Station> GetStationById(int id)
         {
+            await Task.Delay(60);
             return _context.Stations.FirstOrDefault(p => p.StationId == id);
         }
 
-        public bool SaveChanges()
+        public async Task<bool> SaveChanges()
         {
+            await Task.Delay(60);
             return (_context.SaveChanges() >= 0);
         }
 
-        public IEnumerable<StationAndTemperatureJoined> GetTemperatures()
+        public async Task<IEnumerable<StationAndTemperatureJoined>> GetTemperatures()
         {
+            await Task.Delay(60);
             //var _query = _context.StationTemperature.Include(a => a.Station).ToList();
             var _query = (from station in _context.Stations
                             join stationtemperature in _context.StationTemperature on station.StationId equals stationtemperature.StationId
@@ -60,8 +65,9 @@ namespace StationApp.Repository
             return array;
         }
 
-        public IEnumerable<StationAndTemperatureJoined> GetTemperaturesFiltered(DateTime dateStart, DateTime dateEnd, string stationName)
+        public async Task<IEnumerable<StationAndTemperatureJoined>> GetTemperaturesFiltered(DateTime dateStart, DateTime dateEnd, string stationName)
         {
+            await Task.Delay(60);
             var _query = (from station in _context.Stations
                                 join stationtemperature in _context.StationTemperature on station.StationId equals stationtemperature.StationId
                                 where stationtemperature.Date >= dateStart && stationtemperature.Date <= dateEnd && station.Name == stationName
@@ -90,8 +96,9 @@ namespace StationApp.Repository
             _context.StationTemperature.Add(st);
         }
 
-        public StationTemperature GetTemperatureById(int id)
+        public async Task<StationTemperature> GetTemperatureById(int id)
         {
+            await Task.Delay(60);
             return _context.StationTemperature.FirstOrDefault(p => p.TemperatureId == id);
         }
     }
