@@ -102,11 +102,11 @@ namespace StationApp.Repository
             return _context.StationTemperature.FirstOrDefault(p => p.TemperatureId == id);
         }
 
-        public async Task<IEnumerable<Pomiary>> GetTemperaturesInfo()
+        public async Task<IEnumerable<Pomiary>> GetTemperaturesInfo(string name, string dateStart, string dateEnd)
         {
-            string name = "name1";
-            string dateStart = "2019-01-01";
-            string dateEnd = "2020-12-30";
+            Console.Write(name);
+            Console.Write(dateStart);
+            Console.Write(dateEnd);
             return _context.Pomiary.FromSqlInterpolated($"EXEC Pomiary @StationName = {name}, @StartDate = {dateStart}, @EndDate = {dateEnd}").ToList();
         }
     }

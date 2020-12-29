@@ -13,7 +13,7 @@ namespace StationApp.Repository
         Task<Station> GetStationById(int id);
         void CreateStation(Station st);
         Task<IEnumerable<StationAndTemperatureJoined>> GetTemperatures();
-        Task<IEnumerable<Pomiary>> GetTemperaturesInfo();
+        Task<IEnumerable<Pomiary>> GetTemperaturesInfo(string name, string dateStart, string dateEnd);
         Task<IEnumerable<StationAndTemperatureJoined>> GetTemperaturesFiltered(DateTime dateStart, DateTime dateEnd, string stationName);
         void CreateTemperature(StationTemperature st);
         Task<StationTemperature> GetTemperatureById(int id);
