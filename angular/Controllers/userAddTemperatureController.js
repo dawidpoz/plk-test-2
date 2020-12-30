@@ -49,11 +49,11 @@ app.controller("userAddTemperatureController", ['$scope', 'serviceGetListOfStati
             this.warningFormTemp = false;
         }else{
             if($scope.userTemperatureInputModel < -50){
-                this.onCheckTemperatureRange = -50;
+                $scope.onCheckTemperatureRange = -50;
                 this.isTempValidError = false;
                 this.warningFormTemp = true;
             }else if($scope.userTemperatureInputModel > 90){
-                this.onCheckTemperatureRange = 90;
+                $scope.onCheckTemperatureRange = 90;
                 $scope.userTemperatureInputModel.value = 90;
                 this.isTempValidError = false;
                 this.warningFormTemp = true;
@@ -133,7 +133,7 @@ app.controller("userAddTemperatureController", ['$scope', 'serviceGetListOfStati
                         var data = {temperature: "", time: "", date: "", stationId: ""};
                         var time = this.formatTime($scope.userTimeInputModel.getHours(), $scope.userTimeInputModel.getMinutes())
                         var date = this.formatDate($scope.userDateInputModel.getDate(), $scope.userDateInputModel.getMonth()-1, $scope.userDateInputModel.getFullYear());
-                        data['temperature'] = parseFloat($scope.userTemperatureInputModel);
+                        data['temperature'] = parseFloat($scope.onCheckTemperatureRange);
                         data['time'] = this.parseDate(date, time);
                         data['date'] =
                                         $scope.userDateInputModel.getFullYear()
