@@ -5,6 +5,7 @@ app.controller("userAddTemperatureController", ['$scope', 'serviceGetListOfStati
     $scope.validatedTemp = false;
 
     $scope.errorMessageUserInput = "";
+    $scope.successMessageUserInput = "";
 
     $scope.stations = "a";
 
@@ -13,7 +14,7 @@ app.controller("userAddTemperatureController", ['$scope', 'serviceGetListOfStati
           function(response) {
             $scope.stations = response.data;
             $scope.userStationInputModel = $scope.stations[0];
-            console.log(response.data);
+            //console.log(response.data);
         }
         );
       };
@@ -64,7 +65,7 @@ app.controller("userAddTemperatureController", ['$scope', 'serviceGetListOfStati
             }
             this.errorFormTemp = false;
         }
-        console.log($scope.userTemperatureInputModel);
+        //console.log($scope.userTemperatureInputModel);
         this.validatedTemp = true;
         //https://docs.angularjs.org/api/ng/input/input%5Bnumber%5D ????
     }
@@ -123,42 +124,59 @@ app.controller("userAddTemperatureController", ['$scope', 'serviceGetListOfStati
 
     // POST to REST API
     $scope.postData = function(){
-        var data = {temperature: "", time: "", date: "", stationId: ""};
-        var time = this.formatTime($scope.userTimeInputModel.getHours(), $scope.userTimeInputModel.getMinutes())
-        var date = this.formatDate($scope.userDateInputModel.getDate(), $scope.userDateInputModel.getMonth()-1, $scope.userDateInputModel.getFullYear());
-        data['temperature'] = parseFloat($scope.userTemperatureInputModel);
-        data['time'] = this.parseDate(date, time);
-        data['date'] =
-                        $scope.userDateInputModel.getFullYear()
-                        +
-                        "-"
-                        +
-                        formatTimeFilter($scope.userDateInputModel.getMonth()+1)
-                        +
-                        "-"
-                        +
-                        formatTimeFilter($scope.userDateInputModel.getDate())
+        if($scope.userTimeInputModel
+            && $scope.userDateInputModel
+                && $scope.userTemperatureInputModel
+                    && $scope.userStationInputModel){
+                        var currentDate = new Date().getTime();
 
-        data['stationId'] = parseInt($scope.userStationInputModel);
-        console.log($scope.userStationInputModel);
+                        var data = {temperature: "", time: "", date: "", stationId: ""};
+                        var time = this.formatTime($scope.userTimeInputModel.getHours(), $scope.userTimeInputModel.getMinutes())
+                        var date = this.formatDate($scope.userDateInputModel.getDate(), $scope.userDateInputModel.getMonth()-1, $scope.userDateInputModel.getFullYear());
+                        data['temperature'] = parseFloat($scope.userTemperatureInputModel);
+                        data['time'] = this.parseDate(date, time);
+                        data['date'] =
+                                        $scope.userDateInputModel.getFullYear()
+                                        +
+                                        "-"
+                                        +
+                                        formatTimeFilter($scope.userDateInputModel.getMonth()+1)
+                                        +
+                                        "-"
+                                        +
+                                        formatTimeFilter($scope.userDateInputModel.getDate())
 
-        console.log(data);
+                        data['stationId'] = parseInt($scope.userStationInputModel);
+                        //console.log($scope.userStationInputModel);
 
-        userPostTemperature.postData(data).then(function(response){
-            if(response){
-                $scope.errorMessageUserInput = "";
-            }
-        }).catch(function(response){
-            if(response.status == 400){
-                if(response.data == "Data z przyszłości"){
-                    $scope.errorMessageUserInput = "Data z przyszłości";
-                }else if(response.data == "Data starsza niż 2 dni"){
-                    $scope.errorMessageUserInput = "Data starsza niż 2 dni";
-                }else{
-                    $scope.errorMessageUserInput = "Nieznany błąd";
-                }
-            }
-        });
+                        //console.log(data);
+
+                        if(currentDate < data['time']){
+                            $scope.errorMessageUserInput = "Data z przyszłości";
+                        }else if(currentDate - date['time'] > 172800){
+                            $scope.errorMessageUserInput = "Data starsza niż 2 dni";
+                        }else{
+                            userPostTemperature.postData(data).then(function(response){
+                                if(response){
+                                    $scope.errorMessageUserInput = "";
+                                    $scope.successMessageUserInput = "Dodano";
+                                }
+                            }).catch(function(response){
+                                if(response.status == 400){
+                                    if(response.data == "Data z przyszłości"){
+                                        $scope.errorMessageUserInput = "Data z przyszłości";
+                                    }else if(response.data == "Data starsza niż 2 dni"){
+                                        $scope.errorMessageUserInput = "Data starsza niż 2 dni";
+                                    }else{
+                                        $scope.errorMessageUserInput = "Nieznany błąd";
+                                    }
+                                    $scope.successMessageUserInput = "";
+                                }
+                            });
+                        }
+                    }else{
+                        $scope.errorMessageUserInput = "Brakujące dane";
+                        $scope.successMessageUserInput = "";
+                    }
     }
-
   }]);

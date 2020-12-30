@@ -1,9 +1,10 @@
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using StationApp.Models;
 
 namespace StationApp.Context
 {
-    public class StationsContext : DbContext
+    public class StationsContext : IdentityDbContext
     {
         public StationsContext(DbContextOptions<StationsContext> opt) : base(opt)
         {

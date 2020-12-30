@@ -63,3 +63,8 @@ C:\github\plk-test-2\new_backend\StationApp\bin\Debug\netcoreapp3.1\runtimes\win
 C:\github\plk-test-2\new_backend\StationApp\obj\Debug\netcoreapp3.1\StationApp.csproj.CopyComplete
 C:\github\plk-test-2\new_backend\StationApp\bin\Debug\netcoreapp3.1\AutoMapper.dll
 C:\github\plk-test-2\new_backend\StationApp\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\github\plk-test-2\new_backend\StationApp\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\github\plk-test-2\new_backend\StationApp\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\github\plk-test-2\new_backend\StationApp\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\github\plk-test-2\new_backend\StationApp\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Core.dll
+C:\github\plk-test-2\new_backend\StationApp\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Stores.dll

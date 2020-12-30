@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -32,16 +33,24 @@ namespace StationApp
             services.AddDbContext<StationsContext>(opt => opt.UseSqlServer
                 (Configuration.GetConnectionString("StationsConnection"))); 
 
-            services.AddCors(c =>  
-            {  
+            services.AddCors(c =>
+            {
                 c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyMethod()
                               .WithHeaders("authorization", "accept", "content-type", "origin"));  
-            }); 
+            });
+
+            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            {
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequiredLength = 5;
+            }).AddEntityFrameworkStores<StationsContext>()
+            .AddDefaultTokenProviders();
 
             services.AddControllers();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            
+
             services.AddScoped<IStationRepository, SqlStationsRepository>();
         }
 

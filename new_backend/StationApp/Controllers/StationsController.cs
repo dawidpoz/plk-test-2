@@ -97,8 +97,8 @@ namespace StationApp.Controllers
 
                         long timeStamp = DateTimeOffset.Now.ToUnixTimeSeconds()
 ;
-                        Console.WriteLine(timeStamp);
-                        Console.WriteLine(stationTemperatureModel.Time);
+                        //Console.WriteLine(timeStamp);
+                        //Console.WriteLine(stationTemperatureModel.Time);
 
                         if(timeStamp < stationTemperatureModel.Time)
                         {

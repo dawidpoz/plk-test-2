@@ -24,6 +24,6 @@ app.filter("formatLongDate", function(){
 app.filter("formatDoubleToFloat", function(){
   return function(x){
 
-    return x.toFixed(1);
+    return x.toFixed(2);
   }
 })

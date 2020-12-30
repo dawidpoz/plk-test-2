@@ -151,6 +151,12 @@
                     </div>
                 </div>
 
+                <div ng-if="successMessageUserInput" class="form-row">
+                    <div class="col-md-12 alert alert-success" role="alert">
+                        {{successMessageUserInput}}
+                    </div>
+                </div>
+
                 <div class="form-row">
                     <div class="col-md-12 userpage--form--button-centered">
                         <button class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Hooray!" ng-click="postData()">Wyślij</button>

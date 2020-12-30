@@ -108,7 +108,7 @@ namespace StationApp.Repository
             // Console.Write(dateStart);
             // Console.Write(dateEnd);
             await Task.Delay(60);
-            return _context.Pomiary.FromSqlInterpolated($"EXEC Pomiary @StationName = {name}, @StartDate = {dateStart}, @EndDate = {dateEnd}").ToList();
+            return _context.Pomiary.FromSqlInterpolated($"EXEC PomiaryStoredProcedure @StationName = {name}, @StartDate = {dateStart}, @EndDate = {dateEnd}").ToList();
         }
     }
 }
