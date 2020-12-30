@@ -95,6 +95,20 @@ namespace StationApp.Controllers
                         //Console.WriteLine(stationTemperatureModel.Hours + " " + stationTemperatureModel.Minutes + " " + stationTemperatureModel.Seconds);
                         //Console.WriteLine(UnixTimestampToDateTime(stationTemperatureModel.Time).Hour + ":" + UnixTimestampToDateTime(stationTemperatureModel.Time).Minute);
 
+                        long timeStamp = DateTimeOffset.Now.ToUnixTimeSeconds()
+;
+                        Console.WriteLine(timeStamp);
+                        Console.WriteLine(stationTemperatureModel.Time);
+
+                        if(timeStamp < stationTemperatureModel.Time)
+                        {
+                                return BadRequest("Data z przyszłości");
+                        }
+
+                        else if(timeStamp - stationTemperatureModel.Time > 172800){
+                                return BadRequest("Data starsza niż 2 dni");
+                        }
+
 
                         _repository.CreateTemperature(stationTemperatureModel);
                         await _repository.SaveChanges();
@@ -105,4 +119,5 @@ namespace StationApp.Controllers
                 }
 
         }
+
 }
