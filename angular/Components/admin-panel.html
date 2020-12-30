@@ -35,10 +35,12 @@
                 <admintable request-data="requestData" style="overflow-x:auto;"></admintable>
             </div>
 
-            <div class="row d-flex justify-content-center align-items-center adminpanel--div-admintable">
-                <div ng-controller="D3Controller">
-                    <div linear-chart chart-data="TempData"></div>
+            <div ng-if="requestData" class="row d-flex justify-content-center align-items-center adminpanel--div-admintable">
+                <div>
+                    <div ng-controller="adminTableController" ng-if="requestData" linear-chart chart-data="requestData"></div>
                   </div>
+                  {{tmpData}}
+                  {{requestData}}
             </div>
 
         </div>

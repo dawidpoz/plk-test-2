@@ -1,33 +1,34 @@
-app.controller('D3Controller', ['$scope','$interval', function($scope, $interval){
-    $scope.TempData=[
-        {
-        temperature: 0.04,
-        hour: 15
-    },
-    {
-        temperature: 5,
-        hour: 16
-    },
-    {
-        temperature: 0.03,
-        hour: 17
-    },
-    {
-        temperature: 7,
-        hour: 18
-    }
-    ];
+// app.controller('D3Controller', ['$scope','$interval', function($scope, $interval){
+//     $scope.TempData=[
+//         {
+//         temperature: 0.04,
+//         time: 15
+//     },
+//     {
+//         temperature: 5,
+//         time: 16
+//     },
+//     {
+//         temperature: 0.03,
+//         time: 17
+//     },
+//     {
+//         temperature: 7,
+//         time: 18
+//     }
+//     ];
 
-}]);
+// }]);
 
 app.directive('linearChart', function($parse, $window){
    return{
       restrict:'EA',
-      template:"<svg width='850' height='200'></svg>",
+      template:"<svg width='500' height='200'></svg>",
        link: function(scope, elem, attrs){
            var exp = $parse(attrs.chartData);
 
            var TempDataToPlot=exp(scope);
+           console.log(TempDataToPlot);
            var padding = 20;
            var pathClass="path";
            var xScale, yScale, xAxisGen, yAxisGen, lineFun;
@@ -36,10 +37,15 @@ app.directive('linearChart', function($parse, $window){
            var rawSvg=elem.find('svg');
            var svg = d3.select(rawSvg[0]);
 
+           scope.$watchCollection(exp, function(newVal, oldVal){
+            TempDataToPlot=newVal;
+            redrawLineChart();
+        });
+
            function setChartParameters(){
 
                xScale = d3.scale.linear()
-                   .domain([TempDataToPlot[0].hour, TempDataToPlot[TempDataToPlot.length-1].hour])
+                   .domain([TempDataToPlot[0].time, TempDataToPlot[TempDataToPlot.length-1].time])
                    .range([padding + 5, rawSvg.attr("width") - padding]);
 
                yScale = d3.scale.linear()
@@ -59,7 +65,7 @@ app.directive('linearChart', function($parse, $window){
 
                lineFun = d3.svg.line()
                    .x(function (d) {
-                       return xScale(d.hour);
+                       return xScale(d.time);
                    })
                    .y(function (d) {
                        return yScale(d.temperature);
@@ -90,6 +96,20 @@ app.directive('linearChart', function($parse, $window){
                        "class": pathClass
                    });
            }
+
+           function redrawLineChart() {
+
+            setChartParameters();
+
+            svg.selectAll("g.y.axis").call(yAxisGen);
+
+            svg.selectAll("g.x.axis").call(xAxisGen);
+
+            svg.selectAll("."+pathClass)
+                .attr({
+                    d: lineFun(salesDataToPlot)
+                });
+        }
 
            drawLineChart();
        }
