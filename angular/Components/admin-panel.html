@@ -34,6 +34,13 @@
             <div class="row d-flex justify-content-center align-items-center adminpanel--div-admintable">
                 <admintable request-data="requestData" style="overflow-x:auto;"></admintable>
             </div>
+
+            <div class="row d-flex justify-content-center align-items-center adminpanel--div-admintable">
+                <div ng-controller="D3Controller">
+                    <div linear-chart chart-data="TempData"></div>
+                  </div>
+            </div>
+
         </div>
     </div>
 </div>

@@ -166,3 +166,27 @@ navbar{
     transform-origin: bottom left;
     transform: translate(1px,-93%) scale(0.80);
 }
+
+/*** CHART ***/
+
+.axis path,
+.axis line{
+  fill: none;
+  stroke:black;
+  shape-rendering:crispEdge;
+}
+
+.axis text{
+  font-family: sans-serif;
+  font-size: 10px;
+}
+
+h1{
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 16px;
+}
+.tick
+{
+  stroke-dasharray: 1, 2;
+}
