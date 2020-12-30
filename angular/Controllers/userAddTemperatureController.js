@@ -4,6 +4,8 @@ app.controller("userAddTemperatureController", ['$scope', 'serviceGetListOfStati
     $scope.errorFormTemp = false;
     $scope.validatedTemp = false;
 
+    $scope.errorMessageUserInput = "";
+
     $scope.stations = "a";
 
     $scope.getRequestStations = function() {
@@ -142,7 +144,21 @@ app.controller("userAddTemperatureController", ['$scope', 'serviceGetListOfStati
 
         console.log(data);
 
-        userPostTemperature.postData(data);
+        userPostTemperature.postData(data).then(function(response){
+            if(response){
+                $scope.errorMessageUserInput = "";
+            }
+        }).catch(function(response){
+            if(response.status == 400){
+                if(response.data == "Data z przyszłości"){
+                    $scope.errorMessageUserInput = "Data z przyszłości";
+                }else if(response.data == "Data starsza niż 2 dni"){
+                    $scope.errorMessageUserInput = "Data starsza niż 2 dni";
+                }else{
+                    $scope.errorMessageUserInput = "Nieznany błąd";
+                }
+            }
+        });
     }
 
   }]);

@@ -40,7 +40,7 @@ function(
       serviceGetListOfStations.getData().then(
         function(response) {
           $scope.stations = response.data;
-          
+
           console.log(response.data);
       }
       );

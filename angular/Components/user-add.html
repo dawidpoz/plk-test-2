@@ -17,14 +17,12 @@
                                 <i class="far fa-question-circle"></i>
                             </span>
                         </label>
-                        <select 
-                            class="custom-select" 
-                            id="userpage--form--select" 
+                        <select
+                            class="custom-select"
+                            id="userpage--form--select"
                             ng-model="userStationInputModel"
-                        
-                            
                             >
-                            
+
                             <option value="{{x.stationId}}" ng-repeat="x in stations">{{x.name}}</option>
                         </select>
                     </div>
@@ -104,7 +102,6 @@
                             value="{{onCheckDateRange}}"
                             ng-model="userDateInputModel"
                             ng-init="userDateInputModel = Date()"
-                            
                             ng-change="checkDateRange()"
                             >
 
@@ -134,8 +131,6 @@
                         <input type="time"
                             id="userpage--form--input-time"
                             class="form-control"
-                            
-                            
                             ng-model="userTimeInputModel"
                             ng-init=""
                             >
@@ -147,6 +142,12 @@
                         <div class="invalid-tooltip">
                             Please choose a unique and valid username.
                           </div>
+                    </div>
+                </div>
+
+                <div ng-if="errorMessageUserInput" class="form-row">
+                    <div class="col-md-12 alert alert-danger" role="alert">
+                        {{errorMessageUserInput}}
                     </div>
                 </div>
 
