@@ -62,6 +62,20 @@ namespace StationApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Stations",
+                columns: table => new
+                {
+                    StationId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: false),
+                    City = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Stations", x => x.StationId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -167,6 +181,28 @@ namespace StationApp.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "StationTemperature",
+                columns: table => new
+                {
+                    TemperatureId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Temperature = table.Column<float>(type: "real", nullable: false),
+                    Time = table.Column<long>(type: "bigint", nullable: false),
+                    Date = table.Column<DateTime>(type: "Date", nullable: false),
+                    StationId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StationTemperature", x => x.TemperatureId);
+                    table.ForeignKey(
+                        name: "FK_StationTemperature_Stations_StationId",
+                        column: x => x.StationId,
+                        principalTable: "Stations",
+                        principalColumn: "StationId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -205,6 +241,11 @@ namespace StationApp.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StationTemperature_StationId",
+                table: "StationTemperature",
+                column: "StationId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -228,10 +269,16 @@ namespace StationApp.Migrations
                 name: "Pomiary");
 
             migrationBuilder.DropTable(
+                name: "StationTemperature");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Stations");
         }
     }
 }
