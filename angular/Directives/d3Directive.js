@@ -29,14 +29,8 @@ app.directive('linearChart', function($parse, $window){
        link: function(scope, elem, attrs){
            var exp = $parse(attrs.requestDataTemperatures);
 
-           var justCreated = true;
-
-        //    console.log(attrs.requestDataTemperatures);
-        //    console.log(scope.requestDataTemperatures);
-        //    console.log(exp);
-
            var TempDataToPlot=exp(scope);
-           console.log(TempDataToPlot);
+           //console.log(TempDataToPlot);
            var padding = 20;
            var pathClass="path";
            var xScale, yScale, xAxisGen, yAxisGen, lineFun;
@@ -46,48 +40,16 @@ app.directive('linearChart', function($parse, $window){
            var svg = d3.select(rawSvg[0]);
 
            scope.$watchCollection(exp, function(newVal, oldVal){
-            //TempDataToPlot=newVal;
-            console.log("changed");
-            console.log(justCreated);
-            if(justCreated){
+            TempDataToPlot=newVal;
+            console.log(oldVal);
+            console.log(newVal);
+
+            if(Object.keys(newVal).length !== 0){
+                clearLineChart();
                 drawLineChart();
             }else{
-                if(Object.keys(newVal).length === 0){
-                    clearLineChart();
-                    console.log("clear");
-                }else{
-                    redrawLineChart();
-                    console.log("redraw");
-                }
+                clearLineChart();
             }
-
-            justCreated = false;
-
-            console.log(justCreated);
-
-            // if(oldVal == ""){
-            //     console.log(!oldVal && Object.keys(newVal).length !== 0 && newVal.constructor === Object);
-            //     console.log(!oldVal);
-            //     console.log(Object.keys(newVal).length !== 0);
-            //     console.log(newVal.constructor === Object);
-            //     //drawLineChart();
-            //     console.log("if1");
-            // }
-            // else if(!newVal || newVal == [] || newVal == "[]" || Object.keys(newVal).length === 0 && newVal.constructor === Object){
-            //     clearLineChart();
-            //     console.log("if2");
-            // }else{
-            //     redrawLineChart();
-            //     console.log("if3");
-            // }
-
-            // console.log("newVal");
-            // console.log(newVal);
-            // console.log(newVal.constructor === Object);
-            // console.log(Object.keys(newVal).length === 0);
-            // console.log(typeof(newVal));
-            // console.log(newVal == []);
-            // console.log(newVal == "[]");
         });
 
            function setChartParameters(){
