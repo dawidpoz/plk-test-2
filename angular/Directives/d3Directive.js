@@ -42,7 +42,7 @@ app.directive('linearChart', function($parse, $window){
            scope.$watchCollection(exp, function(newVal, oldVal){
             TempDataToPlot=newVal;
 
-            //TempDataToPlot.forEach(printElt);
+            TempDataToPlot.forEach(printElt);
             console.log(oldVal);
              console.log(newVal);
              console.log(TempDataToPlot);
@@ -76,7 +76,7 @@ app.directive('linearChart', function($parse, $window){
 
            function setChartParameters(){
 
-               xScale = d3.scale.linear()
+               xScale = d3.time.scale()
                    //.domain([new Date(TempDataToPlot[0].time).getFullYear(), new Date(TempDataToPlot[TempDataToPlot.length-1].time).getFullYear()])
                    .domain([TempDataToPlot[0].time, TempDataToPlot[TempDataToPlot.length-1].time])
                    .range([padding + 5, rawSvg.attr("width") - padding]);
@@ -94,7 +94,7 @@ app.directive('linearChart', function($parse, $window){
                xAxisGen = d3.svg.axis()
                    .scale(xScale)
                    .orient("bottom")
-                   .ticks(TempDataToPlot.length - 1);
+                   .ticks(TempDataToPlot.length - 1).tickFormat(d3.time.format("%d %b %Y %I:%M:%S"));;
 
                yAxisGen = d3.svg.axis()
                    .scale(yScale)
@@ -119,7 +119,7 @@ app.directive('linearChart', function($parse, $window){
                    .attr("transform", "translate(0,110)")
                    .call(xAxisGen)
                    .selectAll("text")
-                   .attr("transform", "rotate(90)")
+                   .attr("transform", "rotate(50)")
                    .style("text-anchor", "start");
 
                svg.append("svg:g")
