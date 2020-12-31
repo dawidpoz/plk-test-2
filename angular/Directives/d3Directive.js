@@ -41,8 +41,11 @@ app.directive('linearChart', function($parse, $window){
 
            scope.$watchCollection(exp, function(newVal, oldVal){
             TempDataToPlot=newVal;
-            // console.log(oldVal);
-            // console.log(newVal);
+
+            //TempDataToPlot.forEach(printElt);
+            console.log(oldVal);
+             console.log(newVal);
+             console.log(TempDataToPlot);
 
             if(Object.keys(newVal).length !== 0){
                 clearLineChart();
@@ -52,11 +55,32 @@ app.directive('linearChart', function($parse, $window){
             }
         });
 
+        var parseDate = d3.time.format("%m/%d/%Y %H:%M:%S").parse;
+
+
+        function printElt(element, index, array) {
+            console.log(element.time);
+            var date = new Date(element.time*1000);
+            element.time = parseDate(
+                parseInt(
+                    parseInt(date.getMonth())+1) +"/"+
+                     date.getDate() +"/"+  
+                     date.getFullYear() +" "+ 
+                     date.getHours() +":"+ 
+                     date.getMinutes() +":"+ 
+                     date.getSeconds()
+                );
+            element.temperature = +element.temperature;
+            console.log(element.time);
+        }
+
            function setChartParameters(){
 
                xScale = d3.scale.linear()
+                   //.domain([new Date(TempDataToPlot[0].time).getFullYear(), new Date(TempDataToPlot[TempDataToPlot.length-1].time).getFullYear()])
                    .domain([TempDataToPlot[0].time, TempDataToPlot[TempDataToPlot.length-1].time])
                    .range([padding + 5, rawSvg.attr("width") - padding]);
+
 
                yScale = d3.scale.linear()
                    .domain([d3.min(TempDataToPlot, function (d) {
@@ -65,6 +89,7 @@ app.directive('linearChart', function($parse, $window){
                        return d.temperature;
                    })])
                    .range([rawSvg.attr("height") - padding - 40, 0]);
+
 
                xAxisGen = d3.svg.axis()
                    .scale(xScale)
@@ -94,9 +119,6 @@ app.directive('linearChart', function($parse, $window){
                    .attr("transform", "translate(0,110)")
                    .call(xAxisGen)
                    .selectAll("text")
-                   .attr("y", 0)
-                   .attr("x", 9)
-                   .attr("dy", ".35em")
                    .attr("transform", "rotate(90)")
                    .style("text-anchor", "start");
 
