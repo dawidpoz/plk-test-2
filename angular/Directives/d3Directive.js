@@ -29,6 +29,8 @@ app.directive('linearChart', function($parse, $window){
        link: function(scope, elem, attrs){
            var exp = $parse(attrs.requestDataTemperatures);
 
+           var justCreated = true;
+
         //    console.log(attrs.requestDataTemperatures);
         //    console.log(scope.requestDataTemperatures);
         //    console.log(exp);
@@ -46,11 +48,22 @@ app.directive('linearChart', function($parse, $window){
            scope.$watchCollection(exp, function(newVal, oldVal){
             //TempDataToPlot=newVal;
             console.log("changed");
-            
-            console.log(oldVal);
-            console.log(newVal);
+            console.log(justCreated);
+            if(justCreated){
+                drawLineChart();
+            }else{
+                if(Object.keys(newVal).length === 0){
+                    clearLineChart();
+                    console.log("clear");
+                }else{
+                    redrawLineChart();
+                    console.log("redraw");
+                }
+            }
 
-            console.log(d3.selectAll("svg > *").length);
+            justCreated = false;
+
+            console.log(justCreated);
 
             // if(oldVal == ""){
             //     console.log(!oldVal && Object.keys(newVal).length !== 0 && newVal.constructor === Object);
@@ -84,7 +97,9 @@ app.directive('linearChart', function($parse, $window){
                    .range([padding + 5, rawSvg.attr("width") - padding]);
 
                yScale = d3.scale.linear()
-                   .domain([0, d3.max(TempDataToPlot, function (d) {
+                   .domain([d3.min(TempDataToPlot, function (d) {
+                    return d.temperature;
+                }), d3.max(TempDataToPlot, function (d) {
                        return d.temperature;
                    })])
                    .range([rawSvg.attr("height") - padding, 0]);
