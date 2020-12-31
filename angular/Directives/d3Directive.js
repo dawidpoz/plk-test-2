@@ -25,13 +25,13 @@ app.directive('linearChart', function($parse, $window){
       scope: {
         requestDataTemperatures: '='
       },
-      template:"<svg width='500' height='400'></svg>",
+      template:"<svg width='500' height='200'></svg>",
        link: function(scope, elem, attrs){
            var exp = $parse(attrs.requestDataTemperatures);
 
            var TempDataToPlot=exp(scope);
            //console.log(TempDataToPlot);
-           var padding = 20;
+           var padding = 50;
            var pathClass="path";
            var xScale, yScale, xAxisGen, yAxisGen, lineFun;
 
@@ -64,7 +64,7 @@ app.directive('linearChart', function($parse, $window){
                 }), d3.max(TempDataToPlot, function (d) {
                        return d.temperature;
                    })])
-                   .range([rawSvg.attr("height") - padding, 0]);
+                   .range([rawSvg.attr("height") - padding - 40, 0]);
 
                xAxisGen = d3.svg.axis()
                    .scale(xScale)
@@ -91,15 +91,18 @@ app.directive('linearChart', function($parse, $window){
 
                svg.append("svg:g")
                    .attr("class", "x axis")
-                   .attr("transform", "translate(0,180)")
+                   .attr("transform", "translate(0,110)")
                    .call(xAxisGen)
-                    .selectAll("text")
-                    .attr("transform", "rotate(90)")
-                    .style("text-anchor", "start");
+                   .selectAll("text")
+                   .attr("y", 0)
+                   .attr("x", 9)
+                   .attr("dy", ".35em")
+                   .attr("transform", "rotate(90)")
+                   .style("text-anchor", "start");
 
                svg.append("svg:g")
                    .attr("class", "y axis")
-                   .attr("transform", "translate(20,0)")
+                   .attr("transform", "translate(50,0)")
                    .call(yAxisGen);
 
                svg.append("svg:path")
