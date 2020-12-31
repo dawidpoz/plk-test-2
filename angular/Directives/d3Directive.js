@@ -25,7 +25,7 @@ app.directive('linearChart', function($parse, $window){
       scope: {
         requestDataTemperatures: '='
       },
-      template:"<svg width='500' height='200'></svg>",
+      template:"<svg width='500' height='400'></svg>",
        link: function(scope, elem, attrs){
            var exp = $parse(attrs.requestDataTemperatures);
 
@@ -92,7 +92,10 @@ app.directive('linearChart', function($parse, $window){
                svg.append("svg:g")
                    .attr("class", "x axis")
                    .attr("transform", "translate(0,180)")
-                   .call(xAxisGen);
+                   .call(xAxisGen)
+                    .selectAll("text")
+                    .attr("transform", "rotate(90)")
+                    .style("text-anchor", "start");
 
                svg.append("svg:g")
                    .attr("class", "y axis")
