@@ -41,8 +41,8 @@ app.directive('linearChart', function($parse, $window){
 
            scope.$watchCollection(exp, function(newVal, oldVal){
             TempDataToPlot=newVal;
-            console.log(oldVal);
-            console.log(newVal);
+            // console.log(oldVal);
+            // console.log(newVal);
 
             if(Object.keys(newVal).length !== 0){
                 clearLineChart();
@@ -111,7 +111,7 @@ app.directive('linearChart', function($parse, $window){
 
            function clearLineChart(){
                 d3.selectAll("svg > *").remove();
-                console.log("clear");
+                //console.log("clear");
            }
 
        }

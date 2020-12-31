@@ -13,28 +13,13 @@ function(
 
   {
     $scope.home = "This is the homepage";
-    $scope.requestDataTemperatures = [];
+    $scope.requestDataTemperatures = "";
     $scope.requestDataStats = "";
     $scope.stations = "";
 
     $scope.init = function(){
       this.getStations();
   }
-
-    $scope.getRequest = function() {
-      adminGetTableRestApi.getData().then(
-        function(response) {
-          $scope.requestDataTemperatures = response.data;
-          $scope.requestDataStats = "";
-          $scope.requestDataTemperatures.sort(function(a, b){
-
-            return a.time-b.time;
-          })
-      }
-      );
-      console.log("click");
-      //$scope.requestData = adminGetTableRestApi.getData();
-    };
 
     $scope.getStations = function() {
       serviceGetListOfStations.getData().then(
@@ -73,8 +58,12 @@ function(
           stationValue.name;
         adminGetTemperaturesService.getData(data).then(
           function(response){
-            $scope.requestDataTemperatures = response.data;
-            console.log(response.data);
+            if(Object.keys(response.data).length === 0){
+              $scope.requestDataTemperatures = "";
+            }else{
+              $scope.requestDataTemperatures = response.data;
+              console.log(response.data);
+            }
           }
         )
 
