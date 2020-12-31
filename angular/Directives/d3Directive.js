@@ -114,20 +114,6 @@ app.directive('linearChart', function($parse, $window){
                 console.log("clear");
            }
 
-           function redrawLineChart() {
-
-            setChartParameters();
-
-            svg.selectAll("g.y.axis").call(yAxisGen);
-
-            svg.selectAll("g.x.axis").call(xAxisGen);
-
-            svg.selectAll("."+pathClass)
-                .attr({
-                    d: lineFun(TempDataToPlot)
-                });
-        }
-
        }
    };
 });
