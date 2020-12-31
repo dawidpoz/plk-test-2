@@ -13,7 +13,7 @@ function(
 
   {
     $scope.home = "This is the homepage";
-    $scope.requestData = "";
+    $scope.requestDataTemperatures = [];
     $scope.requestDataStats = "";
     $scope.stations = "";
 
@@ -24,9 +24,9 @@ function(
     $scope.getRequest = function() {
       adminGetTableRestApi.getData().then(
         function(response) {
-          $scope.requestData = response.data;
+          $scope.requestDataTemperatures = response.data;
           $scope.requestDataStats = "";
-          $scope.requestData.sort(function(a, b){
+          $scope.requestDataTemperatures.sort(function(a, b){
 
             return a.time-b.time;
           })
@@ -73,7 +73,7 @@ function(
           stationValue.name;
         adminGetTemperaturesService.getData(data).then(
           function(response){
-            $scope.requestData = response.data;
+            $scope.requestDataTemperatures = response.data;
             console.log(response.data);
           }
         )

@@ -22,10 +22,16 @@
 
 app.directive('linearChart', function($parse, $window){
    return{
-      restrict:'EA',
+      scope: {
+        requestDataTemperatures: '='
+      },
       template:"<svg width='500' height='200'></svg>",
        link: function(scope, elem, attrs){
-           var exp = $parse(attrs.chartData);
+           var exp = $parse(attrs.requestDataTemperatures);
+
+        //    console.log(attrs.requestDataTemperatures);
+        //    console.log(scope.requestDataTemperatures);
+        //    console.log(exp);
 
            var TempDataToPlot=exp(scope);
            console.log(TempDataToPlot);
@@ -38,8 +44,37 @@ app.directive('linearChart', function($parse, $window){
            var svg = d3.select(rawSvg[0]);
 
            scope.$watchCollection(exp, function(newVal, oldVal){
-            TempDataToPlot=newVal;
-            redrawLineChart();
+            //TempDataToPlot=newVal;
+            console.log("changed");
+            
+            console.log(oldVal);
+            console.log(newVal);
+
+            console.log(d3.selectAll("svg > *").length);
+
+            // if(oldVal == ""){
+            //     console.log(!oldVal && Object.keys(newVal).length !== 0 && newVal.constructor === Object);
+            //     console.log(!oldVal);
+            //     console.log(Object.keys(newVal).length !== 0);
+            //     console.log(newVal.constructor === Object);
+            //     //drawLineChart();
+            //     console.log("if1");
+            // }
+            // else if(!newVal || newVal == [] || newVal == "[]" || Object.keys(newVal).length === 0 && newVal.constructor === Object){
+            //     clearLineChart();
+            //     console.log("if2");
+            // }else{
+            //     redrawLineChart();
+            //     console.log("if3");
+            // }
+
+            // console.log("newVal");
+            // console.log(newVal);
+            // console.log(newVal.constructor === Object);
+            // console.log(Object.keys(newVal).length === 0);
+            // console.log(typeof(newVal));
+            // console.log(newVal == []);
+            // console.log(newVal == "[]");
         });
 
            function setChartParameters(){
@@ -97,6 +132,11 @@ app.directive('linearChart', function($parse, $window){
                    });
            }
 
+           function clearLineChart(){
+                d3.selectAll("svg > *").remove();
+                console.log("clear");
+           }
+
            function redrawLineChart() {
 
             setChartParameters();
@@ -107,11 +147,10 @@ app.directive('linearChart', function($parse, $window){
 
             svg.selectAll("."+pathClass)
                 .attr({
-                    d: lineFun(salesDataToPlot)
+                    d: lineFun(TempDataToPlot)
                 });
         }
 
-           drawLineChart();
        }
    };
 });

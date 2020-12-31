@@ -32,12 +32,12 @@
                 <admintablestats request-data-stats="requestDataStats" style="overflow-x:auto;"></admintablestats>
             </div>
             <div class="row d-flex justify-content-center align-items-center adminpanel--div-admintable">
-                <admintable request-data="requestData" style="overflow-x:auto;"></admintable>
+                <admintable request-data-temperatures="requestDataTemperatures" style="overflow-x:auto;"></admintable>
             </div>
 
-            <div ng-if="requestData" class="row d-flex justify-content-center align-items-center adminpanel--div-admintable">
+            <div ng-if="requestDataTemperatures.length !== 0" class="row d-flex justify-content-center align-items-center adminpanel--div-admintable">
                 <div>
-                    <div ng-controller="adminTableController" ng-if="requestData" linear-chart chart-data="requestData"></div>
+                    <div linear-chart request-data-temperatures="requestDataTemperatures"></div>
                   </div>
                   {{tmpData}}
                   {{requestData}}

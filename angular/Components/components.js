@@ -8,7 +8,7 @@ app.component('navbar', {
 
 app.component('admintable', {
         bindings: {
-            requestData: '<',
+            requestDataTemperatures: '<',
         },
         templateUrl: "Components/admin-table.html"
     });
