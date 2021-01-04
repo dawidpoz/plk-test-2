@@ -62,7 +62,13 @@ function(
               $scope.requestDataTemperatures = "";
             }else{
               $scope.requestDataTemperatures = response.data;
+
               console.log(response.data);
+              
+              // $scope.requestDataTemperatures = 
+              // response.data.forEach(function (element, index, array){element.time = element.time*1000});
+
+              // console.log(response.data);
             }
           }
         )

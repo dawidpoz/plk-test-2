@@ -7,7 +7,7 @@ app.filter("formatTime", function(){
 
 app.filter("formatUnixTime", function(formatTimeFilter){
   return function(x){
-    var date = new Date(x*1000);
+    var date = new Date(x);
     var output = formatTimeFilter(date.getHours()) + ":" + formatTimeFilter(date.getMinutes());
 
     return output;

@@ -23,7 +23,7 @@
 app.directive('linearChart', function($parse, $window){
    return{
       scope: {
-        requestDataTemperatures: '='
+        requestDataTemperatures: '<'
       },
       template:"<svg width='500' height='200'></svg>",
        link: function(scope, elem, attrs){
@@ -42,7 +42,7 @@ app.directive('linearChart', function($parse, $window){
            scope.$watchCollection(exp, function(newVal, oldVal){
             TempDataToPlot=newVal;
 
-            TempDataToPlot.forEach(printElt);
+            //TempDataToPlot.forEach(printElt);
             console.log(oldVal);
              console.log(newVal);
              console.log(TempDataToPlot);
@@ -59,19 +59,20 @@ app.directive('linearChart', function($parse, $window){
 
 
         function printElt(element, index, array) {
-            console.log(element.time);
-            var date = new Date(element.time*1000);
-            element.time = parseDate(
-                parseInt(
-                    parseInt(date.getMonth())+1) +"/"+
-                     date.getDate() +"/"+  
-                     date.getFullYear() +" "+ 
-                     date.getHours() +":"+ 
-                     date.getMinutes() +":"+ 
-                     date.getSeconds()
-                );
-            element.temperature = +element.temperature;
-            console.log(element.time);
+            // console.log(element.time);
+            // var date = new Date(element.time);
+            // element.time = parseDate(
+            //     parseInt(
+            //         parseInt(date.getMonth())+1) +"/"+
+            //          date.getDate() +"/"+  
+            //          date.getFullYear() +" "+ 
+            //          date.getHours() +":"+ 
+            //          date.getMinutes() +":"+ 
+            //          date.getSeconds()
+            //     );
+            // element.temperature = +element.temperature;
+            // console.log(element.time);
+            element.time = element.time * 1000;
         }
 
            function setChartParameters(){
@@ -83,18 +84,14 @@ app.directive('linearChart', function($parse, $window){
 
 
                yScale = d3.scale.linear()
-                   .domain([d3.min(TempDataToPlot, function (d) {
-                    return d.temperature;
-                }), d3.max(TempDataToPlot, function (d) {
-                       return d.temperature;
-                   })])
+                   .domain([-50, 90])
                    .range([rawSvg.attr("height") - padding - 40, 0]);
 
 
                xAxisGen = d3.svg.axis()
                    .scale(xScale)
                    .orient("bottom")
-                   .ticks(TempDataToPlot.length - 1).tickFormat(d3.time.format("%d %b %Y %I:%M:%S"));;
+                   .ticks(TempDataToPlot.length - 1).tickFormat(d3.time.format("%d %b %Y %I:%M:%S"));
 
                yAxisGen = d3.svg.axis()
                    .scale(yScale)
@@ -107,7 +104,7 @@ app.directive('linearChart', function($parse, $window){
                    .y(function (d) {
                        return yScale(d.temperature);
                    })
-                   .interpolate("basis");
+                   .interpolate("linear");
            }
          
          function drawLineChart() {
