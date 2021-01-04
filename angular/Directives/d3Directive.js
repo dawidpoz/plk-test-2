@@ -25,7 +25,7 @@ app.directive('linearChart', function($parse, $window){
       scope: {
         requestDataTemperatures: '<'
       },
-      template:"<svg width='500' height='200'></svg>",
+      template:"<svg width='500' height='240'></svg>",
        link: function(scope, elem, attrs){
            var exp = $parse(attrs.requestDataTemperatures);
 
@@ -84,14 +84,14 @@ app.directive('linearChart', function($parse, $window){
 
 
                yScale = d3.scale.linear()
-                   .domain([-50, 90])
+                   .domain([-60, 100])
                    .range([rawSvg.attr("height") - padding - 40, 0]);
 
 
                xAxisGen = d3.svg.axis()
                    .scale(xScale)
                    .orient("bottom")
-                   .ticks(TempDataToPlot.length - 1).tickFormat(d3.time.format("%d %b %Y %I:%M:%S"));
+                   .ticks(TempDataToPlot.length - 1).tickFormat(d3.time.format("%d/%m/%y %H:%M"));
 
                yAxisGen = d3.svg.axis()
                    .scale(yScale)
@@ -113,7 +113,7 @@ app.directive('linearChart', function($parse, $window){
 
                svg.append("svg:g")
                    .attr("class", "x axis")
-                   .attr("transform", "translate(0,110)")
+                   .attr("transform", "translate(0,160)")
                    .call(xAxisGen)
                    .selectAll("text")
                    .attr("transform", "rotate(50)")
@@ -121,17 +121,17 @@ app.directive('linearChart', function($parse, $window){
 
                svg.append("svg:g")
                    .attr("class", "y axis")
-                   .attr("transform", "translate(50,0)")
+                   .attr("transform", "translate(50,10)")
                    .call(yAxisGen);
 
                svg.append("svg:path")
                    .attr({
                        d: lineFun(TempDataToPlot),
-                       "stroke": "blue",
+                       "stroke": "#fc5185",
                        "stroke-width": 2,
                        "fill": "none",
                        "class": pathClass
-                   });
+                   }).attr("transform", "translate(0,10)");
            }
 
            function clearLineChart(){

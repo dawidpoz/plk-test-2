@@ -32,14 +32,14 @@
             <div class="row" ng-if="requestDataTemperatures && requestDataStats">
                 <div class="col-md-6">
                     <div class="container h-100">
-                        <div class="row" style="margin-bottom: 100px;">
+                        <div class="row" style="margin-bottom: 30px;">
                             <div class="col-md-12 adminpanel--div-admintable">
                                 <admintablestats request-data-stats="requestDataStats" style="overflow-x:auto;"></admintablestats>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <div linear-chart request-data-temperatures="requestDataTemperatures"></div>
+                                <div linear-chart request-data-temperatures="requestDataTemperatures" class="adminpage--div--chart"></div>
                             </div>
                         </div>
                     </div>

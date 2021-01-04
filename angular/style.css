@@ -1,5 +1,10 @@
 /*** GENERAL ***/
 
+body{
+    background-color: #364f6b;
+    color: white;
+}
+
 .form-row{
     margin-bottom: 30px;
 }
@@ -49,6 +54,19 @@ navbar{
     color: rgba(255,255,255,.8);
 }
 
+nav{
+    background-color: #2c4766;
+}
+
+.btn-primary{
+    background-color: #fc5185!important;
+    border-color: #db3e6d!important;
+}
+
+.btn-primary.focus, .btn-primary:focus{
+    box-shadow: 0 0 0 0.2rem #db3e6d81!important;
+}
+
 /*** ADMIN PAGE ***/
 
 /* ADMIN TABLE */
@@ -56,25 +74,38 @@ navbar{
 .adminpage--table{
     border-collapse: collapse;
     min-width: 400px;
+    width: 100%;
     margin: 0 auto;
+    border-radius: 20px;
+}
+
+table tr:last-child td:first-child {
+    border-bottom-left-radius: 10px;
+}
+
+table tr:last-child td:last-child {
+    border-bottom-right-radius: 10px;
 }
 
 .adminpage--table td, .adminpage--table th{
-    border: 1px solid #ddd;
     padding: 8px;
 }
 
 .adminpage--table tr:nth-child(even){
-    background-color: #eee;
+    background-color: #384d63;
+}
+
+.adminpage--table tr:nth-child(odd){
+    background-color: #3f546b;
 }
 
 .adminpage--table tr:hover{
-    background-color: #dfdfdf;
+    background-color: #4a6483;
 }
 
 .adminpage--table th{
     padding: 12px 8px;
-    background-color: dodgerblue;
+    background-color: #2a3e55;
     color: white;
     text-align: center;
 }
@@ -97,8 +128,12 @@ navbar{
     max-width: 100%;
     min-width: 300px;
     padding: 30px;
-    border: 1px solid #ddd;
     border-radius: 20px;
+    background-color: #2a3e55;
+}
+
+.adminpage--form label{
+    font-size: 20px;
 }
 
 .adminpage--table tr td{
@@ -114,8 +149,8 @@ navbar{
     max-width: 40%;
     min-width: 350px;
     padding: 30px;
-    border: 1px solid #ddd;
     border-radius: 20px;
+    background-color: #2a3e55;
 }
 
 .userpage--form .form-row{
@@ -169,16 +204,23 @@ navbar{
 
 /*** CHART ***/
 
+.adminpage--div--chart{
+    background-color: #2a3e55;
+    border-radius: 20px;
+    padding: 20px 20px 20px 0;
+}
+
 .axis path,
 .axis line{
   fill: none;
-  stroke:black;
+  stroke: #fff;
   shape-rendering:crispEdge;
 }
 
 .axis text{
   font-family: sans-serif;
   font-size: 10px;
+  fill: white;
 }
 
 h1{
