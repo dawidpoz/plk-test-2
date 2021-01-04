@@ -79,7 +79,7 @@ namespace StationApp.Repository
             StationAndTemperatureJoined x;
 
             foreach(var c in _query){
-                x = new StationAndTemperatureJoined{ Name = c.StationName, Temperature = c.Temperature, Date = c.Date, Time = c.Time };
+                x = new StationAndTemperatureJoined{ Name = c.StationName, Temperature = c.Temperature, Date = c.Date, Time = c.Time*1000 };
                 array.Add(x);
             }
 
