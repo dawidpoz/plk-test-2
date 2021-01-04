@@ -10,8 +10,8 @@ using StationApp.Context;
 namespace StationApp.Migrations
 {
     [DbContext(typeof(StationsContext))]
-    [Migration("20201230111103_authMigration")]
-    partial class authMigration
+    [Migration("20210104091124_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
