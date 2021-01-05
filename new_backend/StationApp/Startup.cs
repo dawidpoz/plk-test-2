@@ -50,6 +50,12 @@ namespace StationApp
             }).AddEntityFrameworkStores<StationsContext>()
             .AddDefaultTokenProviders();
 
+            services.ConfigureApplicationCookie(config =>
+            {
+                config.Cookie.Name = "Identity.Cookie";
+                config.LoginPath = "/api/stations/login";
+            });
+
             // services.AddAuthentication(auth => 
             // {
             //     auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

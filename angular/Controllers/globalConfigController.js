@@ -1,16 +1,16 @@
-app.controller('myAppCtrl', ['$scope', 'myService', function ($scope, myService) {
-    console.log(myService.isAdmin());
-    $scope.admin = myService.isAdmin().toString();
-}])
-
-app.factory('myService', [ '$rootScope', function ($rootScope) {
+app.factory('globalConfigController', [ '$rootScope', function ($rootScope) {
+    $rootScope.role = "";
     return {
         getData: function() {
             return $rootScope;
         },
 
-        isAdmin: function() {
-            return true;
+        setRole: function(data){
+            $rootScope.role = data;
+        },
+
+        getRole: function() {
+            return $rootScope.role;
         }
     };
 }])

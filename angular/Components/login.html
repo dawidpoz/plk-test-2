@@ -13,25 +13,26 @@
 
                     <div class="form-row">
                         <div class="form-group floating">
-                            <input type="text" class="form-control floating" id="login" name="login" required value="">
+                            <input type="text" ng-model="loginLoginModel" class="form-control floating" id="login" name="login" required value="">
                             <label for="login">Login</label>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group floating">
-                            <input type="password" class="form-control floating" id="pass" name="pass" required value="">
+                            <input type="password" ng-model="loginPasswordModel" class="form-control floating" id="pass" name="pass" required value="">
                             <label for="pass">Password</label>
                         </div>
                     </div>
 
-                    <div class="form-row">
-                        <div class="col-md-12 d-flex justify-content-center align-items-center">
-                            <button class="btn btn-primary">Zaloguj!</button>
-                        </div>
-                    </div>
+                    
 
                 </form>
+                <div class="form-row">
+                    <div class="col-md-12 d-flex justify-content-center align-items-center">
+                        <button class="btn btn-primary" ng-click="postRequest()">Zaloguj!</button>
+                    </div>
+                </div>
 
             </div>
             

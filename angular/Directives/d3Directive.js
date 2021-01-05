@@ -1,25 +1,3 @@
-// app.controller('D3Controller', ['$scope','$interval', function($scope, $interval){
-//     $scope.TempData=[
-//         {
-//         temperature: 0.04,
-//         time: 15
-//     },
-//     {
-//         temperature: 5,
-//         time: 16
-//     },
-//     {
-//         temperature: 0.03,
-//         time: 17
-//     },
-//     {
-//         temperature: 7,
-//         time: 18
-//     }
-//     ];
-
-// }]);
-
 app.directive('linearChart', function($parse, $window){
    return{
       scope: {

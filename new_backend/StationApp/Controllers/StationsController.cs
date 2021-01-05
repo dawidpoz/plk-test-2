@@ -128,26 +128,27 @@ namespace StationApp.Controllers
                 }
 
                 [HttpPost("login")]
-                public async Task<ActionResult<RegisterDto>> Login(RegisterDto registerDto)
+                public async Task<ActionResult<LoginInfoDto>> Login(LoginDto loginDto)
                 {
-                        var user = await _userManager.FindByNameAsync(registerDto.Login);
+                        var user = await _userManager.FindByNameAsync(loginDto.Login);
 
                         if(user != null){
-                                var result = await _signInManager.PasswordSignInAsync(user, registerDto.Password, false, false);
+                                var result = await _signInManager.PasswordSignInAsync(user, loginDto.Password, false, false);
 
                                 if(result.Succeeded){
-                                        return Ok();
+                                        var roles = await _userManager.GetRolesAsync(user);
+                                        return new LoginInfoDto{Role = roles[0], Login = loginDto.Login};
                                 }
                         }
 
-                        return Ok();
+                        return BadRequest("Nie udało się zalogować");
                 }
 
-                [HttpPost("register")]
+                //[HttpPost("register")]
                 public async Task<ActionResult<RegisterDto>> Register(RegisterDto registerDto)
                 {
-                        Console.Write(registerDto.Login);
-                        Console.Write(registerDto.Password);
+                        // Console.Write(registerDto.Login);
+                        // Console.Write(registerDto.Password);
 
                         var user = new IdentityUser
                         {
@@ -162,7 +163,7 @@ namespace StationApp.Controllers
                                 return Ok();
                         }
 
-                        return Ok();
+                        return BadRequest("Nie udało się zarejestrować");
                 }
 
                 public async Task<IActionResult> LogOut()

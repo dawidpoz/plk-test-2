@@ -23,3 +23,13 @@ GROUP BY Stations.Name
 DROP PROCEDURE Pomiary
 
 EXEC Pomiary @StationName = 'name2', @StartDate = '2019-01-01', @EndDate = '2020-11-30'
+
+
+
+
+
+
+
+SELECT UserName, dbo.AspNetRoles.Name FROM dbo.AspNetUserRoles
+INNER JOIN dbo.AspNetUsers ON dbo.AspNetUserRoles.UserId = dbo.AspNetUsers.Id
+INNER JOIN dbo.AspNetRoles ON dbo.AspNetUserRoles.RoleId = dbo.AspNetRoles.Id;

@@ -173,7 +173,10 @@ table tr:last-child td:last-child {
 /*** LOGIN ***/
 
 .login--form{
-    padding: 80px 20px;
+    padding: 100px 40px;
+    background-color: #2a3e55;
+    border: 0;
+    border-radius: 20px;
 }
 
 .login--form .form-row{
@@ -208,6 +211,7 @@ table tr:last-child td:last-child {
     background-color: #2a3e55;
     border-radius: 20px;
     padding: 20px 20px 20px 0;
+    overflow-x:auto;
 }
 
 .axis path,
@@ -231,4 +235,10 @@ h1{
 .tick
 {
   stroke-dasharray: 1, 2;
+}
+
+@media screen and (max-width: 780px){
+    .app-div{
+        padding: 40px 10px;
+    }
 }

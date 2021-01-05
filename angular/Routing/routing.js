@@ -24,7 +24,8 @@ app.config(function($routeProvider) {
     })
 
     $routeProvider.when("/login", {
-        templateUrl : "Components/login.html"
+        templateUrl : "Components/login.html",
+        controller: "loginController"
     })
 
     $routeProvider.when("/user/add", {
