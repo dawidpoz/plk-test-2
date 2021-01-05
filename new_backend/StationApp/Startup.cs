@@ -50,21 +50,21 @@ namespace StationApp
             }).AddEntityFrameworkStores<StationsContext>()
             .AddDefaultTokenProviders();
 
-            services.AddAuthentication(auth => 
-            {
-                auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(options => {
-                options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters{
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidAudience = "http://127.0.0.1:8080/",
-                    ValidIssuer = "http://127.0.0.1:8080/",
-                    RequireExpirationTime = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("key in encryption")),
-                    ValidateIssuerSigningKey = true
-                };
-            });
+            // services.AddAuthentication(auth => 
+            // {
+            //     auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            //     auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            // }).AddJwtBearer(options => {
+            //     options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters{
+            //         ValidateIssuer = true,
+            //         ValidateAudience = true,
+            //         ValidAudience = "http://127.0.0.1:8080/",
+            //         ValidIssuer = "http://127.0.0.1:8080/",
+            //         RequireExpirationTime = true,
+            //         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("key in encryption")),
+            //         ValidateIssuerSigningKey = true
+            //     };
+            // });
 
             services.AddControllers();
 

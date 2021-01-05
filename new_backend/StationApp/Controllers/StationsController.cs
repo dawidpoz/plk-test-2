@@ -1,3 +1,4 @@
+using System.Runtime.Intrinsics.X86;
 using System;
 using System.Collections.Generic;
 using StationApp.Models;
@@ -7,6 +8,7 @@ using AutoMapper;
 using StationApp.Dtos;
 using System.Globalization;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace StationApp.Controllers
 {
@@ -16,11 +18,18 @@ namespace StationApp.Controllers
         {
                 private IStationRepository _repository;
                 private IMapper _mapper;
+                private readonly UserManager<IdentityUser> _userManager;
+                private readonly SignInManager<IdentityUser> _signInManager;
 
-                public StationsController(IStationRepository repository, IMapper mapper)
+                public StationsController(IStationRepository repository,
+                                          IMapper mapper,
+                                          UserManager<IdentityUser> userManager,
+                                          SignInManager<IdentityUser> signInManager)
                 {
                         _repository = repository;
                         _mapper = mapper;
+                        _userManager = userManager;
+                        _signInManager = signInManager;
                 }
 
                 // GET api/stations
@@ -116,6 +125,50 @@ namespace StationApp.Controllers
                         var stationTemperatureReadDto = _mapper.Map<StationTemperatureReadDto>(stationTemperatureModel);
 
                         return CreatedAtRoute(nameof(GetStationById), new {Id = stationTemperatureReadDto.TemperatureId}, stationTemperatureReadDto);
+                }
+
+                [HttpPost("login")]
+                public async Task<ActionResult<RegisterDto>> Login(RegisterDto registerDto)
+                {
+                        var user = await _userManager.FindByNameAsync(registerDto.Login);
+
+                        if(user != null){
+                                var result = await _signInManager.PasswordSignInAsync(user, registerDto.Password, false, false);
+
+                                if(result.Succeeded){
+                                        return Ok();
+                                }
+                        }
+
+                        return Ok();
+                }
+
+                [HttpPost("register")]
+                public async Task<ActionResult<RegisterDto>> Register(RegisterDto registerDto)
+                {
+                        Console.Write(registerDto.Login);
+                        Console.Write(registerDto.Password);
+
+                        var user = new IdentityUser
+                        {
+                                UserName = registerDto.Login,
+                                Email = "",
+                        };
+
+                        var result = await _userManager.CreateAsync(user, registerDto.Password);
+
+                        if(result.Succeeded)
+                        {
+                                return Ok();
+                        }
+
+                        return Ok();
+                }
+
+                public async Task<IActionResult> LogOut()
+                {
+                        await _signInManager.SignOutAsync();
+                        return Ok();
                 }
 
         }
