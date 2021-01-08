@@ -7,7 +7,7 @@ app.controller("loginController", ['$scope', 'globalConfigFactory', 'loginPostSe
             $scope.errorMsg = "Podaj login i hasło";
         }else if(!$scope.loginLoginModel && $scope.loginPasswordModel){
             $scope.errorMsg = "Podaj login";
-        }else{
+        }else if($scope.loginLoginModel && !$scope.loginPasswordModel){
             $scope.errorMsg = "Podaj hasło";
         }
         if($scope.loginLoginModel && $scope.loginPasswordModel){
@@ -18,6 +18,7 @@ app.controller("loginController", ['$scope', 'globalConfigFactory', 'loginPostSe
                 //console.log(response);
                 
                 if(response){
+                    $scope.errorMsg = "";
                     globalConfigFactory.setRole(response.data.role);
                     globalConfigFactory.setNickname(response.data.login)
                     if(response.data.role === "admin"){
