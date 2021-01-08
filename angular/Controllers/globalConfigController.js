@@ -17,6 +17,12 @@ app.controller("globalConfigController", ['$scope', 'globalConfigFactory', '$loc
         $scope.nick = globalConfigFactory.getNickname();
     }); 
 
+    $scope.$watch(function() { return $location.path(); }, function(newValue, oldValue){  
+        if ($scope.role === "notLogged" && newValue != '/login'){  
+                $location.path('/login');  
+        }  
+    }); // wyrzucanie do logowania kiedy użytkownik nie jest zalogowany a wejdzie gdziekolwiek
+
     $scope.logout = function(){
         globalConfigFactory.setRole("notLogged");
         globalConfigFactory.setNickname("");

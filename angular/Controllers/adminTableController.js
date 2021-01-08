@@ -1,15 +1,15 @@
 app.controller("adminTableController",
               ['$scope',
-              'adminGetTableRestApi',
-              'serviceGetListOfStations',
+              'adminTableGetService',
+              'listOfStationsGetService',
               'adminGetTemperaturesService',
               'adminGetTemperaturesStatsService',
               '$location',
               'globalConfigFactory',
 function(
   $scope,
-  adminGetTableRestApi,
-  serviceGetListOfStations,
+  adminTableGetService,
+  listOfStationsGetService,
   adminGetTemperaturesService,
   adminGetTemperaturesStatsService,
   $location,
@@ -33,7 +33,7 @@ function(
   }
 
     $scope.getStations = function() {
-      serviceGetListOfStations.getData().then(
+      listOfStationsGetService.getData().then(
         function(response) {
           $scope.stations = response.data;
 

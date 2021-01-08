@@ -1,6 +1,6 @@
 app.controller("userAddTemperatureController", 
-['$scope', 'serviceGetListOfStations', 'userPostTemperature', 'formatTimeFilter', '$location', 'globalConfigFactory', 
-function($scope, serviceGetListOfStations, userPostTemperature, formatTimeFilter, $location, globalConfigFactory) {
+['$scope', 'listOfStationsGetService', 'userTemperaturePostService', 'formatTimeFilter', '$location', 'globalConfigFactory', 
+function($scope, listOfStationsGetService, userTemperaturePostService, formatTimeFilter, $location, globalConfigFactory) {
     $scope.home = "This is the homepage";
     $scope.warningFormTemp = false;
     $scope.errorFormTemp = false;
@@ -12,7 +12,7 @@ function($scope, serviceGetListOfStations, userPostTemperature, formatTimeFilter
     $scope.stations = "a";
 
     $scope.getRequestStations = function() {
-        serviceGetListOfStations.getData().then(
+        listOfStationsGetService.getData().then(
           function(response) {
             $scope.stations = response.data;
             $scope.userStationInputModel = $scope.stations[0];
@@ -165,7 +165,7 @@ function($scope, serviceGetListOfStations, userPostTemperature, formatTimeFilter
                         }else if(currentDate - date['time'] > 172800){
                             $scope.errorMessageUserInput = "Data starsza niż 2 dni";
                         }else{
-                            userPostTemperature.postData(data).then(function(response){
+                            userTemperaturePostService.postData(data).then(function(response){
                                 if(response){
                                     $scope.errorMessageUserInput = "";
                                     $scope.successMessageUserInput = "Dodano";

@@ -1,4 +1,5 @@
-app.controller("testController", ['$scope', 'serviceRestApi', 'adminPostCreateStation', function($scope, serviceRestApi, adminPostCreateStation) {
+app.controller("testController", ['$scope', 'serviceRestApi', 'adminCreateStationPostService', 
+function($scope, serviceRestApi, adminCreateStationPostService) {
     $scope.home = "This is the homepage";
   
     $scope.getRequest = function() {

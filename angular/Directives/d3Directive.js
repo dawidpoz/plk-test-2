@@ -21,9 +21,9 @@ app.directive('linearChart', function($parse, $window){
             TempDataToPlot=newVal;
 
             //TempDataToPlot.forEach(printElt);
-            console.log(oldVal);
-             console.log(newVal);
-             console.log(TempDataToPlot);
+            // console.log(oldVal);
+            //  console.log(newVal);
+            //  console.log(TempDataToPlot);
 
             if(Object.keys(newVal).length !== 0){
                 clearLineChart();

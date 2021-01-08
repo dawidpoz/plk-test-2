@@ -1,4 +1,4 @@
-app.service('userPostTemperature', ['$http', function ($http) {
+app.service('userTemperaturePostService', ['$http', function ($http) {
 
     this.postData = function(data) {
         return $http.post("https://localhost:5001/api/stations/temp", data, {

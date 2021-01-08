@@ -1,4 +1,4 @@
-app.service('adminPostCreateStation', ['$http', function ($http) {
+app.service('adminCreateStationPostService', ['$http', function ($http) {
 
     this.postData = function(data) {
       return $http.post("https://localhost:5001/api/stations", data, {
