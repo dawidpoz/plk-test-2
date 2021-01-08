@@ -109,7 +109,13 @@ app.directive('linearChart', function($parse, $window){
                        "stroke-width": 2,
                        "fill": "none",
                        "class": pathClass
-                   }).attr("transform", "translate(0,10)");
+                   }).attr("transform", "translate(0,10)")
+                   
+                //    .on("mouseover", function(d) {
+                //     console.log(d)
+                //     })
+
+                   ;
            }
 
            function clearLineChart(){
