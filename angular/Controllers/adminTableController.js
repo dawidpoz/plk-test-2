@@ -4,12 +4,16 @@ app.controller("adminTableController",
               'serviceGetListOfStations',
               'adminGetTemperaturesService',
               'adminGetTemperaturesStatsService',
+              '$location',
+              'globalConfigFactory',
 function(
   $scope,
   adminGetTableRestApi,
   serviceGetListOfStations,
   adminGetTemperaturesService,
-  adminGetTemperaturesStatsService)
+  adminGetTemperaturesStatsService,
+  $location,
+  globalConfigFactory)
 
   {
     $scope.home = "This is the homepage";
@@ -18,7 +22,14 @@ function(
     $scope.stations = "";
 
     $scope.init = function(){
-      this.getStations();
+      if(globalConfigFactory.getRole() === "user"){
+        $location.url("/");
+      }else if(globalConfigFactory.getRole() === "notLogged"){
+        $location.url("/login");
+      }
+      else if(globalConfigFactory.getRole() === "admin"){
+        this.getStations();
+      }
   }
 
     $scope.getStations = function() {

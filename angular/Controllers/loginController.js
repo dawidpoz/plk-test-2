@@ -1,4 +1,4 @@
-app.controller("loginController", ['$scope', 'globalConfigFactory', 'loginPostService', function($scope, globalConfigFactory, loginPostService) {
+app.controller("loginController", ['$scope', 'globalConfigFactory', 'loginPostService', '$location', function($scope, globalConfigFactory, loginPostService, $location) {
 
     $scope.postRequest = function(){
       var data = {login: $scope.loginLoginModel, password: $scope.loginPasswordModel};
@@ -10,7 +10,11 @@ app.controller("loginController", ['$scope', 'globalConfigFactory', 'loginPostSe
             if(response){
                 globalConfigFactory.setRole(response.data.role);
                 globalConfigFactory.setNickname(response.data.login)
-                //console.log(globalConfigFactory.getRole());
+                if(response.data.role === "admin"){
+                    $location.url('/admin/panel');
+                }else{
+                    $location.url('/user/add');
+                }
             }
 
         }

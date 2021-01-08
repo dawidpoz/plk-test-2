@@ -1,4 +1,6 @@
-app.controller("userAddTemperatureController", ['$scope', 'serviceGetListOfStations', 'userPostTemperature', 'formatTimeFilter', function($scope, serviceGetListOfStations, userPostTemperature, formatTimeFilter) {
+app.controller("userAddTemperatureController", 
+['$scope', 'serviceGetListOfStations', 'userPostTemperature', 'formatTimeFilter', '$location', 'globalConfigFactory', 
+function($scope, serviceGetListOfStations, userPostTemperature, formatTimeFilter, $location, globalConfigFactory) {
     $scope.home = "This is the homepage";
     $scope.warningFormTemp = false;
     $scope.errorFormTemp = false;
@@ -20,7 +22,14 @@ app.controller("userAddTemperatureController", ['$scope', 'serviceGetListOfStati
       };
 
     $scope.init = function(){
-        this.getRequestStations();
+        if(globalConfigFactory.getRole() === "admin"){
+            $location.url("/");
+          }else if(globalConfigFactory.getRole() === "notLogged"){
+            $location.url("/login");
+          }
+          else if(globalConfigFactory.getRole() === "user"){
+            this.getRequestStations();
+          }
     } 
 
     $scope.Date = function () {return new Date();}

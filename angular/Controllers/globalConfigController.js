@@ -1,4 +1,4 @@
-app.controller("globalConfigController", ['$scope', 'globalConfigFactory', function($scope, globalConfigFactory) {
+app.controller("globalConfigController", ['$scope', 'globalConfigFactory', '$location', function($scope, globalConfigFactory, $location) {
 
     $scope.role = "";
     $scope.nick = "";
@@ -20,7 +20,7 @@ app.controller("globalConfigController", ['$scope', 'globalConfigFactory', funct
     $scope.logout = function(){
         globalConfigFactory.setRole("notLogged");
         globalConfigFactory.setNickname("");
-        console.log("CLICK?");
+        $location.url("/login");
     }
 
   }]);
