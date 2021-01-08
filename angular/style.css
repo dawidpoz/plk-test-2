@@ -102,7 +102,6 @@ form{
   input[type=text]:focus, input[type=password]:focus, input[type=date]:focus, input[type=time]:focus, select:focus{
     border-color: #db3e6d!important;
     box-shadow: 0 0 0 0.2rem #db3e6d65!important;
-
   }
 
 /*** NAVBAR ***/
@@ -366,6 +365,17 @@ table tr:last-child td:last-child {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.login--form-errormsg{
+    background-color: #ee0e51;
+    border: 1px solid #f3064d;
+    display: block;
+    text-align: center;
+    padding: 10px 5px;
+    border-radius: 5px;
+    color: white;
+    margin-bottom: 30px!important;
 }
 
 /*** CHART ***/

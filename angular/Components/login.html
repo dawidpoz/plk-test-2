@@ -11,6 +11,10 @@
 
                 <form class="form-control login--form">
 
+                    <div ng-if="errorMsg" class="form-row login--form-errormsg">
+                        {{errorMsg}}
+                    </div>
+
                     <div class="form-row">
                         <div class="form-group floating">
                             <input

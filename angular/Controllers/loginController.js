@@ -1,6 +1,15 @@
 app.controller("loginController", ['$scope', 'globalConfigFactory', 'loginPostService', '$location', function($scope, globalConfigFactory, loginPostService, $location) {
 
+    $scope.errorMsg = "";
+
     $scope.postRequest = function(){
+        if(!$scope.loginLoginModel && !$scope.loginPasswordModel){
+            $scope.errorMsg = "Podaj login i hasło";
+        }else if(!$scope.loginLoginModel && $scope.loginPasswordModel){
+            $scope.errorMsg = "Podaj login";
+        }else{
+            $scope.errorMsg = "Podaj hasło";
+        }
         if($scope.loginLoginModel && $scope.loginPasswordModel){
         var data = {login: $scope.loginLoginModel, password: $scope.loginPasswordModel};
         
@@ -21,6 +30,7 @@ app.controller("loginController", ['$scope', 'globalConfigFactory', 'loginPostSe
             }
             ).catch(function(data, status, headers, config){
                 console.log(data);
+                $scope.errorMsg = "Logowanie nie powiodło się";
             });
             
         }   
