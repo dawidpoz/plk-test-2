@@ -1,16 +1,11 @@
-app.factory('globalConfigController', [ '$rootScope', function ($rootScope) {
-    $rootScope.role = "";
-    return {
-        getData: function() {
-            return $rootScope;
-        },
+app.controller("globalConfigController", ['$scope', 'globalConfigFactory', function($scope, globalConfigFactory) {
 
-        setRole: function(data){
-            $rootScope.role = data;
-        },
+    $scope.role = getRole();
+    $scope.test = "asasd";
 
-        getRole: function() {
-            return $rootScope.role;
-        }
-    };
-}])
+    function getRole(){
+        //console.log(globalConfigFactory.getRole());
+        return globalConfigFactory.getRole();
+    }
+
+  }]);

@@ -5,7 +5,8 @@ app.config(function($routeProvider) {
     })
 
     $routeProvider.when("/page", {
-        templateUrl : "Components/page.html"
+        templateUrl : "Components/page.html",
+        controller: "globalConfigController"
     })
 
     $routeProvider.when("/admin", {

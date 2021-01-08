@@ -56,6 +56,8 @@ function(
           "&stationName="
           +
           stationValue.name;
+          // console.log(data);
+          // console.log("????????");
         adminGetTemperaturesService.getData(data).then(
           function(response){
             if(Object.keys(response.data).length === 0){
@@ -82,6 +84,10 @@ function(
       }else{
         console.log("else");
       }
+
+      // console.log($scope.adminPanelStationModel);
+      // console.log($scope.adminPanelStartDateModel);
+      // console.log($scope.adminPanelEndDateModel);
     }
 
   }]);

@@ -144,7 +144,7 @@ namespace StationApp.Controllers
                         return BadRequest("Nie udało się zalogować");
                 }
 
-                //[HttpPost("register")]
+                [HttpPost("register")]
                 public async Task<ActionResult<RegisterDto>> Register(RegisterDto registerDto)
                 {
                         // Console.Write(registerDto.Login);

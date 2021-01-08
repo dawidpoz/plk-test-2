@@ -36,6 +36,7 @@
     <script src="Services/loginPostService.js"></script>
 
     <script src="Filters/filters.js"></script>
+    <script src="/Controllers/globalConfigFactory.js"></script>
 
     <script src="/Controllers/testController.js"></script>
     <script src="/Controllers/adminTableController.js"></script>
@@ -52,14 +53,14 @@
 
 
 
-<body ng-app="projekt2">
+<body ng-app="projekt2" ng-controller="globalConfigController">
 
     <!-- <p><a href="#/!">Main</a></p>
 
     <a href="#!admin">admin</a>
     <a href="#!page">page</a> -->
 
-    <navbar></navbar>
+    <navbar role="role"></navbar>
 
     <div class="app-div" ng-view></div>
 

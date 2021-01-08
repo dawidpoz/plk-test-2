@@ -73,7 +73,7 @@ nav{
 
 .adminpage--table{
     border-collapse: collapse;
-    min-width: 400px;
+    /* min-width: 400px; */
     width: 100%;
     margin: 0 auto;
     border-radius: 20px;

@@ -3,7 +3,10 @@ app.component('home', {
     });
 
 app.component('navbar', {
-        templateUrl: "Components/navbar.html"
+    bindings: {
+        role: '<',
+    },
+    templateUrl: "Components/navbar.html"
     });
 
 app.component('admintable', {

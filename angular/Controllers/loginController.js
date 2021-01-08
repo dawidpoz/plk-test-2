@@ -1,4 +1,4 @@
-app.controller("loginController", ['$scope', 'globalConfigController', 'loginPostService', function($scope, globalConfigController, loginPostService) {
+app.controller("loginController", ['$scope', 'globalConfigFactory', 'loginPostService', function($scope, globalConfigFactory, loginPostService) {
 
     $scope.postRequest = function(){
       var data = {login: $scope.loginLoginModel, password: $scope.loginPasswordModel};
@@ -8,16 +8,18 @@ app.controller("loginController", ['$scope', 'globalConfigController', 'loginPos
             console.log(response);
             
             if(response.data.role === "admin"){
-                globalConfigController.setRole("admin");
+                globalConfigFactory.setRole("admin");
+                console.log(globalConfigFactory.getRole());
             }
             else{
-                globalConfigController.setRole("user");
+                globalConfigFactory.setRole("user");
+                console.log(globalConfigFactory.getRole());
             }
         }
         ).catch(function(data, status, headers, config){
             console.log(data);
         });
-
+        
     };
 
   }]);
