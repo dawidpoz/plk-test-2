@@ -99,7 +99,7 @@ app.directive('linearChart', function($parse, $window){
 
                svg.append("svg:g")
                    .attr("class", "y axis")
-                   .attr("transform", "translate(50,10)")
+                   .attr("transform", "translate(55,10)")
                    .call(yAxisGen);
 
                svg.append("svg:path")
