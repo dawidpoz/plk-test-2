@@ -7,14 +7,12 @@ app.controller("loginController", ['$scope', 'globalConfigFactory', 'loginPostSe
             console.log("success");
             console.log(response);
             
-            if(response.data.role === "admin"){
-                globalConfigFactory.setRole("admin");
-                console.log(globalConfigFactory.getRole());
+            if(response){
+                globalConfigFactory.setRole(response.data.role);
+                globalConfigFactory.setNickname(response.data.login)
+                //console.log(globalConfigFactory.getRole());
             }
-            else{
-                globalConfigFactory.setRole("user");
-                console.log(globalConfigFactory.getRole());
-            }
+
         }
         ).catch(function(data, status, headers, config){
             console.log(data);

@@ -5,6 +5,8 @@ app.component('home', {
 app.component('navbar', {
     bindings: {
         role: '<',
+        nick: '<',
+        logout: '<',
     },
     templateUrl: "Components/navbar.html"
     });

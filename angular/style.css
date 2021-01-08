@@ -3,6 +3,9 @@
 body{
     background-color: #364f6b;
     color: white;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 .form-row{
@@ -22,7 +25,7 @@ form{
 }
 
 .app-div{
-    padding: 110px 70px 70px 110px;
+    padding: 110px 70px 110px 70px;
     min-height: 100vh;
 }
 
@@ -50,6 +53,11 @@ navbar{
     z-index: 999;
 }
 
+.navbar{
+    padding: 0 1rem;
+    height: 60px;
+}
+
 .navbar-dark .navbar-nav .nav-link {
     color: rgba(255,255,255,.8);
 }
@@ -65,6 +73,65 @@ nav{
 
 .btn-primary.focus, .btn-primary:focus{
     box-shadow: 0 0 0 0.2rem #db3e6d81!important;
+}
+
+.navbar-nav{
+    width: 100%;
+    line-height: 60px;
+}
+
+.nav-link{
+    padding: 0;
+}
+
+#navbarNav, .navbar-nav{
+    height: 100%;
+}
+
+.navbar-nav li:nth-last-child(3){
+    margin-left: auto;
+}
+
+
+.navbar-nav li:hover{
+    background-color: #2a3e55;
+}
+
+.navbar--button-logout{
+    background: 0;
+    outline: 0;
+    border: 0;
+    cursor: pointer;
+}
+
+.navbar-brand{
+    display: none;
+}
+
+@media screen and (max-width: 991px){
+    .navbar{
+        padding: 0;
+        height: auto;
+    }
+
+    .navbar-nav li:last-child{
+        display: none;
+    }
+
+    .navbar-nav li{
+        width: 100%;
+        text-align: center;
+        padding: 5px 0;
+    }
+
+    .navbar-toggler{
+        margin-left: auto;
+    }
+
+    .navbar{
+        padding: 5px;
+    }
+
 }
 
 /*** ADMIN PAGE ***/
@@ -242,3 +309,4 @@ h1{
         padding: 40px 10px;
     }
 }
+

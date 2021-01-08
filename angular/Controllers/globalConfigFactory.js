@@ -1,5 +1,6 @@
 app.factory('globalConfigFactory', [ '$rootScope', function ($rootScope) {
-    $rootScope.role = "a";
+    $rootScope.role = "notLogged";
+    $rootScope.nickname = "";
     return {
         getData: function() {
             return $rootScope;
@@ -11,6 +12,14 @@ app.factory('globalConfigFactory', [ '$rootScope', function ($rootScope) {
 
         getRole: function() {
             return $rootScope.role;
+        },
+
+        setNickname: function(data){
+            $rootScope.nickname = data;
+        },
+
+        getNickname: function() {
+            return $rootScope.nickname;
         }
     };
 }])
