@@ -294,6 +294,10 @@ table tr:last-child td:last-child {
     display: flex;
 }
 
+.adminpage--form label{
+    padding-left: 20px;
+}
+
 .userpage--form label span, .adminpage--form label span{
     margin-left: auto;
 }
