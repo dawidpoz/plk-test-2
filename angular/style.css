@@ -33,7 +33,7 @@ form{
 }
 
 .app-div{
-    padding: 110px 70px 110px 70px;
+    padding: 70px 70px 110px 70px;
     min-height: 100vh;
 }
 
@@ -247,7 +247,7 @@ table tr:last-child td:last-child {
 }
 
 .adminpanel--div-admintable{
-    margin-top: 100px;
+    margin-top: 70px;
 }
 
 .adminpage--form{
