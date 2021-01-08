@@ -37,7 +37,7 @@ function(
         function(response) {
           $scope.stations = response.data;
 
-          console.log(response.data);
+          //console.log(response.data);
       }
       );
     };
@@ -76,7 +76,7 @@ function(
             }else{
               $scope.requestDataTemperatures = response.data;
 
-              console.log(response.data);
+              //console.log(response.data);
               
               // $scope.requestDataTemperatures = 
               // response.data.forEach(function (element, index, array){element.time = element.time*1000});
@@ -89,7 +89,7 @@ function(
         adminGetTemperaturesStatsService.getData(data).then(
           function(response){
             $scope.requestDataStats = response.data;
-            console.log(response.data);
+            //console.log(response.data);
           }
         )
       }else{

@@ -6,17 +6,29 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-4 adminpage--label-centered">
-                                <label>Stacja</label>
+                                <label>Stacja
+                                    <span data-toggle="tooltip" data-placement="right" title="Wybierz stację, dla której chcesz zobaczyć statystyki.">
+                                        <i class="far fa-question-circle"></i>
+                                    </span>
+                                </label>
                                 <select class="custom-select" id="adminpanel--form--select" ng-model="adminPanelStationModel">
                                     <option value="{'id': {{x.stationId}}, 'name': '{{x.name}}'}" ng-repeat="x in stations">{{x.name}}</option>
                                 </select>
                             </div>
                             <div class="col-md-4 adminpage--label-centered">
-                                <label>Data startowa</label>
+                                <label>Data startowa
+                                    <span data-toggle="tooltip" data-placement="right" title="Wybierz początkową datę.">
+                                        <i class="far fa-question-circle"></i>
+                                    </span>
+                                </label>
                                 <input type="date" id="adminpanel--form--input-date-start" class="form-control" value="" ng-model="adminPanelStartDateModel">
                             </div>
                             <div class="col-md-4 adminpage--label-centered">
-                                <label>Data końcowa</label>
+                                <label>Data końcowa
+                                    <span data-toggle="tooltip" data-placement="right" title="Wybierz końcową datę.">
+                                        <i class="far fa-question-circle"></i>
+                                    </span>
+                                </label>
                                 <input type="date" id="adminpanel--form--input-date-end" class="form-control" value="" ng-model="adminPanelEndDateModel">
                             </div>
                         </div>

@@ -8,26 +8,26 @@
         <!-- <li class="nav-item">
           <a class="nav-link" href="#!user">user</a>
         </li> -->
-        <li class="nav-item">
-            <a class="nav-link" href="#!user/add" ng-if="$ctrl.role === 'user'">user add</a>
+        <li class="nav-item" ng-if="$ctrl.role === 'user'">
+            <a class="nav-link" href="#!user/add">Dodaj temperaturę</a>
         </li>
         <!-- <li class="nav-item">
           <a class="nav-link" href="#!admin">admin</a>
         </li> -->
-        <li class="nav-item">
-            <a class="nav-link" href="#!admin/panel" ng-if="$ctrl.role === 'admin'">admin panel</a>
+        <li class="nav-item" ng-if="$ctrl.role === 'admin'">
+            <a class="nav-link" href="#!admin/panel">Panel administratora</a>
           </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#!login" ng-if="$ctrl.role === 'notLogged'">login</a>
+        <li class="nav-item" ng-if="$ctrl.role === 'notLogged'">
+            <a class="nav-link" href="#!login">Zaloguj się</a>
           </li>
-          <li class="nav-item">
-            <button class="nav-link navbar--button-logout" ng-click="$ctrl.logout()" ng-if="$ctrl.role !== 'notLogged'">logout</button>
+          <li class="nav-item" ng-if="$ctrl.role !== 'notLogged'">
+            <button class="nav-link navbar--button-logout" ng-click="$ctrl.logout()">Wyloguj się</button>
           </li>
           <!-- <li class="nav-item">
             <a class="nav-link" href="#">{{$ctrl.role}}</a>
           </li> -->
           <li class="nav-item">
-            <a class="nav-link" href="#" ng-if="$ctrl.nick">Witaj {{$ctrl.nick}}</a>
+            <a ng-if="$ctrl.nick">Witaj {{$ctrl.nick}}</a>
           </li>
       </ul>
     </div>

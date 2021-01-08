@@ -44,6 +44,26 @@ form{
     box-shadow: 0 0 0 0.2rem rgba(255, 0, 0, 0.678);
 }
 
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
+
 /*** NAVBAR ***/
 
 navbar{
@@ -88,13 +108,21 @@ nav{
     height: 100%;
 }
 
-.navbar-nav li:nth-last-child(3){
+.navbar-nav li:nth-last-child(2){
     margin-left: auto;
 }
 
 
 .navbar-nav li:hover{
     background-color: #2a3e55;
+}
+
+.navbar-nav li:last-child{
+    padding: 0 20px;
+}
+
+.navbar-nav li:last-child:hover{
+    background-color: transparent;
 }
 
 .navbar--button-logout{
@@ -118,7 +146,7 @@ nav{
         display: none;
     }
 
-    .navbar-nav li{
+    .navbar-nav li, .navbar--button-logout{
         width: 100%;
         text-align: center;
         padding: 5px 0;
@@ -240,7 +268,7 @@ table tr:last-child td:last-child {
 /*** LOGIN ***/
 
 .login--form{
-    padding: 100px 40px;
+    padding: 120px 70px;
     background-color: #2a3e55;
     border: 0;
     border-radius: 20px;
@@ -270,6 +298,13 @@ table tr:last-child td:last-child {
 .form-control.floating:valid~label{
     transform-origin: bottom left;
     transform: translate(1px,-93%) scale(0.80);
+}
+
+.login--container{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 /*** CHART ***/
