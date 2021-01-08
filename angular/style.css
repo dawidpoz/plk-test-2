@@ -72,6 +72,16 @@ form{
     background: #555; 
   }
 
+  ::-moz-selection { /* Code for Firefox */
+    color: #fff;
+    background: #fc5185;
+  }
+  
+  ::selection {
+    color: #fff;
+    background: #fc5185;
+  }
+
   form input[type=button]{
       margin-top: 70px;
       padding: 10px 25px;
@@ -87,6 +97,12 @@ form{
 
   .adminpanel--button{
       width: 20%;
+  }
+
+  input[type=text]:focus, input[type=password]:focus, input[type=date]:focus, input[type=time]:focus, select:focus{
+    border-color: #db3e6d!important;
+    box-shadow: 0 0 0 0.2rem #db3e6d65!important;
+
   }
 
 /*** NAVBAR ***/
@@ -335,7 +351,9 @@ table tr:last-child td:last-child {
 
 .form-control.floating:focus~label{
     transform: translate(1px,-93%) scale(0.80);
-    color: #005ebf;
+    color: #db3e6d;
+    border-left: 2px solid #db3e6d;
+    border-right: 2px solid #db3e6d;
 }
 
 .form-control.floating:valid~label{
