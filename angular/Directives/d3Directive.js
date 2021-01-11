@@ -11,11 +11,12 @@ app.directive('linearChart', function($parse, $window){
            //console.log(TempDataToPlot);
            var padding = 50;
            var pathClass="path";
-           var xScale, yScale, xAxisGen, yAxisGen, lineFun;
+           var xScale, yScale, xAxisGen, yAxisGen, lineFun, focus;
 
            var d3 = $window.d3;
            var rawSvg=elem.find('svg');
            var svg = d3.select(rawSvg[0]);
+           
 
            scope.$watchCollection(exp, function(newVal, oldVal){
             TempDataToPlot=newVal;
@@ -36,7 +37,7 @@ app.directive('linearChart', function($parse, $window){
         TempDataToPlot.sort(function(a, b) { return a.time - b.time; });
 
         var parseDate = d3.time.format("%m/%d/%Y %H:%M:%S").parse;
-
+        var formatDate = d3.time.format("%m/%d/%Y %H:%M:%S");
 
         function printElt(element, index, array) {
             // console.log(element.time);
@@ -91,6 +92,14 @@ app.directive('linearChart', function($parse, $window){
 
                setChartParameters();
 
+                svg.append("rect")
+                    .attr("class", "overlay")
+                    .attr("width", 500)
+                    .attr("height", 240)
+                    .on("mouseover", function() { focus.style("display", null); })
+                    .on("mouseout", function() { focus.style("display", "none"); })
+                    .on("mousemove", mousemove);
+
                svg.append("svg:g")
                    .attr("class", "x axis")
                    .attr("transform", "translate(0,160)")
@@ -111,27 +120,52 @@ app.directive('linearChart', function($parse, $window){
                        "stroke-width": 2,
                        "fill": "none",
                        "class": pathClass
-                   }).attr("transform", "translate(0,10)")
-                   .on("mousemove", mousemove);
+                   }).attr("transform", "translate(0,10)");
 
-                   ;
+                   focus = svg.append("g")
+                   .attr("class", "focus")
+                   .style("display", "none");
+   
+                   focus.append("circle")
+                       .attr("r", 5);
+   
+                   focus.append("rect")
+                       .attr("class", "tooltipsvg")
+                       .attr("width", 100)
+                       .attr("height", 50)
+                       .attr("x", 10)
+                       .attr("y", -22)
+                       .attr("rx", 4)
+                       .attr("ry", 4);
+   
+                   focus.append("text")
+                       .attr("class", "tooltip-time")
+                       .attr("x", 18)
+                       .attr("y", -2);
+   
+                   focus.append("text")
+                       .attr("x", 18)
+                       .attr("y", 18)
+                       .text("Temp:");
+   
+                   focus.append("text")
+                       .attr("class", "tooltip-temperature")
+                       .attr("x", 60)
+                       .attr("y", 18);
            }
 
            function mousemove() {
-                var xPosition = xScale.invert(d3.mouse(this)[0]);
-                var bisectDate = d3.bisector(function(d) { return d.time; }).left,
-                 item = TempDataToPlot[bisectDate(TempDataToPlot, xPosition.getTime())]
-                // d0 = TempDataToPlot[closestElement - 1],
-                // d1 = TempDataToPlot[closestElement],
-                //d = xPosition.getTime() - new Date((d0.date).toString()).getTime() > new Date((d1.date).toString()).getTime() - xPosition.getTime() ? d1 : d0;
-                //console.log(xPosition.getTime());
-                console.log(item);
-                //console.log(new Date((d0.date).toString()).getTime());
-                //console.log(new Date((d1.date).toString()).getTime());
-
-                //console.log(xPosition);
-                //console.log(d);
-                //console.log(d.time);
+                var x0 = xScale.invert(d3.mouse(this)[0]);
+                var bisector = d3.bisector(function(d) { return d.time; }).left,
+                    i = bisector(TempDataToPlot, x0.getTime(), 1),
+                    d0 = TempDataToPlot[i - 1],
+                    d1 = TempDataToPlot[i],
+                    d = x0 - d0.date > d1.date - x0 ? d1 : d0;
+                    //console.log(i);
+                 focus.attr("transform", "translate(" + xScale(d.time) + "," + parseFloat(yScale(d.temperature)+10) + ")");
+                 focus.attr("style", "left:" + (xScale(d.time) + 64) + "px;top:" + parseFloat(yScale(d.temperature)+10) + "px;");
+                 focus.select(".tooltip-time").text(new Date(d.time).toLocaleString());
+                 focus.select(".tooltip-temperature").text(d.temperature);
             }
 
            function clearLineChart(){

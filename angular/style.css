@@ -388,27 +388,40 @@ table tr:last-child td:last-child {
 }
 
 .axis path,
-.axis line{
-  fill: none;
-  stroke: #fff;
-  shape-rendering:crispEdge;
-}
+    .axis line, .axis path{
+        fill: none;
+        stroke: #fff;
+        shape-rendering: crispEdges;
+    }
 
-.axis text{
-  font-family: sans-serif;
-  font-size: 10px;
-  fill: white;
-}
+    .axis text{
+        font-family: sans-serif;
+        font-size: 10px;
+        fill: white;
+      }
 
-h1{
-  font-family: sans-serif;
-  font-weight: bold;
-  font-size: 16px;
-}
-.tick
-{
-  stroke-dasharray: 1, 2;
-}
+    .overlay {
+        fill: none;
+        pointer-events: all;
+    }
+
+    .focus circle {
+        fill: #db3e6d81;
+    }
+
+    .focus text {
+        font-size: 14px;
+    }
+
+    .tooltipsvg {
+        fill: white;
+        stroke: #000;
+        width: 150px;
+    }
+
+    .tooltip-time, .tooltip-temperature {
+        font-weight: bold;
+    }
 
 @media screen and (max-width: 780px){
     .app-div{
