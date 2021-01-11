@@ -6677,19 +6677,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\adm_emb\\.nuget\\packages\\": {}
+    "C:\\Users\\Ladavi\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\github\\gitclone\\plk-test-2\\new_backend\\StationApp\\StationApp.csproj",
+      "projectUniqueName": "C:\\github\\plk-test-2\\new_backend\\StationApp\\StationApp.csproj",
       "projectName": "StationApp",
-      "projectPath": "D:\\github\\gitclone\\plk-test-2\\new_backend\\StationApp\\StationApp.csproj",
-      "packagesPath": "C:\\Users\\adm_emb\\.nuget\\packages\\",
-      "outputPath": "D:\\github\\gitclone\\plk-test-2\\new_backend\\StationApp\\obj\\",
+      "projectPath": "C:\\github\\plk-test-2\\new_backend\\StationApp\\StationApp.csproj",
+      "packagesPath": "C:\\Users\\Ladavi\\.nuget\\packages\\",
+      "outputPath": "C:\\github\\plk-test-2\\new_backend\\StationApp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\adm_emb\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Ladavi\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"

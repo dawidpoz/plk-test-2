@@ -33,6 +33,8 @@ app.directive('linearChart', function($parse, $window){
             }
         });
 
+        TempDataToPlot.sort(function(a, b) { return a.time - b.time; });
+
         var parseDate = d3.time.format("%m/%d/%Y %H:%M:%S").parse;
 
 
@@ -82,7 +84,7 @@ app.directive('linearChart', function($parse, $window){
                    .y(function (d) {
                        return yScale(d.temperature);
                    })
-                   .interpolate("linear");
+                   
            }
          
          function drawLineChart() {
@@ -110,13 +112,27 @@ app.directive('linearChart', function($parse, $window){
                        "fill": "none",
                        "class": pathClass
                    }).attr("transform", "translate(0,10)")
-                   
-                //    .on("mouseover", function(d) {
-                //     console.log(d)
-                //     })
+                   .on("mousemove", mousemove);
 
                    ;
            }
+
+           function mousemove() {
+                var xPosition = xScale.invert(d3.mouse(this)[0]);
+                var bisectDate = d3.bisector(function(d) { return d.time; }).left,
+                 item = TempDataToPlot[bisectDate(TempDataToPlot, xPosition.getTime())]
+                // d0 = TempDataToPlot[closestElement - 1],
+                // d1 = TempDataToPlot[closestElement],
+                //d = xPosition.getTime() - new Date((d0.date).toString()).getTime() > new Date((d1.date).toString()).getTime() - xPosition.getTime() ? d1 : d0;
+                //console.log(xPosition.getTime());
+                console.log(item);
+                //console.log(new Date((d0.date).toString()).getTime());
+                //console.log(new Date((d1.date).toString()).getTime());
+
+                //console.log(xPosition);
+                //console.log(d);
+                //console.log(d.time);
+            }
 
            function clearLineChart(){
                 d3.selectAll("svg > *").remove();
