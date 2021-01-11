@@ -92,14 +92,6 @@ app.directive('linearChart', function($parse, $window){
 
                setChartParameters();
 
-                svg.append("rect")
-                    .attr("class", "overlay")
-                    .attr("width", 500)
-                    .attr("height", 240)
-                    .on("mouseover", function() { focus.style("display", null); })
-                    .on("mouseout", function() { focus.style("display", "none"); })
-                    .on("mousemove", mousemove);
-
                svg.append("svg:g")
                    .attr("class", "x axis")
                    .attr("transform", "translate(0,160)")
@@ -144,28 +136,73 @@ app.directive('linearChart', function($parse, $window){
                        .attr("y", -2);
    
                    focus.append("text")
+                        .attr("class", "tooltip-text")
                        .attr("x", 18)
                        .attr("y", 18)
-                       .text("Temp:");
+                       .text("Temperatura:");
    
                    focus.append("text")
                        .attr("class", "tooltip-temperature")
-                       .attr("x", 60)
+                       .attr("x", 110)
                        .attr("y", 18);
+
+                       svg.append("rect")
+                       .attr("class", "overlay")
+                       .attr("width", 500)
+                       .attr("height", 240)
+                       .on("mouseover", function() { focus.style("display", null); })
+                       .on("mouseout", function() { focus.style("display", "none"); })
+                       .on("mousemove", mousemove);
            }
 
            function mousemove() {
                 var x0 = xScale.invert(d3.mouse(this)[0]);
                 var bisector = d3.bisector(function(d) { return d.time; }).left,
-                    i = bisector(TempDataToPlot, x0.getTime(), 1),
+                    i = bisector(TempDataToPlot, x0.getTime(), 0),
                     d0 = TempDataToPlot[i - 1],
                     d1 = TempDataToPlot[i],
-                    d = x0 - d0.date > d1.date - x0 ? d1 : d0;
+                    d;
                     //console.log(i);
-                 focus.attr("transform", "translate(" + xScale(d.time) + "," + parseFloat(yScale(d.temperature)+10) + ")");
-                 focus.attr("style", "left:" + (xScale(d.time) + 64) + "px;top:" + parseFloat(yScale(d.temperature)+10) + "px;");
-                 focus.select(".tooltip-time").text(new Date(d.time).toLocaleString());
-                 focus.select(".tooltip-temperature").text(d.temperature);
+                    if(i == TempDataToPlot.length){
+                        d = TempDataToPlot[TempDataToPlot.length-1]
+
+                        focus.select("rect").attr("x", -100);
+                        focus.select("text").attr("x", -92);
+                        focus.select(".tooltip-text").attr("x", -92);
+                        focus.select(".tooltip-temperature").attr("x", 0);
+
+                        focus.select("rect").attr("y", 12);
+                        focus.select("text").attr("y", 50);
+                        focus.select(".tooltip-time").attr("y", 34);
+                        focus.select(".tooltip-text").attr("y", 50);
+                        focus.select(".tooltip-temperature").attr("y", 50);
+
+                        focus.attr("transform", "translate(" + xScale(d.time) + "," + parseFloat(yScale(d.temperature)+10) + ")");
+                        focus.attr("style", "left:" + (xScale(d.time) + 64) + "px;top:" + parseFloat(yScale(d.temperature)+10) + "px;");
+                        focus.select(".tooltip-time").text(new Date(d.time).toLocaleString());
+                        focus.select(".tooltip-temperature").text(d.temperature);
+                    }else if(i <= 0){
+                        d = "";
+                    }else{
+                        d = x0 - d0.date > d1.date - x0 ? d1 : d0;
+
+                        focus.select("rect").attr("x", 10);
+                        focus.select("text").attr("x", 18);
+                        focus.select(".tooltip-text").attr("x", 18);
+                        focus.select(".tooltip-temperature").attr("x", 110);
+
+                        focus.select("rect").attr("y", -2);
+                        focus.select("text").attr("y", 36);
+                        focus.select(".tooltip-time").attr("y", 20);
+                        focus.select(".tooltip-text").attr("y", 36);
+                        focus.select(".tooltip-temperature").attr("y", 36);
+
+                        focus.attr("transform", "translate(" + xScale(d.time) + "," + parseFloat(yScale(d.temperature)+10) + ")");
+                        focus.attr("style", "left:" + (xScale(d.time) + 64) + "px;top:" + parseFloat(yScale(d.temperature)+10) + "px;");
+                        focus.select(".tooltip-time").text(new Date(d.time).toLocaleString());
+                        focus.select(".tooltip-temperature").text(d.temperature);
+                    }
+                 
             }
 
            function clearLineChart(){
