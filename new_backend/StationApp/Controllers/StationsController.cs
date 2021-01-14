@@ -9,6 +9,7 @@ using StationApp.Dtos;
 using System.Globalization;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using StationApp.Queries;
 
 namespace StationApp.Controllers
 {
@@ -20,16 +21,20 @@ namespace StationApp.Controllers
                 private IMapper _mapper;
                 private readonly UserManager<IdentityUser> _userManager;
                 private readonly SignInManager<IdentityUser> _signInManager;
+                //public readonly ITemperaturesFilteredQuery _temperaturesFilteredQuery;
 
                 public StationsController(IStationRepository repository,
                                           IMapper mapper,
                                           UserManager<IdentityUser> userManager,
-                                          SignInManager<IdentityUser> signInManager)
+                                          SignInManager<IdentityUser> signInManager
+                                          //, ITemperaturesFilteredQuery temperaturesFilteredQuery
+                                          )
                 {
                         _repository = repository;
                         _mapper = mapper;
                         _userManager = userManager;
                         _signInManager = signInManager;
+                       // _temperaturesFilteredQuery = temperaturesFilteredQuery;
                 }
 
                 // GET api/stations
@@ -68,13 +73,10 @@ namespace StationApp.Controllers
                 public async Task<ActionResult <List<StationAndTemperatureJoined>>> GetTemperaturesFiltered(string dateStart, string dateEnd, string stationName){
                         var cultureInfo = new CultureInfo("pl-PL");
 
-                        // Console.WriteLine(dateStart);
-                        // Console.WriteLine(dateEnd);
-                        // Console.WriteLine(stationName);
-
                         var dateS = DateTime.Parse(dateStart, cultureInfo);
                         var dateE = DateTime.Parse(dateEnd, cultureInfo);
 
+                        //return Ok(_temperaturesFilteredQuery.Query(dateS, dateE, stationName));
                         return Ok(await _repository.GetTemperaturesFiltered(dateS, dateE, stationName));
                 }
 

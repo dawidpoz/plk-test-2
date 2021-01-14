@@ -18,6 +18,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using StationApp.Context;
 using StationApp.Repository;
+using StationApp.Queries;
 
 namespace StationApp
 {

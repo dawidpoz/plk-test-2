@@ -183,24 +183,43 @@ app.directive('linearChart', function($parse, $window){
                         focus.select(".tooltip-temperature").text(d.temperature);
                     }else if(i <= 0){
                         d = "";
-                    }else{
+                    }
+                    else{
                         d = x0 - d0.date > d1.date - x0 ? d1 : d0;
+                        if(xScale(d.time) <= 250){
+                            focus.select("rect").attr("x", 10);
+                            focus.select("text").attr("x", 18);
+                            focus.select(".tooltip-text").attr("x", 18);
+                            focus.select(".tooltip-temperature").attr("x", 110);
 
-                        focus.select("rect").attr("x", 10);
-                        focus.select("text").attr("x", 18);
-                        focus.select(".tooltip-text").attr("x", 18);
-                        focus.select(".tooltip-temperature").attr("x", 110);
+                            focus.select("rect").attr("y", -2);
+                            focus.select("text").attr("y", 36);
+                            focus.select(".tooltip-time").attr("y", 20);
+                            focus.select(".tooltip-text").attr("y", 36);
+                            focus.select(".tooltip-temperature").attr("y", 36);
 
-                        focus.select("rect").attr("y", -2);
-                        focus.select("text").attr("y", 36);
-                        focus.select(".tooltip-time").attr("y", 20);
-                        focus.select(".tooltip-text").attr("y", 36);
-                        focus.select(".tooltip-temperature").attr("y", 36);
+                            focus.attr("transform", "translate(" + xScale(d.time) + "," + parseFloat(yScale(d.temperature)+10) + ")");
+                            focus.attr("style", "left:" + (xScale(d.time) + 64) + "px;top:" + parseFloat(yScale(d.temperature)+10) + "px;");
+                            focus.select(".tooltip-time").text(new Date(d.time).toLocaleString());
+                            focus.select(".tooltip-temperature").text(d.temperature);
+                        }else{
+                            focus.select("rect").attr("x", -100);
+                            focus.select("text").attr("x", -92);
+                            focus.select(".tooltip-text").attr("x", -92);
+                            focus.select(".tooltip-temperature").attr("x", 0);
 
-                        focus.attr("transform", "translate(" + xScale(d.time) + "," + parseFloat(yScale(d.temperature)+10) + ")");
-                        focus.attr("style", "left:" + (xScale(d.time) + 64) + "px;top:" + parseFloat(yScale(d.temperature)+10) + "px;");
-                        focus.select(".tooltip-time").text(new Date(d.time).toLocaleString());
-                        focus.select(".tooltip-temperature").text(d.temperature);
+                            focus.select("rect").attr("y", 12);
+                            focus.select("text").attr("y", 50);
+                            focus.select(".tooltip-time").attr("y", 34);
+                            focus.select(".tooltip-text").attr("y", 50);
+                            focus.select(".tooltip-temperature").attr("y", 50);
+
+                            focus.attr("transform", "translate(" + xScale(d.time) + "," + parseFloat(yScale(d.temperature)+10) + ")");
+                            focus.attr("style", "left:" + (xScale(d.time) + 64) + "px;top:" + parseFloat(yScale(d.temperature)+10) + "px;");
+                            focus.select(".tooltip-time").text(new Date(d.time).toLocaleString());
+                            focus.select(".tooltip-temperature").text(d.temperature);
+                        }
+                        
                     }
                  
             }
