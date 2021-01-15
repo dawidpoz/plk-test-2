@@ -60,7 +60,7 @@ app.directive('linearChart', function($parse, $window){
 
                xScale = d3.time.scale()
                    //.domain([new Date(TempDataToPlot[0].time).getFullYear(), new Date(TempDataToPlot[TempDataToPlot.length-1].time).getFullYear()])
-                   .domain([TempDataToPlot[0].time, TempDataToPlot[TempDataToPlot.length-1].time])
+                   .domain([TempDataToPlot[0].time - 3600000, TempDataToPlot[TempDataToPlot.length-1].time + 3600000])
                    .range([padding + 5, rawSvg.attr("width") - padding]);
 
 
@@ -72,7 +72,7 @@ app.directive('linearChart', function($parse, $window){
                xAxisGen = d3.svg.axis()
                    .scale(xScale)
                    .orient("bottom")
-                   .ticks(TempDataToPlot.length - 1).tickFormat(d3.time.format("%d/%m/%y %H:%M"));
+                   .ticks(TempDataToPlot.length + 1).tickFormat(d3.time.format("%d/%m/%y %H:%M"));
 
                yAxisGen = d3.svg.axis()
                    .scale(yScale)
