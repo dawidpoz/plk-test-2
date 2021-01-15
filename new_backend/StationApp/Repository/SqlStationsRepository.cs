@@ -86,8 +86,9 @@ namespace StationApp.Repository
             return array;
         }
 
-        public void CreateTemperature(StationTemperature st)
+        public async Task CreateTemperature(StationTemperature st)
         {
+            await Task.Delay(60);
             if(st == null)
             {
                 throw new ArgumentNullException(nameof(st));

@@ -15,7 +15,7 @@ namespace StationApp.Repository
         Task<IEnumerable<StationAndTemperatureJoined>> GetTemperatures();
         Task<IEnumerable<Pomiary>> GetTemperaturesInfo(string name, string dateStart, string dateEnd);
         Task<IEnumerable<StationAndTemperatureJoined>> GetTemperaturesFiltered(DateTime dateStart, DateTime dateEnd, string stationName);
-        void CreateTemperature(StationTemperature st);
+        Task CreateTemperature(StationTemperature st);
         Task<StationTemperature> GetTemperatureById(int id);
     }
 }

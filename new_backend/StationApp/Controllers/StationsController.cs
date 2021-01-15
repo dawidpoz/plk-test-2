@@ -10,6 +10,7 @@ using System.Globalization;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using StationApp.Queries;
+using StationApp.Commands;
 
 namespace StationApp.Controllers
 {
@@ -21,20 +22,23 @@ namespace StationApp.Controllers
                 private IMapper _mapper;
                 private readonly UserManager<IdentityUser> _userManager;
                 private readonly SignInManager<IdentityUser> _signInManager;
-                //public readonly ITemperaturesFilteredQuery _temperaturesFilteredQuery;
+                public readonly ITemperaturesFilteredQuery _temperaturesFilteredQuery;
+                public readonly ICreateStationTemperature _createStationTemperature;
 
                 public StationsController(IStationRepository repository,
                                           IMapper mapper,
                                           UserManager<IdentityUser> userManager,
-                                          SignInManager<IdentityUser> signInManager
-                                          //, ITemperaturesFilteredQuery temperaturesFilteredQuery
+                                          SignInManager<IdentityUser> signInManager,
+                                          ITemperaturesFilteredQuery temperaturesFilteredQuery,
+                                          ICreateStationTemperature createStationTemperature
                                           )
                 {
                         _repository = repository;
                         _mapper = mapper;
                         _userManager = userManager;
                         _signInManager = signInManager;
-                       // _temperaturesFilteredQuery = temperaturesFilteredQuery;
+                        _temperaturesFilteredQuery = temperaturesFilteredQuery;
+                        _createStationTemperature = createStationTemperature;
                 }
 
                 // GET api/stations
@@ -71,13 +75,8 @@ namespace StationApp.Controllers
                 // GET joinedfiltered/dateStart={dateStart}&dateEnd={dateEnd}&stationName={stationName}
                 [HttpGet("joinedfiltered/dateStart={dateStart}&dateEnd={dateEnd}&stationName={stationName}")]
                 public async Task<ActionResult <List<StationAndTemperatureJoined>>> GetTemperaturesFiltered(string dateStart, string dateEnd, string stationName){
-                        var cultureInfo = new CultureInfo("pl-PL");
-
-                        var dateS = DateTime.Parse(dateStart, cultureInfo);
-                        var dateE = DateTime.Parse(dateEnd, cultureInfo);
-
-                        //return Ok(_temperaturesFilteredQuery.Query(dateS, dateE, stationName));
-                        return Ok(await _repository.GetTemperaturesFiltered(dateS, dateE, stationName));
+                        return Ok(await _temperaturesFilteredQuery.Query(dateStart, dateEnd, stationName));
+                        //return Ok(await _repository.GetTemperaturesFiltered(dateS, dateE, stationName)); stara wersja przed CQRS
                 }
 
                 // POST api/stations
@@ -98,18 +97,8 @@ namespace StationApp.Controllers
                 public async Task<ActionResult <StationTemperatureCreateDto>> CreateStationTemperature(StationTemperatureCreateDto stationTemperatureCreateDto)
                 {
                         var stationTemperatureModel = _mapper.Map<StationTemperature>(stationTemperatureCreateDto);
-                        //Console.WriteLine(stationTemperatureModel.Temperature);
-                        //stationTemperatureModel.Temperature = stationTemperatureModel.Temperature + 1;
-                        //stationTemperatureModel.Time = new TimeSpan(stationTemperatureModel.Time.Hours, stationTemperatureModel.Time.Minutes, stationTemperatureModel.Time.Seconds);
-                        //Console.WriteLine(stationTemperatureModel.Time);
-                        //Console.WriteLine(new TimeSpan(1608624625781));
-                        //Console.WriteLine(stationTemperatureModel.Hours + " " + stationTemperatureModel.Minutes + " " + stationTemperatureModel.Seconds);
-                        //Console.WriteLine(UnixTimestampToDateTime(stationTemperatureModel.Time).Hour + ":" + UnixTimestampToDateTime(stationTemperatureModel.Time).Minute);
 
-                        long timeStamp = DateTimeOffset.Now.ToUnixTimeSeconds()
-;
-                        //Console.WriteLine(timeStamp);
-                        //Console.WriteLine(stationTemperatureModel.Time);
+                        long timeStamp = DateTimeOffset.Now.ToUnixTimeSeconds();
 
                         if(timeStamp < stationTemperatureModel.Time)
                         {
@@ -120,9 +109,7 @@ namespace StationApp.Controllers
                                 return BadRequest("Data starsza niż 2 dni");
                         }
 
-
-                        _repository.CreateTemperature(stationTemperatureModel);
-                        await _repository.SaveChanges();
+                        await _createStationTemperature.Execute(stationTemperatureModel);
 
                         var stationTemperatureReadDto = _mapper.Map<StationTemperatureReadDto>(stationTemperatureModel);
 

@@ -19,6 +19,7 @@ using Microsoft.IdentityModel.Tokens;
 using StationApp.Context;
 using StationApp.Repository;
 using StationApp.Queries;
+using StationApp.Commands;
 
 namespace StationApp
 {
@@ -78,6 +79,12 @@ namespace StationApp
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddScoped<IStationRepository, SqlStationsRepository>();
+
+            //QUERIES
+            services.AddScoped<ITemperaturesFilteredQuery, TemperaturesFilteredQuery>();
+
+            //COMMANDS
+            services.AddScoped<ICreateStationTemperature, CreateStationTemperature>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

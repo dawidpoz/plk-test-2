@@ -7,6 +7,6 @@ namespace StationApp.Queries
 {
     public interface ITemperaturesFilteredQuery
     {
-        Task<IEnumerable<StationAndTemperatureJoined>> Query(DateTime dateStart, DateTime dateEnd, string stationName);
+        Task<IEnumerable<StationAndTemperatureJoined>> Query(string x1, string x2, string x3);
     }
 }

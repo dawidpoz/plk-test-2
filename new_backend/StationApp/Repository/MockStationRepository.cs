@@ -68,6 +68,11 @@ namespace StationApp.Repository
             throw new System.NotImplementedException();
         }
 
+        Task IStationRepository.CreateTemperature(StationTemperature st)
+        {
+            throw new NotImplementedException();
+        }
+
         Task<IEnumerable<Station>> IStationRepository.GetAllStations()
         {
             throw new NotImplementedException();
