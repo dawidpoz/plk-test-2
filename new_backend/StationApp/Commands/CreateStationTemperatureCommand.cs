@@ -6,10 +6,10 @@ using StationApp.Repository;
 
 namespace StationApp.Commands
 {
-    public class CreateStationTemperature : ICreateStationTemperature
+    public class CreateStationTemperatureCommand : ICreateStationTemperatureCommand
     {
         private IStationRepository _repository;
-        public CreateStationTemperature(IStationRepository repository){
+        public CreateStationTemperatureCommand(IStationRepository repository){
             _repository = repository;
         }
         public async Task Execute(StationTemperature stationTemperatureModel)

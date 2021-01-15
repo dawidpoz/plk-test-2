@@ -16,8 +16,9 @@ namespace StationApp.Repository
             _context = context;
         }
 
-        public void CreateStation(Station st)
+        public async Task CreateStation(Station st)
         {
+            await Task.Delay(60);
             if(st == null)
             {
                 throw new ArgumentNullException(nameof(st));

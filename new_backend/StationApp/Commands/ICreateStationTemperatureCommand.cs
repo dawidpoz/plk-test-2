@@ -4,7 +4,7 @@ using StationApp.Models;
 
 namespace StationApp.Commands
 {
-    public interface ICreateStationTemperature
+    public interface ICreateStationTemperatureCommand
     {
         Task Execute(StationTemperature x);
     }

@@ -82,9 +82,14 @@ namespace StationApp
 
             //QUERIES
             services.AddScoped<ITemperaturesFilteredQuery, TemperaturesFilteredQuery>();
+            services.AddScoped<ITemperaturesFilteredInfoQuery, TemperaturesFilteredInfoQuery>();
+            services.AddScoped<IGetStationsQuery, GetStationsQuery>();
+            services.AddScoped<IGetStationByIdQuery, GetStationByIdQuery>();
 
             //COMMANDS
-            services.AddScoped<ICreateStationTemperature, CreateStationTemperature>();
+            services.AddScoped<ICreateStationTemperatureCommand, CreateStationTemperatureCommand>();
+            services.AddScoped<ICreateStationCommand, CreateStationCommand>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

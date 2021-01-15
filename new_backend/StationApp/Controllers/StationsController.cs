@@ -23,14 +23,22 @@ namespace StationApp.Controllers
                 private readonly UserManager<IdentityUser> _userManager;
                 private readonly SignInManager<IdentityUser> _signInManager;
                 public readonly ITemperaturesFilteredQuery _temperaturesFilteredQuery;
-                public readonly ICreateStationTemperature _createStationTemperature;
+                public readonly ICreateStationTemperatureCommand _createStationTemperatureCommand;
+                public readonly ICreateStationCommand _createStationCommand;
+                public readonly ITemperaturesFilteredInfoQuery _temperaturesFilteredInfoQuery;
+                public readonly IGetStationsQuery _getStationsQuery;
+                public readonly IGetStationByIdQuery _getStationByIdQuery;
 
                 public StationsController(IStationRepository repository,
                                           IMapper mapper,
                                           UserManager<IdentityUser> userManager,
                                           SignInManager<IdentityUser> signInManager,
                                           ITemperaturesFilteredQuery temperaturesFilteredQuery,
-                                          ICreateStationTemperature createStationTemperature
+                                          ICreateStationTemperatureCommand createStationTemperatureCommand,
+                                          ICreateStationCommand createStationCommand,
+                                          ITemperaturesFilteredInfoQuery temperaturesFilteredInfoQuery,
+                                          IGetStationsQuery getStationsQuery,
+                                          IGetStationByIdQuery getStationByIdQuery
                                           )
                 {
                         _repository = repository;
@@ -38,14 +46,18 @@ namespace StationApp.Controllers
                         _userManager = userManager;
                         _signInManager = signInManager;
                         _temperaturesFilteredQuery = temperaturesFilteredQuery;
-                        _createStationTemperature = createStationTemperature;
+                        _createStationTemperatureCommand = createStationTemperatureCommand;
+                        _createStationCommand = createStationCommand;
+                        _temperaturesFilteredInfoQuery = temperaturesFilteredInfoQuery;
+                        _getStationsQuery = getStationsQuery;
+                        _getStationByIdQuery = getStationByIdQuery;
                 }
 
                 // GET api/stations
                 [HttpGet]
                 public async Task<ActionResult <IEnumerable<StationReadDto>>> GetAllStations()
                 {
-                        var stationItems = await _repository.GetAllStations();
+                        var stationItems = await _getStationsQuery.Query();
                         return Ok(_mapper.Map<IEnumerable<StationReadDto>>(stationItems));
                 }
 
@@ -53,7 +65,8 @@ namespace StationApp.Controllers
                 [HttpGet("{id}", Name="GetStationById")]
                 public async Task<ActionResult <StationReadDto>> GetStationById(int id)
                 {
-                        var stationItem = await _repository.GetStationById(id);
+                        //var stationItem = await _repository.GetStationById(id);
+                        var stationItem = await _getStationByIdQuery.Query(id);
                         if(stationItem != null)
                         {
                                 return Ok(_mapper.Map<StationReadDto>(stationItem));
@@ -61,15 +74,16 @@ namespace StationApp.Controllers
                         return NotFound();
                 }
 
-                // GET api/stations/joined
-                [HttpGet("joined")]
-                public async Task<ActionResult <List<StationAndTemperatureJoined>>> GetTemperatures(){
-                        return Ok(await _repository.GetTemperatures());
-                }
+                // GET api/stations/joined // nieużywane aktualnie - testowanie joina
+                // [HttpGet("joined")]
+                // public async Task<ActionResult <List<StationAndTemperatureJoined>>> GetTemperatures(){
+                //         return Ok(await _repository.GetTemperatures());
+                // }
 
                 [HttpGet("joinedinfo/dateStart={dateStart}&dateEnd={dateEnd}&stationName={stationName}")]
                 public async Task<ActionResult <List<Pomiary>>> GetTemperaturesInfo(string stationName, string dateStart, string dateEnd){
-                        return Ok(await _repository.GetTemperaturesInfo(stationName, dateStart, dateEnd));
+                        //return Ok(await _repository.GetTemperaturesInfo(stationName, dateStart, dateEnd));
+                        return Ok(await _temperaturesFilteredInfoQuery.Query(dateStart, dateEnd, stationName));
                 }
 
                 // GET joinedfiltered/dateStart={dateStart}&dateEnd={dateEnd}&stationName={stationName}
@@ -84,15 +98,15 @@ namespace StationApp.Controllers
                 public async Task<ActionResult <StationReadDto>> CreateStation(StationCreateDto stationCreateDto)
                 {
                         var stationModel = _mapper.Map<Station>(stationCreateDto);
-                        _repository.CreateStation(stationModel);
-                        await _repository.SaveChanges();
+
+                        await _createStationCommand.Execute(stationModel);
 
                         var stationReadDto = _mapper.Map<StationReadDto>(stationModel);
 
                         return CreatedAtRoute(nameof(GetStationById), new {Id = stationReadDto.StationId}, stationReadDto);
-                        //return Ok(stationReadDto);
                 }
 
+                // POST api/stations/temp
                 [HttpPost("temp")]
                 public async Task<ActionResult <StationTemperatureCreateDto>> CreateStationTemperature(StationTemperatureCreateDto stationTemperatureCreateDto)
                 {
@@ -109,12 +123,14 @@ namespace StationApp.Controllers
                                 return BadRequest("Data starsza niż 2 dni");
                         }
 
-                        await _createStationTemperature.Execute(stationTemperatureModel);
+                        await _createStationTemperatureCommand.Execute(stationTemperatureModel);
 
                         var stationTemperatureReadDto = _mapper.Map<StationTemperatureReadDto>(stationTemperatureModel);
 
                         return CreatedAtRoute(nameof(GetStationById), new {Id = stationTemperatureReadDto.TemperatureId}, stationTemperatureReadDto);
                 }
+
+                // USER AUTH
 
                 [HttpPost("login")]
                 public async Task<ActionResult<LoginInfoDto>> Login(LoginDto loginDto)
@@ -133,7 +149,7 @@ namespace StationApp.Controllers
                         return BadRequest("Nie udało się zalogować");
                 }
 
-                [HttpPost("register")]
+                //[HttpPost("register")] wyłączone bo dwóch wystarczy
                 public async Task<ActionResult<RegisterDto>> Register(RegisterDto registerDto)
                 {
                         // Console.Write(registerDto.Login);
