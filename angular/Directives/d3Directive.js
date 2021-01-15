@@ -56,6 +56,14 @@ app.directive('linearChart', function($parse, $window){
             element.time = element.time * 1000;
         }
 
+        function ticksSize(x){
+            if(x.length > 10){
+                return 10;
+            }else{
+                return x.length + 1;
+            }
+        }
+
            function setChartParameters(){
 
                xScale = d3.time.scale()
@@ -72,7 +80,7 @@ app.directive('linearChart', function($parse, $window){
                xAxisGen = d3.svg.axis()
                    .scale(xScale)
                    .orient("bottom")
-                   .ticks(TempDataToPlot.length + 1).tickFormat(d3.time.format("%d/%m/%y %H:%M"));
+                   .ticks(ticksSize(TempDataToPlot)).tickFormat(d3.time.format("%d/%m/%y %H:%M"));
 
                yAxisGen = d3.svg.axis()
                    .scale(yScale)
